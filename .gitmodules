@@ -1,0 +1,108 @@
+[submodule "bundle/CVS-conflict-highlight"]
+	path = bundle/CVS-conflict-highlight
+	url = https://github.com/vim-scripts/CVS-conflict-highlight.git
+[submodule "bundle/PyScratch"]
+	path = bundle/PyScratch
+	url = https://github.com/hsitz/PyScratch.git
+[submodule "bundle/SuperTab-continued."]
+	path = bundle/SuperTab-continued.
+	url = https://github.com/vim-scripts/SuperTab-continued..git
+[submodule "bundle/vim-unimpaired"]
+	path = bundle/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/vim-ruby"]
+	path = bundle/vim-ruby
+	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "bundle/lusty"]
+	path = bundle/lusty
+	url = https://github.com/sjbach/lusty.git
+[submodule "bundle/vim-arpeggio"]
+	path = bundle/vim-arpeggio
+	url = https://github.com/kana/vim-arpeggio.git
+[submodule "bundle/neocomplcache"]
+	path = bundle/neocomplcache
+	url = https://github.com/Shougo/neocomplcache.git
+[submodule "bundle/textile.vim"]
+	path = bundle/textile.vim
+	url = https://github.com/timcharper/textile.vim.git
+[submodule "bundle/vim-rspec"]
+	path = bundle/vim-rspec
+	url = https://github.com/taq/vim-rspec.git
+[submodule "bundle/vim-markdown"]
+	path = bundle/vim-markdown
+	url = https://github.com/tpope/vim-markdown.git
+[submodule "bundle/EasyGrep"]
+	path = bundle/EasyGrep
+	url = https://github.com/vim-scripts/EasyGrep.git
+[submodule "bundle/The-NERD-tree"]
+	path = bundle/The-NERD-tree
+	url = https://github.com/vim-scripts/The-NERD-tree.git
+[submodule "bundle/Conque-Shell"]
+	path = bundle/Conque-Shell
+	url = https://github.com/vim-scripts/Conque-Shell.git
+[submodule "bundle/Mark--Karkat"]
+	path = bundle/Mark--Karkat
+	url = https://github.com/vim-scripts/Mark--Karkat.git
+[submodule "bundle/QuickBuf"]
+	path = bundle/QuickBuf
+	url = https://github.com/vim-scripts/QuickBuf.git
+[submodule "bundle/eregex.vim"]
+	path = bundle/eregex.vim
+	url = https://github.com/vim-scripts/eregex.vim.git
+[submodule "bundle/taglist.vim"]
+	path = bundle/taglist.vim
+	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule "bundle/trinity.vim"]
+	path = bundle/trinity.vim
+	url = https://github.com/vim-scripts/trinity.vim.git
+[submodule "bundle/vcscommand.vim"]
+	path = bundle/vcscommand.vim
+	url = https://github.com/vim-scripts/vcscommand.vim.git
+[submodule "bundle/compview"]
+	path = bundle/compview
+	url = https://github.com/vim-scripts/compview.git
+[submodule "bundle/Source-Explorer-srcexpl.vim"]
+	path = bundle/Source-Explorer-srcexpl.vim
+	url = https://github.com/vim-scripts/Source-Explorer-srcexpl.vim.git
+[submodule "bundle/DoxygenToolkit.vim"]
+	path = bundle/DoxygenToolkit.vim
+	url = https://github.com/vim-scripts/DoxygenToolkit.vim.git
+[submodule "bundle/tlib"]
+	path = bundle/tlib
+	url = https://github.com/vim-scripts/tlib.git
+[submodule "bundle/inkpot"]
+	path = bundle/inkpot
+	url = https://github.com/vim-scripts/inkpot.git
+[submodule "bundle/darkburn"]
+	path = bundle/darkburn
+	url = https://github.com/vim-scripts/darkburn.git
+[submodule "bundle/The-Vim-Gardener"]
+	path = bundle/The-Vim-Gardener
+	url = https://github.com/vim-scripts/The-Vim-Gardener.git
+[submodule "bundle/Colortest"]
+	path = bundle/Colortest
+	url = https://github.com/vim-scripts/Colortest.git
+[submodule "bundle/TailMinusF"]
+	path = bundle/TailMinusF
+	url = https://github.com/vim-scripts/TailMinusF.git
+[submodule "bundle/QFixToggle"]
+	path = bundle/QFixToggle
+	url = https://github.com/vim-scripts/QFixToggle.git
+[submodule "bundle/grep.vim"]
+	path = bundle/grep.vim
+	url = https://github.com/vim-scripts/grep.vim.git
+[submodule "bundle/indentruby.vim"]
+	path = bundle/indentruby.vim
+	url = https://github.com/vim-scripts/indentruby.vim.git
+[submodule "bundle/ri-browser"]
+	path = bundle/ri-browser
+	url = https://github.com/vim-scripts/ri-browser.git
+[submodule "bundle/rubycomplete.vim"]
+	path = bundle/rubycomplete.vim
+	url = https://github.com/vim-scripts/rubycomplete.vim.git
+[submodule "bundle/ftpluginruby.vim"]
+	path = bundle/ftpluginruby.vim
+	url = https://github.com/vim-scripts/ftpluginruby.vim.git
+[submodule "bundle/ruby-matchit"]
+	path = bundle/ruby-matchit
+	url = https://github.com/vim-scripts/ruby-matchit.git
