@@ -17,7 +17,6 @@ call pathogen#runtime_append_all_bundles()
 ":set autoindent          " always set autoindenting on
 :set t_Co=256
 colorscheme harlequin
-:set ruler               " show the cursor position all the time
 :set showcmd             " display incomplete commands
 :set incsearch           " do incremental searching
 :set cindent shiftwidth=4  " set auto-indenting num columns
@@ -33,7 +32,7 @@ cmap w!! %!sudo tee > /dev/null %
 :syn on
 :map zz :set syntax=cpp<CR>
 :map zg :set syntax=gnuplot<CR>
-:map zm :set makeprg=/usr/bin/make<CR>
+":map zm :set makeprg=/usr/bin/make<CR>
 
 
 " fix meta-keys which generate <Esc>a .. <Esc>z
@@ -80,7 +79,7 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp
 " make options
 :set tags=tags
 ":set makeprg=/usr/local/bin/gmake
-:set makeprg=/usr/local/bin/jam 
+":set makeprg=/usr/local/bin/jam 
 
 
 :set syntax=c.doxygen
@@ -94,7 +93,11 @@ let g:DoxygenToolkit_blockFooter=""
 map F zfa}
 
 if v:version > 700
-  set cursorline
+  ":set ruler               " show the cursor position all the time
+  "set cursorline
+  au CursorHold,CursorHoldI *  set cul showmatch
+  au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
+  set updatetime=75
   "hi Cursorline ctermbg=Red guibg=#771c1c
   "call ExpertCursorSlowDown(now)
 endif
@@ -188,7 +191,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_gobal = 1
 highlight Pmenu ctermbg=238 gui=bold
 
 " gcc
-set errorformat=%f:%l:\ %m
+" set errorformat=%f:%l:\ %m
 " set errorformat+=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
 " insert sw spaces when using tab in front of a line
 set smarttab
@@ -197,7 +200,7 @@ set smarttab
 set expandtab
 
 " lusty stuff
-set wildignore=*.o,*~
+set wildignore=*.o,*~,tags
 set hidden
 
 " toggles the quickfix window.
@@ -262,7 +265,10 @@ set undofile
 
 
 
-":inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+:inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+:inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+:inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
+:inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
 "inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 "inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
