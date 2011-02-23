@@ -265,10 +265,10 @@ set undofile
 
 
 
-:inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-:inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"
-:inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
-:inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
+"inoremap <expr> <Esc> pumvisible() ? "<C-e>" : "<Esc>"
+"inoremap <expr> <CR>  pumvisible() ? "<C-y>" : "<CR>"
+"inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
+"inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
 "inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 "inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
