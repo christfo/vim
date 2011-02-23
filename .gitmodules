@@ -109,3 +109,12 @@
 [submodule "bundle/SearchCompl"]
 	path = bundle/SearchCompl
 	url = https://github.com/vim-scripts/SearchCompl.vim.git
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "bundle/rubyblock"]
+	path = bundle/rubyblock
+	url = https://github.com/vim-scripts/textobj-rubyblock.git
+[submodule "bundle/textobj-user"]
+	path = bundle/textobj-user
+	url = https://github.com/vim-scripts/textobj-user.git
