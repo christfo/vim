@@ -118,3 +118,12 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = https://github.com/vim-scripts/SuperTab-continued..git
+[submodule "bundle/clang"]
+	path = bundle/clang
+	url = https://github.com/vim-scripts/clang.git
+[submodule "bundle/clang-complete"]
+	path = bundle/clang-complete
+	url = https://github.com/vim-scripts/clang-complete.git
+[submodule "bundle/neverland"]
+	path = bundle/neverland
+	url = https://github.com/vim-scripts/neverland.vim--All-colorschemes-suck.git
