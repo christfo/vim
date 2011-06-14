@@ -25,6 +25,7 @@ colorscheme harlequin
 
 " Switch on highlighting the last used search pattern.
 :set hlsearch
+:set switchbuf=useopen,usetab,newtab
 
 "add :w!! to write as sudo
 cmap w!! %!sudo tee > /dev/null %
@@ -98,7 +99,7 @@ if v:version > 700
   "set cursorline
   au CursorHold,CursorHoldI *  set cul showmatch
   au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
-  set updatetime=75
+  set updatetime=200
   "hi Cursorline ctermbg=Red guibg=#771c1c
   "call ExpertCursorSlowDown(now)
 endif
@@ -264,6 +265,7 @@ set undofile
 :set undolevels=1000
 :set undoreload=10000
 
+set grepprg=rak\ --output=\"fn+':'+i.to_s+':'+line\"
 
 
 "inoremap <expr> <Esc> pumvisible() ? "<C-e>" : "<Esc>"
