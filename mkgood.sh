@@ -2,3 +2,4 @@
 git submodule init
 git submodule update
 
+find bundle/ -name *.vim -exec dos2unix '{}' \;
