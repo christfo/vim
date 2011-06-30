@@ -265,7 +265,7 @@ set undofile
 :set undolevels=1000
 :set undoreload=10000
 
-set grepprg=rak\ --output=\"fn+':'+i.to_s+':'+line\"
+set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
 
 
 "inoremap <expr> <Esc> pumvisible() ? "<C-e>" : "<Esc>"
