@@ -237,8 +237,30 @@ nmap <silent> <leader>` :QFix<CR>
 hi User1 term=underline cterm=bold ctermfg=White ctermbg=Blue guifg=#40ffff guibg=#0000aa
 set statusline=%1*%F%m%r%h%w%=%(%c%V\ %l/%L\ %P%)
 
-"inoremap jk <esc>
-"inoremap kj <esc>
+" function DiffWithSaved "{{{2
+" Diff with saved version of the file
+function! s:DiffWithSaved()
+    let g:diffline = line('.') 
+    let filetype=&ft
+    diffthis
+    vnew | r # | :exe "normal! ".g:diffline."G"
+    diffthis
+    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
+function! s:DiffWithSavedOff()
+    exe "q"
+    diffoff
+    exe "norm! ".g:diffline."G"
+endfunction
+com! DiffSavedOff call s:DiffWithSavedOff()
+" command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0d_ | diffthis | :exe "norm! ".g:diffline."G" | wincmd p | diffthis | wincmd p
+
+nnoremap <Leader>do :DiffSaved<cr>
+nnoremap <leader>dc :DiffSavedOff<cr>
+
+
 call arpeggio#map('i',  's', 0, 'jk', '<Esc>')
 call arpeggio#map('in',  's', 0, '[q', '<Esc>:cp<CR>i')
 call arpeggio#map('in',  's', 0, ']q', '<Esc>:cn<CR>i')
@@ -255,8 +277,12 @@ call arpeggio#map('n', 's', 0, 'lf', ':LustyFilesystemExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lb', ':LustyBufferExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lg', ':LustyBufferGrep<CR>')
 call arpeggio#map('n',  's', 0, 'wf', '<c-w>F')
+call arpeggio#map('n',  's', 0, 'co', ':cfile<Up><CR>')
+call arpeggio#map('n',  '', 0, 'ta', ':Tabularize /')
+call arpeggio#map('n',  's', 0, 'du', ':diffupdate<CR>')
+call arpeggio#map('n',  's', 0, 'do', ':DiffSaved<CR>')
+call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 
-command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
  
  
 "set t_AB=^[[48;5;%dm
