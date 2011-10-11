@@ -42,10 +42,6 @@
 	path = bundle/The-NERD-tree
 	url = https://github.com/vim-scripts/The-NERD-tree.git
         ignore = dirty
-[submodule "bundle/Conque-Shell"]
-	path = bundle/Conque-Shell
-	url = https://github.com/vim-scripts/Conque-Shell.git
-        ignore = dirty
 [submodule "bundle/Mark--Karkat"]
 	path = bundle/Mark--Karkat
 	url = https://github.com/vim-scripts/Mark--Karkat.git
@@ -129,10 +125,6 @@
 [submodule "bundle/ftpluginruby.vim"]
 	path = bundle/ftpluginruby.vim
 	url = https://github.com/vim-scripts/ftpluginruby.vim.git
-        ignore = dirty
-[submodule "bundle/ruby-matchit"]
-	path = bundle/ruby-matchit
-	url = https://github.com/vim-scripts/ruby-matchit.git
         ignore = dirty
 [submodule "bundle/gundo.vim"]
 	path = bundle/gundo.vim

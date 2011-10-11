@@ -147,6 +147,7 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " // Set "<F12>" key for updating the tags file artificially 
 " let g:SrcExpl_updateTagsKey = "<F12>"
 
+let g:neocomplcache_enable_at_startup = 1
 nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
