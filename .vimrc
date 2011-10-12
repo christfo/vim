@@ -22,7 +22,10 @@ colorscheme harlequin
 :set incsearch           " do incremental searching
 :set cindent shiftwidth=4  " set auto-indenting num columns
 :set softtabstop=4       " <tab> inserts 2 spaces (etc...)
-
+:set ignorecase
+:set smartcase
+nnoremap / /\v
+nnoremap ? ?\v
 " Switch on highlighting the last used search pattern.
 :set hlsearch
 :set switchbuf=useopen,usetab,newtab
@@ -32,8 +35,8 @@ cmap w!! %!sudo tee > /dev/null %
 
 " Switch on syntax highlighting
 :syn on
-:map zz :set syntax=cpp<CR>
-:map zg :set syntax=gnuplot<CR>
+":map zz :set syntax=cpp<CR>
+":map zg :set syntax=gnuplot<CR>
 ":map zm :set makeprg=/usr/bin/make<CR>
 
 
@@ -153,8 +156,8 @@ nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
 
-noremap <M-b> :TSelectBuffer<cr>
-inoremap <M-b> <c-o>:TSelectBuffer<cr>
+"noremap <M-b> :TSelectBuffer<cr>
+"inoremap <M-b> <c-o>:TSelectBuffer<cr>
 
  " map <End> to move to end of line
  " if at end of line, move to end of window
