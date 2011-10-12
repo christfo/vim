@@ -174,3 +174,9 @@
 [submodule "bundle/textobj-vim"]
 	path = bundle/textobj-vim
 	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
+[submodule "bundle/commentry"]
+	path = bundle/commentry
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "bundle/matchit"]
+	path = bundle/matchit
+	url = https://github.com/vim-scripts/matchit.zip.git
