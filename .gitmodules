@@ -168,3 +168,9 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = https://github.com/ervandew/supertab.git
+[submodule "bundle/vim-rails"]
+	path = bundle/vim-rails
+	url = https://github.com/tpope/vim-rails.git
+[submodule "bundle/textobj-vim"]
+	path = bundle/textobj-vim
+	url = https://github.com/nelstrom/vim-textobj-rubyblock.git
