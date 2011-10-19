@@ -23,6 +23,7 @@ colorscheme harlequin
 :set cindent shiftwidth=4  " set auto-indenting num columns
 :set softtabstop=4       " <tab> inserts 2 spaces (etc...)
 :set ignorecase
+
 :set smartcase
 nnoremap / /\v
 nnoremap ? ?\v
@@ -71,7 +72,6 @@ endif " has("autocmd")
 :set cino+=t0             " place function return_type decl at start of line
 :set cino+=+4             " indent for a continuation line
 
-runtime macros/mmatchit.vim
 set hidden
 let mapleader=","
 set history=5000
