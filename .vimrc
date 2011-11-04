@@ -138,6 +138,45 @@ nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
 
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Really useful!
+"  In visual mode when you press * or # to search for the current selection
+vnoremap <silent> * :call VisualSearch('f')<CR>
+vnoremap <silent> # :call VisualSearch('b')<CR>
+
+" When you press gv you vimgrep after the selected text
+vnoremap <silent> gv :call VisualSearch('gv')<CR>
+map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+" From an idea by Michael Naumann
+function! VisualSearch(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
  " map <End> to move to end of line
  " if at end of line, move to end of window
  " if at end of window, move to end of file
@@ -240,11 +279,16 @@ endfunction
 com! DiffSavedOff call s:DiffWithSavedOff()
 " command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0d_ | diffthis | :exe "norm! ".g:diffline."G" | wincmd p | diffthis | wincmd p
 
+map 0 ^
 nnoremap <Leader>do :DiffSaved<cr>
 nnoremap <leader>dc :DiffSavedOff<cr>
 nnoremap <leader>tp  :set invpaste<cr>
+nnoremap <leader><Leader>  :noh<cr>
+nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>fd :cfile ./autoresr.txt<cr> :compiler rubyunit<cr>
 
+let MRU_Max_Entries = 400
+map <Leader>f :MRU<CR>
 
 call arpeggio#map('in',  's', 0, 'jk', '<Esc>')
 "call arpeggio#map('n',  's', 0, 'tp', ':set invpaste<CR>')

@@ -182,3 +182,6 @@
 [submodule "bundle/yankring"]
 	path = bundle/yankring
 	url = https://github.com/chrismetcalf/vim-yankring.git
+[submodule "bundle/mru"]
+	path = bundle/mru
+	url = https://github.com/vim-scripts/mru.vim.git
