@@ -36,20 +36,6 @@ cmap w!! %!sudo tee > /dev/null %
 
 " Switch on syntax highlighting
 :syn on
-":map zz :set syntax=cpp<CR>
-":map zg :set syntax=gnuplot<CR>
-":map zm :set makeprg=/usr/bin/make<CR>
-
-
-" fix meta-keys which generate <Esc>a .. <Esc>z
-"let c='a'
-"while c <= 'z'
-"    exec "set <M-".toupper(c).">=\e".c
-"    exec "imap \e".c." <M-".toupper(c).">"
-"    let c = nr2char(1+char2nr(c))
-"endw
-"map <m-a> ggVG
-
 " 'Command line' is 2 lines long
 :set ch=2
 
@@ -83,8 +69,6 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp
 
 " make options
 :set tags=tags
-":set makeprg=/usr/local/bin/gmake
-":set makeprg=/usr/local/bin/jam 
 
 
 :set syntax=c.doxygen
@@ -98,8 +82,6 @@ let g:DoxygenToolkit_blockFooter=""
 map F zfa}
 
 if v:version > 700
-  ":set ruler               " show the cursor position all the time
-  "set cursorline
   au CursorHold,CursorHoldI *  set cul showmatch
   au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
   set updatetime=200
@@ -155,9 +137,6 @@ nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
-
-"noremap <M-b> :TSelectBuffer<cr>
-"inoremap <M-b> <c-o>:TSelectBuffer<cr>
 
  " map <End> to move to end of line
  " if at end of line, move to end of window
@@ -263,12 +242,15 @@ com! DiffSavedOff call s:DiffWithSavedOff()
 
 nnoremap <Leader>do :DiffSaved<cr>
 nnoremap <leader>dc :DiffSavedOff<cr>
+nnoremap <leader>tp  :set invpaste<cr>
+nnoremap <leader>fd :cfile ./autoresr.txt<cr> :compiler rubyunit<cr>
 
 
-call arpeggio#map('i',  's', 0, 'jk', '<Esc>')
+call arpeggio#map('in',  's', 0, 'jk', '<Esc>')
+"call arpeggio#map('n',  's', 0, 'tp', ':set invpaste<CR>')
 call arpeggio#map('in',  's', 0, '[q', '<Esc>:cp<CR>i')
 call arpeggio#map('in',  's', 0, ']q', '<Esc>:cn<CR>i')
-call arpeggio#map('n',  's', 0, 'td', '<Esc>:tabclose<CR>')
+call arpeggio#map('n',  's', 0, 'tw', '<Esc>:tabclose<CR>')
 call arpeggio#map('i',  's', 0, 'w=', '<Esc><c-w>=i')
 call arpeggio#map('n',  's', 0, 'w=', '<c-w>=')
 call arpeggio#map('i',  's', 0, '[t', '<Esc>:tabp<CR>i')
@@ -276,6 +258,8 @@ call arpeggio#map('i',  's', 0, ']t', '<Esc>:tabn<CR>i')
 call arpeggio#map('n',  's', 0, '[t', ':tabp<CR>')
 call arpeggio#map('n',  's', 0, ']t', ':tabn<CR>')
 call arpeggio#map('in', 's', 0, 'mk', '<Esc>:wa<CR>:make<Up><CR>')
+call arpeggio#map('n', 's', 0, 'lp', ':LustyJugglePrevious<CR>')
+call arpeggio#map('n', 's', 0, 'lj', ':LustyJuggler<CR>')
 call arpeggio#map('n', 's', 0, 'lr', ':LustyFilesystemExplorerFromHere<CR>')
 call arpeggio#map('n', 's', 0, 'lf', ':LustyFilesystemExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lb', ':LustyBufferExplorer<CR>')
