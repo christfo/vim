@@ -279,13 +279,14 @@ endfunction
 com! DiffSavedOff call s:DiffWithSavedOff()
 " command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0d_ | diffthis | :exe "norm! ".g:diffline."G" | wincmd p | diffthis | wincmd p
 
+let g:LustyJugglerAltTabMode=1
 map 0 ^
 nnoremap <Leader>do :DiffSaved<cr>
 nnoremap <leader>dc :DiffSavedOff<cr>
 nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
-nnoremap <leader>fd :cfile ./autoresr.txt<cr> :compiler rubyunit<cr>
+nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rubyunit<cr>
 
 let MRU_Max_Entries = 400
 map <Leader>f :MRU<CR>
