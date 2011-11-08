@@ -227,39 +227,60 @@ set expandtab
 set wildignore=*.o,*~,tags
 set hidden
 
-" toggles the quickfix window.
-" let g:jah_Quickfix_Win_Height= 10
-" command -bang -nargs=? QFix call QFixToggle(<bang>0)
-" function! QFixToggle(forced)
-"   if exists("g:qfix_win") && a:forced == 0
-"     cclose
-"     "call SrcExplToggle()
-"   else
-"     execute "copen " . g:jah_Quickfix_Win_Height
-"   endif
-" endfunction
-" 
-" used to track the quickfix window
-" augroup QFixToggle
-"  autocmd!
-"  autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
-"  autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
-" augroup END
-
 nmap <silent> <leader>` :QFix<CR>
 
-" Use ruby style regex from
-" https://github.com/othree/eregex.vim/tree/master/plugin
-"nnoremap / :M/
-"nnoremap ? :M?
-"nnoremap ,/ :M/
-"nnoremap ,? :M?
+" Mode Indication -Prominent!
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi User1 cterm=underline cterm=bold ctermfg=White  guibg=red ctermbg=darkred
+    set cursorcolumn
+  elseif a:mode == 'r'
+    hi User1 cterm=underline cterm=bold ctermfg=White guibg=blue ctermbg=darkblue
+  else
+    hi User1 cterm=underline cterm=bold ctermfg=White guibg=magenta ctermbg=magenta
+  endif
+endfunction
 
-"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-hi User1 term=underline cterm=bold ctermfg=White ctermbg=Blue guifg=#40ffff guibg=#0000aa
-set statusline=%1*%F%m%r%h%w%=%(%c%V\ %l/%L\ %P%)
+function! InsertLeaveActions()
+  hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
+  set nocursorcolumn
+endfunction
 
-" function DiffWithSaved "{{{2
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * call InsertLeaveActions()
+
+" to handle exiting insert mode via a control-C
+inoremap <c-c> <c-o>:call InsertLeaveActions()<cr><c-c>
+
+" default the statusline to green when entering Vim
+hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
+
+function! GitBranch()
+    let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+    if branch != ''
+        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
+    en
+    return ''
+endfunction
+
+function! CurDir()
+    let curdir = substitute(getcwd(), '/usr/home/chrisf/', "~/", "g")
+    return curdir
+endfunction
+
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    else
+        return ''
+    endif
+endfunction
+
+" hi User1 term=underline cterm=bold ctermfg=White ctermbg=Blue guifg=#40ffff guibg=#0000aa
+" set statusline=%1*%F%m%r%h%w%=%(%c%V\ %l/%L\ %P%)
+set statusline=%1*\ %{HasPaste()}%F%m%r%h%w%=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
+set statusline=%1*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
+
 " Diff with saved version of the file
 function! s:DiffWithSaved()
     let g:diffline = line('.') 
@@ -506,10 +527,6 @@ function! WatchForChanges(bufname, ...)
   let @"=reg_saved
 endfunction
 
-"inoremap <expr> <Esc> pumvisible() ? "<C-e>" : "<Esc>"
-"inoremap <expr> <CR>  pumvisible() ? "<C-y>" : "<CR>"
-"inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
-"inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+call WatchForChanges('*')
+
 
