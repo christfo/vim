@@ -1,5 +1,10 @@
 filetype plugin off " We switch it back on again later, but off for pathogen to get a lookin
 filetype off
+
+let g:pathogen_disabled = []
+call add(g:pathogen_disabled, 'ragtag' )
+call add(g:pathogen_disabled, 'neocomplcache' )
+
 call pathogen#helptags() 
 call pathogen#runtime_append_all_bundles() 
 
@@ -23,6 +28,7 @@ colorscheme harlequin
 :set cindent shiftwidth=4  " set auto-indenting num columns
 :set softtabstop=4       " <tab> inserts 2 spaces (etc...)
 :set ignorecase
+:set virtualedit=onemore
 
 :set smartcase
 nnoremap / /\v
@@ -42,6 +48,34 @@ cmap w!! %!sudo tee > /dev/null %
 " Only do this part when compiled with support for autocommands.
 syntax on
 filetype on
+
+" default the statusline to green when entering Vim
+hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
+
+function! GitBranch()
+    " let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+    " if branch != ''
+    "     return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
+    " en
+    return ''
+endfunction
+
+function! CurDir()
+    let curdir = getcwd()
+    return curdir
+endfunction
+
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    else
+        return ''
+    endif
+endfunction
+
+" hi User1 term=underline cterm=bold ctermfg=White ctermbg=Blue guifg=#40ffff guibg=#0000aa
+" set statusline=%1*%F%m%r%h%w%=%(%c%V\ %l/%L\ %P%)
+set statusline=%1*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
 
 if has("autocmd")
 
@@ -82,8 +116,8 @@ let g:DoxygenToolkit_blockFooter=""
 map F zfa}
 
 if v:version > 700
-  au CursorHold,CursorHoldI *  set cul showmatch
-  au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
+  " au CursorHold,CursorHoldI *  set cul showmatch
+  " au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
   set updatetime=200
   "hi Cursorline ctermbg=Red guibg=#771c1c
   "call ExpertCursorSlowDown(now)
@@ -233,7 +267,7 @@ nmap <silent> <leader>` :QFix<CR>
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
     hi User1 cterm=underline cterm=bold ctermfg=White  guibg=red ctermbg=darkred
-    set cursorcolumn
+    " set cursorcolumn
   elseif a:mode == 'r'
     hi User1 cterm=underline cterm=bold ctermfg=White guibg=blue ctermbg=darkblue
   else
@@ -243,7 +277,7 @@ endfunction
 
 function! InsertLeaveActions()
   hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
-  set nocursorcolumn
+  " set nocursorcolumn
 endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
@@ -252,34 +286,6 @@ au InsertLeave * call InsertLeaveActions()
 " to handle exiting insert mode via a control-C
 inoremap <c-c> <c-o>:call InsertLeaveActions()<cr><c-c>
 
-" default the statusline to green when entering Vim
-hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
-
-function! GitBranch()
-    let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
-    if branch != ''
-        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
-    en
-    return ''
-endfunction
-
-function! CurDir()
-    let curdir = substitute(getcwd(), '/usr/home/chrisf/', "~/", "g")
-    return curdir
-endfunction
-
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    else
-        return ''
-    endif
-endfunction
-
-" hi User1 term=underline cterm=bold ctermfg=White ctermbg=Blue guifg=#40ffff guibg=#0000aa
-" set statusline=%1*%F%m%r%h%w%=%(%c%V\ %l/%L\ %P%)
-set statusline=%1*\ %{HasPaste()}%F%m%r%h%w%=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
-set statusline=%1*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
 
 " Diff with saved version of the file
 function! s:DiffWithSaved()
@@ -488,8 +494,8 @@ function! WatchForChanges(bufname, ...)
         exec "au BufDelete    ".a:bufname . " execute 'au! ".id."' | execute 'augroup! ".id."'"
       end
         exec "au BufEnter     ".event_bufspec . " :checktime ".bufspec
-        exec "au CursorHold   ".event_bufspec . " :checktime ".bufspec
-        exec "au CursorHoldI  ".event_bufspec . " :checktime ".bufspec
+        " exec "au CursorHold   ".event_bufspec . " :checktime ".bufspec
+        " exec "au CursorHoldI  ".event_bufspec . " :checktime ".bufspec
 
       " The following events might slow things down so we provide a way to disable them...
       " vim docs warn:
@@ -528,6 +534,6 @@ function! WatchForChanges(bufname, ...)
   let @"=reg_saved
 endfunction
 
-call WatchForChanges('*')
+" call WatchForChanges('*')
 
 
