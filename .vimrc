@@ -325,6 +325,7 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 :let g:SuperTabDefaultCompletionType = 'context'
 :let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
 :let g:SuperTabLongestEnhanced = 1
+:let g:SuperTabCrMapping = 0
 
 nnoremap <F5> :GundoToggle<CR>
 set undodir=~/.vim-tmp/undodir
