@@ -116,8 +116,8 @@ let g:DoxygenToolkit_blockFooter=""
 map F zfa}
 
 if v:version > 700
-  " au CursorHold,CursorHoldI *  set cul showmatch
-  " au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
+  au CursorHold,CursorHoldI *  set cul showmatch
+  au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
   set updatetime=200
   "hi Cursorline ctermbg=Red guibg=#771c1c
   "call ExpertCursorSlowDown(now)
@@ -267,7 +267,7 @@ nmap <silent> <leader>` :QFix<CR>
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
     hi User1 cterm=underline cterm=bold ctermfg=White  guibg=red ctermbg=darkred
-    " set cursorcolumn
+    set cursorcolumn
   elseif a:mode == 'r'
     hi User1 cterm=underline cterm=bold ctermfg=White guibg=blue ctermbg=darkblue
   else
@@ -277,7 +277,7 @@ endfunction
 
 function! InsertLeaveActions()
   hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
-  " set nocursorcolumn
+  set nocursorcolumn
 endfunction
 
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
@@ -318,7 +318,7 @@ nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rubyunit<cr>
 let MRU_Max_Entries = 400
 map <Leader>f :MRU<CR>
 
-call arpeggio#map('in',  's', 0, 'jk', '<Esc>')
+call arpeggio#map('i',  's', 0, 'jk', '<Esc>')
 "call arpeggio#map('n',  's', 0, 'tp', ':set invpaste<CR>')
 call arpeggio#map('in',  's', 0, '[q', '<Esc>:cp<CR>i')
 call arpeggio#map('in',  's', 0, ']q', '<Esc>:cn<CR>i')
@@ -329,10 +329,10 @@ call arpeggio#map('i',  's', 0, '[t', '<Esc>:tabp<CR>i')
 call arpeggio#map('i',  's', 0, ']t', '<Esc>:tabn<CR>i')
 call arpeggio#map('n',  's', 0, '[t', ':tabp<CR>')
 call arpeggio#map('n',  's', 0, ']t', ':tabn<CR>')
-call arpeggio#map('in', 's', 0, 'mk', '<Esc>:wa<CR>:make<Up><CR>')
+call arpeggio#map('in', 's', 0, 'ma', '<Esc>:wa<CR>:make<Up><CR>')
 call arpeggio#map('n', 's', 0, 'yr', ':YRShow<CR>')
 call arpeggio#map('n', 's', 0, 'lp', ':LustyJugglePrevious<CR>')
-call arpeggio#map('n', 's', 0, 'lj', ':LustyJuggler<CR>')
+call arpeggio#map('n', 's', 0, 'l;', ':LustyJuggler<CR>')
 call arpeggio#map('n', 's', 0, 'lr', ':LustyFilesystemExplorerFromHere<CR>')
 call arpeggio#map('n', 's', 0, 'lf', ':LustyFilesystemExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lb', ':LustyBufferExplorer<CR>')
@@ -489,13 +489,13 @@ function! WatchForChanges(bufname, ...)
     end
     silent! exec 'augroup '.id
       if a:bufname != '*'
-        "exec "au BufDelete    ".a:bufname . " :silent! au! ".id . " | silent! augroup! ".id
-        "exec "au BufDelete    ".a:bufname . " :echomsg 'Removing autocommands for ".id."' | au! ".id . " | augroup! ".id
+        exec "au BufDelete    ".a:bufname . " :silent! au! ".id . " | silent! augroup! ".id
+        exec "au BufDelete    ".a:bufname . " :echomsg 'Removing autocommands for ".id."' | au! ".id . " | augroup! ".id
         exec "au BufDelete    ".a:bufname . " execute 'au! ".id."' | execute 'augroup! ".id."'"
       end
         exec "au BufEnter     ".event_bufspec . " :checktime ".bufspec
-        " exec "au CursorHold   ".event_bufspec . " :checktime ".bufspec
-        " exec "au CursorHoldI  ".event_bufspec . " :checktime ".bufspec
+        exec "au CursorHold   ".event_bufspec . " :checktime ".bufspec
+        exec "au CursorHoldI  ".event_bufspec . " :checktime ".bufspec
 
       " The following events might slow things down so we provide a way to disable them...
       " vim docs warn:
