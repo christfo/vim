@@ -180,3 +180,6 @@
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/vim-scripts/matchit.zip.git
+[submodule "bundle/json"]
+	path = bundle/json
+	url = https://github.com/vim-scripts/vim-json-bundle.git
