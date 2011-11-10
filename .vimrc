@@ -2,62 +2,76 @@ filetype plugin off " We switch it back on again later, but off for pathogen to 
 filetype off
 
 let g:pathogen_disabled = []
-call add(g:pathogen_disabled, 'ragtag' )
-call add(g:pathogen_disabled, 'neocomplcache' )
-
+" call add(g:pathogen_disabled, 'ragtag' )
+" call add(g:pathogen_disabled, 'neocomplcache' )
 call pathogen#helptags() 
 call pathogen#runtime_append_all_bundles() 
 
 runtime macros/machit.vim
+syntax on
+filetype plugin indent on
 
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-:set nocompatible
-
-" Folding is interesting, see :help fold-manual
-"  e.g. :set foldcolumn=4
-"
-" allow backspacing over everything in insert mode
-:set backspace=indent,eol,start
-
-":set autoindent          " always set autoindenting on
-:set t_Co=256
 colorscheme harlequin
-:set showcmd             " display incomplete commands
-:set incsearch           " do incremental searching
-:set cindent shiftwidth=4  " set auto-indenting num columns
-:set softtabstop=4       " <tab> inserts 2 spaces (etc...)
-:set ignorecase
-:set virtualedit=onemore
+set nocompatible
+set t_Co=256
+set showcmd             " display incomplete commands
+set incsearch           " do incremental searching
+set ignorecase
+set virtualedit=onemore
+set hlsearch
+set smartcase
+set wildmenu
+set hidden
+set switchbuf=useopen,usetab,newtab
+set backspace=indent,eol,start
+set cindent shiftwidth=4  " set auto-indenting num columns
+set softtabstop=4       " <tab> inserts 2 spaces (etc...)
+set cmdheight=2
+set laststatus=2
+let mapleader=","
+set history=5000
+set wildmode=list:longest
+set scrolloff=3
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp
+set undodir=~/.vim-tmp/undodir
+set wildignore=*.o,*~,tags
+set hidden
+set smarttab
+set expandtab
+set undofile
+set undolevels=1000
+set undoreload=10000
 
-:set smartcase
+" may want to reconsider this if doing anything but ruby
+set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
+
+" make options
+set tags=tags
+
+" always magic on search
 nnoremap / /\v
 nnoremap ? ?\v
-" Switch on highlighting the last used search pattern.
-:set hlsearch
-:set switchbuf=useopen,usetab,newtab
 
 "add :w!! to write as sudo
 cmap w!! %!sudo tee > /dev/null %
 
-" Switch on syntax highlighting
-:syn on
-" 'Command line' is 2 lines long
-:set ch=2
-
-" Only do this part when compiled with support for autocommands.
-syntax on
-filetype on
-
 " default the statusline to green when entering Vim
 hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
 
+function! FetchBranch()
+    let branch = system("cd ". expand("%:p:h") . " && git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+    if branch != ''
+        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
+    en
+    return '  not git'
+endfunction
+
+" read the current git branch when buffer is focused
+au BufEnter * let b:git_branch = FetchBranch()
+
 function! GitBranch()
-    " let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
-    " if branch != ''
-    "     return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
-    " en
-    return ''
+    return b:git_branch
 endfunction
 
 function! CurDir()
@@ -73,37 +87,38 @@ function! HasPaste()
     endif
 endfunction
 
-" hi User1 term=underline cterm=bold ctermfg=White ctermbg=Blue guifg=#40ffff guibg=#0000aa
-" set statusline=%1*%F%m%r%h%w%=%(%c%V\ %l/%L\ %P%)
+if v:version > 700
+    au CursorHold,CursorHoldI *  set cul showmatch cursorcolumn
+    au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch nocursorcolumn | endif 
+    set updatetime=200
+endif
+
+" Mode Indication -Prominent!
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi User1 cterm=underline cterm=bold ctermfg=White  guibg=red ctermbg=darkred
+  elseif a:mode == 'r'
+    hi User1 cterm=underline cterm=bold ctermfg=White guibg=blue ctermbg=darkblue
+  else
+    hi User1 cterm=underline cterm=bold ctermfg=White guibg=magenta ctermbg=magenta
+  endif
+endfunction
+
+function! InsertLeaveActions()
+  hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
+endfunction
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * call InsertLeaveActions()
+
+inoremap <c-c> <c-o>:call InsertLeaveActions()<cr><c-c>
+
 set statusline=%1*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
 
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
-endif " has("autocmd")
-"
 " See :help cinoptions-values
 :set cino+=g0             " place C++ scope declarations at start of line
 :set cino+=t0             " place function return_type decl at start of line
 :set cino+=+4             " indent for a continuation line
-
-set hidden
-let mapleader=","
-set history=5000
-set wildmenu
-set wildmode=list:longest
-set scrolloff=3
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp
-
-" make options
-:set tags=tags
-
 
 :set syntax=c.doxygen
 let g:DoxygenToolkit_briefTag_pre="@brief "
@@ -115,21 +130,12 @@ let g:DoxygenToolkit_blockFooter=""
 " Shortcut to fold at left brace
 map F zfa}
 
-if v:version > 700
-  au CursorHold,CursorHoldI *  set cul showmatch
-  au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
-  set updatetime=200
-  "hi Cursorline ctermbg=Red guibg=#771c1c
-  "call ExpertCursorSlowDown(now)
-endif
-
 " Open and close all three plugins at same time
 nmap <F8> : TrinityToggleAll<CR>
 
 " Open and close srcExplr, taglist and NERD_tree individually
 nmap <F7> : SrcExplToggle<CR>
 nmap <F6> : TlistToggle<CR>
-nmap <F5> : NERDTreeToggle<CR>
 
 let g:SrcExpl_winHeight = 8 
 
@@ -230,9 +236,6 @@ endfunction
    endif
  endfun
 
-" set errorformat=%f:%l:%c:%m,%f:kk%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m,\"%f\"\\\,\ line\ %l.%c:%m\,\ %f:%l:%m,%f:%l:%c:%m
-" first, enable status line always
-set laststatus=2
 
 " alt+n or alt+p to navigate between entries in QuickFix
 map <silent> <m-p> :cp <cr>
@@ -248,44 +251,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_gobal = 1
 "improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
-" gcc
-" set errorformat=%f:%l:\ %m
-" set errorformat+=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
-" insert sw spaces when using tab in front of a line
-set smarttab
-
-" insert tabs as spaces
-set expandtab
-
-" lusty stuff
-set wildignore=*.o,*~,tags
-set hidden
-
 nmap <silent> <leader>` :QFix<CR>
-
-" Mode Indication -Prominent!
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi User1 cterm=underline cterm=bold ctermfg=White  guibg=red ctermbg=darkred
-    set cursorcolumn
-  elseif a:mode == 'r'
-    hi User1 cterm=underline cterm=bold ctermfg=White guibg=blue ctermbg=darkblue
-  else
-    hi User1 cterm=underline cterm=bold ctermfg=White guibg=magenta ctermbg=magenta
-  endif
-endfunction
-
-function! InsertLeaveActions()
-  hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
-  set nocursorcolumn
-endfunction
-
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * call InsertLeaveActions()
-
-" to handle exiting insert mode via a control-C
-inoremap <c-c> <c-o>:call InsertLeaveActions()<cr><c-c>
-
 
 " Diff with saved version of the file
 function! s:DiffWithSaved()
@@ -346,8 +312,6 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 
  
  
-"set t_AB=^[[48;5;%dm
-"set t_AF=^[[38;5;%dm
 :set completeopt=longest,menuone
 :let g:SuperTabDefaultCompletionType = 'context'
 :let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
@@ -355,13 +319,6 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 :let g:SuperTabCrMapping = 0
 
 nnoremap <F5> :GundoToggle<CR>
-set undodir=~/.vim-tmp/undodir
-set undofile
-:set undolevels=1000
-:set undoreload=10000
-
-set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
-
 " If you are using a console version of Vim, or dealing
 " with a file that changes externally (e.g. a web server log)
 " then Vim does not always check to see if the file has been changed.
