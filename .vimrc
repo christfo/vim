@@ -1,91 +1,124 @@
 filetype plugin off " We switch it back on again later, but off for pathogen to get a lookin
 filetype off
+
+let g:pathogen_disabled = []
+" call add(g:pathogen_disabled, 'ragtag' )
+" call add(g:pathogen_disabled, 'neocomplcache' )
 call pathogen#helptags() 
 call pathogen#runtime_append_all_bundles() 
 
 runtime macros/machit.vim
-
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-:set nocompatible
-
-" Folding is interesting, see :help fold-manual
-"  e.g. :set foldcolumn=4
-"
-" allow backspacing over everything in insert mode
-:set backspace=indent,eol,start
-
-":set autoindent          " always set autoindenting on
-:set t_Co=256
-colorscheme harlequin
-:set showcmd             " display incomplete commands
-:set incsearch           " do incremental searching
-:set cindent shiftwidth=4  " set auto-indenting num columns
-:set softtabstop=4       " <tab> inserts 2 spaces (etc...)
-:set ignorecase
-:set smartcase
-nnoremap / /\v
-nnoremap ? ?\v
-" Switch on highlighting the last used search pattern.
-:set hlsearch
-:set switchbuf=useopen,usetab,newtab
-
-"add :w!! to write as sudo
-cmap w!! %!sudo tee > /dev/null %
-
-" Switch on syntax highlighting
-:syn on
-":map zz :set syntax=cpp<CR>
-":map zg :set syntax=gnuplot<CR>
-":map zm :set makeprg=/usr/bin/make<CR>
-
-
-" fix meta-keys which generate <Esc>a .. <Esc>z
-"let c='a'
-"while c <= 'z'
-"    exec "set <M-".toupper(c).">=\e".c
-"    exec "imap \e".c." <M-".toupper(c).">"
-"    let c = nr2char(1+char2nr(c))
-"endw
-"map <m-a> ggVG
-
-" 'Command line' is 2 lines long
-:set ch=2
-
-" Only do this part when compiled with support for autocommands.
 syntax on
-filetype on
+filetype plugin indent on
 
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
-endif " has("autocmd")
-"
-" See :help cinoptions-values
-:set cino+=g0             " place C++ scope declarations at start of line
-:set cino+=t0             " place function return_type decl at start of line
-:set cino+=+4             " indent for a continuation line
-
-runtime macros/mmatchit.vim
+colorscheme harlequin
+set nocompatible
+set t_Co=256
+set showcmd             " display incomplete commands
+set incsearch           " do incremental searching
+set ignorecase
+set virtualedit=onemore
+set hlsearch
+set smartcase
+set wildmenu
 set hidden
+set switchbuf=useopen,usetab,newtab
+set backspace=indent,eol,start
+set cindent shiftwidth=4  " set auto-indenting num columns
+set softtabstop=4       " <tab> inserts 2 spaces (etc...)
+set cmdheight=2
+set laststatus=2
 let mapleader=","
 set history=5000
-set wildmenu
 set wildmode=list:longest
 set scrolloff=3
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp
+set undodir=~/.vim-tmp/undodir
+set wildignore=*.o,*~,tags
+set hidden
+set smarttab
+set expandtab
+set undofile
+set undolevels=1000
+set undoreload=10000
+
+" may want to reconsider this if doing anything but ruby
+set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
 
 " make options
-:set tags=tags
-":set makeprg=/usr/local/bin/gmake
-":set makeprg=/usr/local/bin/jam 
+set tags=tags
 
+" always magic on search
+nnoremap / /\v
+nnoremap ? ?\v
+
+"add :w!! to write as sudo
+cmap w!! %!sudo tee > /dev/null %
+
+" default the statusline to green when entering Vim
+hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
+
+function! FetchBranch()
+    let branch = system("cd ". expand("%:p:h") . " && git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+    if branch != ''
+        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
+    en
+    return '  not git'
+endfunction
+
+" read the current git branch when buffer is focused
+au BufEnter * let b:git_branch = FetchBranch()
+
+function! GitBranch()
+    return b:git_branch
+endfunction
+
+function! CurDir()
+    let curdir = getcwd()
+    return curdir
+endfunction
+
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    else
+        return ''
+    endif
+endfunction
+
+if v:version > 700
+    au CursorHold,CursorHoldI *  set cul showmatch cursorcolumn
+    au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch nocursorcolumn | endif 
+    set updatetime=200
+endif
+
+" Mode Indication -Prominent!
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi User1 cterm=underline cterm=bold ctermfg=White  guibg=red ctermbg=darkred
+  elseif a:mode == 'r'
+    hi User1 cterm=underline cterm=bold ctermfg=White guibg=blue ctermbg=darkblue
+  else
+    hi User1 cterm=underline cterm=bold ctermfg=White guibg=magenta ctermbg=magenta
+  endif
+endfunction
+
+function! InsertLeaveActions()
+  hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
+endfunction
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * call InsertLeaveActions()
+
+inoremap <c-c> <c-o>:call InsertLeaveActions()<cr><c-c>
+
+set statusline=%1*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
+
+" See :help cinoptions-values
+:set cino+=g0             " place C++ scope declarations at start of line
+:set cino+=t0             " place function return_type decl at start of line
+:set cino+=+4             " indent for a continuation line
 
 :set syntax=c.doxygen
 let g:DoxygenToolkit_briefTag_pre="@brief "
@@ -97,23 +130,12 @@ let g:DoxygenToolkit_blockFooter=""
 " Shortcut to fold at left brace
 map F zfa}
 
-if v:version > 700
-  ":set ruler               " show the cursor position all the time
-  "set cursorline
-  au CursorHold,CursorHoldI *  set cul showmatch
-  au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch | endif
-  set updatetime=200
-  "hi Cursorline ctermbg=Red guibg=#771c1c
-  "call ExpertCursorSlowDown(now)
-endif
-
 " Open and close all three plugins at same time
 nmap <F8> : TrinityToggleAll<CR>
 
 " Open and close srcExplr, taglist and NERD_tree individually
 nmap <F7> : SrcExplToggle<CR>
 nmap <F6> : TlistToggle<CR>
-nmap <F5> : NERDTreeToggle<CR>
 
 let g:SrcExpl_winHeight = 8 
 
@@ -156,8 +178,44 @@ nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
 
-"noremap <M-b> :TSelectBuffer<cr>
-"inoremap <M-b> <c-o>:TSelectBuffer<cr>
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Really useful!
+"  In visual mode when you press * or # to search for the current selection
+vnoremap <silent> * :call VisualSearch('f')<CR>
+vnoremap <silent> # :call VisualSearch('b')<CR>
+
+" When you press gv you vimgrep after the selected text
+vnoremap <silent> gv :call VisualSearch('gv')<CR>
+map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+" From an idea by Michael Naumann
+function! VisualSearch(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
 
  " map <End> to move to end of line
  " if at end of line, move to end of window
@@ -178,9 +236,6 @@ nmap <C-L>  <C-W>l
    endif
  endfun
 
-" set errorformat=%f:%l:%c:%m,%f:kk%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m,\"%f\"\\\,\ line\ %l.%c:%m\,\ %f:%l:%m,%f:%l:%c:%m
-" first, enable status line always
-set laststatus=2
 
 " alt+n or alt+p to navigate between entries in QuickFix
 map <silent> <m-p> :cp <cr>
@@ -196,52 +251,8 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_gobal = 1
 "improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
-" gcc
-" set errorformat=%f:%l:\ %m
-" set errorformat+=%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
-" insert sw spaces when using tab in front of a line
-set smarttab
-
-" insert tabs as spaces
-set expandtab
-
-" lusty stuff
-set wildignore=*.o,*~,tags
-set hidden
-
-" toggles the quickfix window.
-" let g:jah_Quickfix_Win_Height= 10
-" command -bang -nargs=? QFix call QFixToggle(<bang>0)
-" function! QFixToggle(forced)
-"   if exists("g:qfix_win") && a:forced == 0
-"     cclose
-"     "call SrcExplToggle()
-"   else
-"     execute "copen " . g:jah_Quickfix_Win_Height
-"   endif
-" endfunction
-" 
-" used to track the quickfix window
-" augroup QFixToggle
-"  autocmd!
-"  autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
-"  autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
-" augroup END
-
 nmap <silent> <leader>` :QFix<CR>
 
-" Use ruby style regex from
-" https://github.com/othree/eregex.vim/tree/master/plugin
-"nnoremap / :M/
-"nnoremap ? :M?
-"nnoremap ,/ :M/
-"nnoremap ,? :M?
-
-"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-hi User1 term=underline cterm=bold ctermfg=White ctermbg=Blue guifg=#40ffff guibg=#0000aa
-set statusline=%1*%F%m%r%h%w%=%(%c%V\ %l/%L\ %P%)
-
-" function DiffWithSaved "{{{2
 " Diff with saved version of the file
 function! s:DiffWithSaved()
     let g:diffline = line('.') 
@@ -261,21 +272,33 @@ endfunction
 com! DiffSavedOff call s:DiffWithSavedOff()
 " command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0d_ | diffthis | :exe "norm! ".g:diffline."G" | wincmd p | diffthis | wincmd p
 
+let g:LustyJugglerAltTabMode=1
+map 0 ^
 nnoremap <Leader>do :DiffSaved<cr>
 nnoremap <leader>dc :DiffSavedOff<cr>
+nnoremap <leader>tp  :set invpaste<cr>
+nnoremap <leader><Leader>  :noh<cr>
+nnoremap <leader>cd :cd %:p:h<cr>
+nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rubyunit<cr>
 
+let MRU_Max_Entries = 400
+map <Leader>f :MRU<CR>
 
 call arpeggio#map('i',  's', 0, 'jk', '<Esc>')
+"call arpeggio#map('n',  's', 0, 'tp', ':set invpaste<CR>')
 call arpeggio#map('in',  's', 0, '[q', '<Esc>:cp<CR>i')
 call arpeggio#map('in',  's', 0, ']q', '<Esc>:cn<CR>i')
-call arpeggio#map('n',  's', 0, 'td', '<Esc>:tabclose<CR>')
+call arpeggio#map('n',  's', 0, 'tw', '<Esc>:tabclose<CR>')
 call arpeggio#map('i',  's', 0, 'w=', '<Esc><c-w>=i')
 call arpeggio#map('n',  's', 0, 'w=', '<c-w>=')
 call arpeggio#map('i',  's', 0, '[t', '<Esc>:tabp<CR>i')
 call arpeggio#map('i',  's', 0, ']t', '<Esc>:tabn<CR>i')
 call arpeggio#map('n',  's', 0, '[t', ':tabp<CR>')
 call arpeggio#map('n',  's', 0, ']t', ':tabn<CR>')
-call arpeggio#map('in', 's', 0, 'mk', '<Esc>:wa<CR>:make<Up><CR>')
+call arpeggio#map('in', 's', 0, 'ma', '<Esc>:wa<CR>:make<Up><CR>')
+call arpeggio#map('n', 's', 0, 'yr', ':YRShow<CR>')
+call arpeggio#map('n', 's', 0, 'lp', ':LustyJugglePrevious<CR>')
+call arpeggio#map('n', 's', 0, 'l;', ':LustyJuggler<CR>')
 call arpeggio#map('n', 's', 0, 'lr', ':LustyFilesystemExplorerFromHere<CR>')
 call arpeggio#map('n', 's', 0, 'lf', ':LustyFilesystemExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lb', ':LustyBufferExplorer<CR>')
@@ -289,21 +312,13 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 
  
  
-"set t_AB=^[[48;5;%dm
-"set t_AF=^[[38;5;%dm
 :set completeopt=longest,menuone
 :let g:SuperTabDefaultCompletionType = 'context'
 :let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
 :let g:SuperTabLongestEnhanced = 1
+:let g:SuperTabCrMapping = 0
 
 nnoremap <F5> :GundoToggle<CR>
-set undodir=~/.vim-tmp/undodir
-set undofile
-:set undolevels=1000
-:set undoreload=10000
-
-set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
-
 " If you are using a console version of Vim, or dealing
 " with a file that changes externally (e.g. a web server log)
 " then Vim does not always check to see if the file has been changed.
@@ -431,8 +446,8 @@ function! WatchForChanges(bufname, ...)
     end
     silent! exec 'augroup '.id
       if a:bufname != '*'
-        "exec "au BufDelete    ".a:bufname . " :silent! au! ".id . " | silent! augroup! ".id
-        "exec "au BufDelete    ".a:bufname . " :echomsg 'Removing autocommands for ".id."' | au! ".id . " | augroup! ".id
+        exec "au BufDelete    ".a:bufname . " :silent! au! ".id . " | silent! augroup! ".id
+        exec "au BufDelete    ".a:bufname . " :echomsg 'Removing autocommands for ".id."' | au! ".id . " | augroup! ".id
         exec "au BufDelete    ".a:bufname . " execute 'au! ".id."' | execute 'augroup! ".id."'"
       end
         exec "au BufEnter     ".event_bufspec . " :checktime ".bufspec
@@ -476,10 +491,6 @@ function! WatchForChanges(bufname, ...)
   let @"=reg_saved
 endfunction
 
-"inoremap <expr> <Esc> pumvisible() ? "<C-e>" : "<Esc>"
-"inoremap <expr> <CR>  pumvisible() ? "<C-y>" : "<CR>"
-"inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
-"inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" call WatchForChanges('*')
+
 

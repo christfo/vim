@@ -1,4 +1,6 @@
+eval require 'pry'
 eval require 'ruby-debug/completion'
+eval def pry { binding.pry }
 set autolist
 set autoeval
 set autoreload

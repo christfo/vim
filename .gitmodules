@@ -34,10 +34,6 @@
 	path = bundle/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
         ignore = dirty
-[submodule "bundle/The-NERD-tree"]
-	path = bundle/The-NERD-tree
-	url = https://github.com/vim-scripts/The-NERD-tree.git
-        ignore = dirty
 [submodule "bundle/Mark--Karkat"]
 	path = bundle/Mark--Karkat
 	url = https://github.com/vim-scripts/Mark--Karkat.git
@@ -183,3 +179,12 @@
 [submodule "bundle/json"]
 	path = bundle/json
 	url = https://github.com/vim-scripts/vim-json-bundle.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "bundle/yankring"]
+	path = bundle/yankring
+	url = https://github.com/chrismetcalf/vim-yankring.git
+[submodule "bundle/mru"]
+	path = bundle/mru
+	url = https://github.com/vim-scripts/mru.vim.git
