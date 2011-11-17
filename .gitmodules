@@ -185,3 +185,9 @@
 [submodule "bundle/mru"]
 	path = bundle/mru
 	url = https://github.com/vim-scripts/mru.vim.git
+[submodule "bundle/statuslineHighlight"]
+	path = bundle/statuslineHighlight
+	url = https://github.com/vim-scripts/StatusLineHighlight.git
+[submodule "bundle/threesome"]
+	path = bundle/threesome
+	url = https://github.com/sjl/threesome.vim.git
