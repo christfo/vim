@@ -67,8 +67,6 @@ function! FetchBranch()
     return '  not git'
 endfunction
 
-" read the current git branch when buffer is focused
-au BufEnter * let b:git_branch = FetchBranch()
 
 function! s:DefaultHighlightings()
     highlight def StatusLineModified           term=bold,reverse cterm=bold,reverse ctermfg=DarkRed  gui=bold,reverse guifg=DarkRed
@@ -150,8 +148,13 @@ endfunction
 
 " default the statusline to green when entering Vim
 call InsertLeaveActions()
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * call InsertLeaveActions()
+
+augroup status_line_actions
+    autocmd!
+    autocmd BufEnter * let b:git_branch = FetchBranch()
+    autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
+    autocmd InsertLeave * call InsertLeaveActions()
+augroup END
 
 inoremap <c-c> <c-o>:call InsertLeaveActions()<cr><c-c>
 
