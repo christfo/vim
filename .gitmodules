@@ -188,3 +188,9 @@
 [submodule "bundle/mru"]
 	path = bundle/mru
 	url = https://github.com/vim-scripts/mru.vim.git
+[submodule "bundle/thermometer"]
+	path = bundle/thermometer
+	url = https://github.com/vim-scripts/thermometer.git
+[submodule "bundle/miniscm"]
+	path = bundle/miniscm
+	url = https://github.com/vim-scripts/ScmFrontEnd-former-name--MinSCM.git
