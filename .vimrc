@@ -2,7 +2,7 @@ filetype plugin off " We switch it back on again later, but off for pathogen to 
 filetype off
 
 let g:pathogen_disabled = []
-" call add(g:pathogen_disabled, 'ragtag' )
+call add(g:pathogen_disabled, 'statuslineHighlight' )
 " call add(g:pathogen_disabled, 'neocomplcache' )
 call pathogen#helptags() 
 call pathogen#runtime_append_all_bundles() 
@@ -36,9 +36,11 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp
 set undodir=~/.vim-tmp/undodir
 set wildignore=*.o,*~,tags
+set ttyfast
 set hidden
 set smarttab
 set expandtab
+set numberwidth=4
 set undofile
 set undolevels=1000
 set undoreload=10000
@@ -56,8 +58,6 @@ nnoremap ? ?\v
 "add :w!! to write as sudo
 cmap w!! %!sudo tee > /dev/null %
 
-" default the statusline to green when entering Vim
-hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
 
 function! FetchBranch()
     let branch = system("cd ". expand("%:p:h") . " && git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
@@ -67,11 +67,38 @@ function! FetchBranch()
     return '  not git'
 endfunction
 
-" read the current git branch when buffer is focused
-au BufEnter * let b:git_branch = FetchBranch()
+
+function! s:DefaultHighlightings()
+    highlight def StatusLineModified           term=bold,reverse cterm=bold,reverse ctermfg=DarkRed  gui=bold,reverse guifg=DarkRed
+    highlight def StatusLineModifiedNC         term=reverse      cterm=reverse      ctermfg=DarkRed  gui=reverse      guifg=DarkRed
+    highlight def StatusLinePreview            term=bold,reverse cterm=bold,reverse ctermfg=Blue     gui=bold,reverse guifg=Blue
+    highlight def StatusLinePreviewNC          term=reverse      cterm=reverse      ctermfg=Blue     gui=reverse      guifg=Blue
+    highlight def StatusLineReadonly           term=bold,reverse cterm=bold,reverse ctermfg=Grey     gui=bold,reverse guifg=DarkGrey
+    highlight def StatusLineReadonlyNC         term=reverse      cterm=reverse      ctermfg=Grey     gui=reverse      guifg=DarkGrey
+    highlight def StatusLineSpecial            term=bold,reverse cterm=bold,reverse ctermfg=DarkBlue gui=bold,reverse guifg=DarkBlue
+    highlight def StatusLineSpecialNC          term=reverse      cterm=reverse      ctermfg=DarkBlue gui=reverse      guifg=DarkBlue
+    highlight def StatusLineUnmodifiable       term=bold,reverse cterm=bold,reverse ctermfg=Grey     gui=bold,reverse guifg=Grey
+    highlight def StatusLineUnmodifiableNC     term=reverse      cterm=reverse      ctermfg=Grey     gui=reverse      guifg=Grey
+endfunction
+call s:DefaultHighlightings()
 
 function! GitBranch()
     return b:git_branch
+endfunction
+
+function! Fred()
+    return 'User2'
+endfunction
+
+function! BufstatCol(mode)
+  if a:mode == 'i'
+    highlight def User2  term=bold,reverse cterm=bold,reverse ctermfg=DarkRed  gui=bold,reverse guifg=DarkRed
+  elseif a:mode == 'r'
+    highlight def User2  term=bold,reverse cterm=bold,reverse ctermfg=DarkRed  gui=bold,reverse guifg=DarkMagenta
+  else
+    highlight def User2  term=bold,reverse cterm=bold,reverse ctermfg=DarkRed  gui=bold,reverse guifg=darkgreen
+  endif
+  return ""
 endfunction
 
 function! CurDir()
@@ -88,10 +115,15 @@ function! HasPaste()
 endfunction
 
 if v:version > 700
-    au CursorHold,CursorHoldI *  set cul showmatch cursorcolumn
-    au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch nocursorcolumn | endif 
-    set updatetime=200
+    "au CursorHold,CursorHoldI *  set cul showmatch cursorcolumn relativenumber
+    "au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch nocursorcolumn number | endif 
+    "set updatetime=200
 endif
+
+" hi User1 cterm=underline cterm=bold ctermfg=white  guibg=darkred ctermbg=darkred
+" hi User2 cterm=underline cterm=bold ctermfg=White  guibg=darkgreen ctermbg=darkgreen
+" hi User3 cterm=underline cterm=bold ctermfg=White  guibg=darkblue ctermbg=darkblue
+" hi User4 cterm=underline cterm=bold ctermfg=White  guibg=red ctermbg=darkred
 
 " Mode Indication -Prominent!
 function! InsertStatuslineColor(mode)
@@ -104,15 +136,29 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
+" hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
 function! InsertLeaveActions()
   hi User1 term=underline cterm=bold ctermfg=White guibg=darkgreen ctermbg=darkgreen
+  " if getbufvar("%","&mod")
+  "     hi User1 ctermbg=darkgreen
+  " else
+  "     hi User1 ctermbg=darkblue
+  " end
 endfunction
 
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * call InsertLeaveActions()
+" default the statusline to green when entering Vim
+call InsertLeaveActions()
+
+augroup status_line_actions
+    autocmd!
+    autocmd BufEnter * let b:git_branch = FetchBranch()
+    autocmd InsertEnter * call InsertStatuslineColor(v:insertmode)
+    autocmd InsertLeave * call InsertLeaveActions()
+augroup END
 
 inoremap <c-c> <c-o>:call InsertLeaveActions()<cr><c-c>
 
+" set statusline=%{BufstatCol(v:insertmode)}%2*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
 set statusline=%1*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
 
 " See :help cinoptions-values
@@ -126,6 +172,9 @@ let g:DoxygenToolkit_paramTag_pre="@param "
 let g:DoxygenToolkit_returnTag="@returns "
 let g:DoxygenToolkit_blockHeader=""
 let g:DoxygenToolkit_blockFooter=""
+
+" leader cd already taken, so use h insread
+let g:VCSCommandMapPrefix='<leader>h'
 
 " Shortcut to fold at left brace
 map F zfa}
@@ -222,7 +271,7 @@ endfunction
  " if at end of window, move to end of file
  nnoremap <silent> <End> :call SmartEnd("n")<CR>
  inoremap <silent> <End> <C-O>:call SmartEnd("i")<CR>
- vnoremap <silent> <End> <Esc>:call SmartEnd("v")<CR>
+ vnoremap <silent> <end> <esc>:call smartend("v")<cr>
  function!  SmartEnd(mode)
    if col('.') < col('$')-1
      normal! $
