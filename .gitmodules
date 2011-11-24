@@ -197,6 +197,3 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
-[submodule "tabular"]
-	path = tabular
-	url = https://github.com/godlygeek/tabular.git
