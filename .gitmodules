@@ -194,9 +194,6 @@
 [submodule "bundle/miniscm"]
 	path = bundle/miniscm
 	url = https://github.com/vim-scripts/ScmFrontEnd-former-name--MinSCM.git
-[submodule "bundle/statuslineHighlight"]
-	path = bundle/statuslineHighlight
-	url = https://github.com/vim-scripts/StatusLineHighlight.git
 [submodule "bundle/threesome"]
 	path = bundle/threesome
 	url = https://github.com/sjl/threesome.vim.git
@@ -209,6 +206,3 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
-[submodule "tabular"]
-	path = tabular
-	url = https://github.com/godlygeek/tabular.git
