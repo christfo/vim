@@ -74,7 +74,7 @@ endfunction
 highlight StatusLine  term=bold,reverse cterm=bold,reverse ctermfg=darkgreen  gui=bold,reverse guifg=darkgreen
 highlight StatusLineNC  ctermfg=green  
 
-set statusline=\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{fugitive#statusline()}%)
+set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
 
 " See :help cinoptions-values
 :set cino+=g0             " place C++ scope declarations at start of line
@@ -225,13 +225,22 @@ function! s:DiffWithSaved()
     vnew | r # | :exe "normal! ".g:diffline."G"
     diffthis
     exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+    let g:diffbuf = bufname('%') 
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 
 function! s:DiffWithSavedOff()
+    if exists("g:diffbuf")
+        " exe "norm! ".g:diffbuf."G"
+        echom g:diffbuf
+        unlet g:diffbuf
+    end
     exe "q"
     diffoff
-    exe "norm! ".g:diffline."G"
+    if exists("g:diffline")
+        exe "norm! ".g:diffline."G"
+        unlet g:diffline
+    end
 endfunction
 com! DiffSavedOff call s:DiffWithSavedOff()
 " command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0d_ | diffthis | :exe "norm! ".g:diffline."G" | wincmd p | diffthis | wincmd p
@@ -245,9 +254,12 @@ nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rubyunit<cr>
 
+
 let MRU_Max_Entries = 400
 map <Leader>f :MRU<CR>
 
+
+nnoremap dg do
 call arpeggio#map('i',  's', 0, 'jk', '<Esc>')
 "call arpeggio#map('n',  's', 0, 'tp', ':set invpaste<CR>')
 call arpeggio#map('in',  's', 0, '[q', '<Esc>:cp<CR>i')
