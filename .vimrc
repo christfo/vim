@@ -44,12 +44,12 @@ set numberwidth=4
 set undofile
 set undolevels=1000
 set undoreload=10000
+set tags=tags
 
 " may want to reconsider this if doing anything but ruby
 set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
 
 " make options
-set tags=tags
 
 " always magic on search
 nnoremap / /\v
@@ -57,23 +57,6 @@ nnoremap ? ?\v
 
 "add :w!! to write as sudo
 cmap w!! %!sudo tee > /dev/null %
-
-
-function! FetchBranch()
-    let branch = system("cd ". expand("%:p:h") . " && git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
-    if branch != ''
-        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
-    en
-    return '  not git'
-endfunction
-
-function! GitBranch()
-    return b:git_branch
-endfunction
-
-function! Fred()
-    return 'User2'
-endfunction
 
 function! CurDir()
     let curdir = getcwd()
@@ -89,21 +72,9 @@ function! HasPaste()
 endfunction
 
 highlight StatusLine  term=bold,reverse cterm=bold,reverse ctermfg=darkgreen  gui=bold,reverse guifg=darkgreen
+highlight StatusLineNC  ctermfg=green  
 
-if v:version > 700
-    "au CursorHold,CursorHoldI *  set cul showmatch cursorcolumn relativenumber
-    "au CursorMoved,CursorMovedI * if &cul | set nocul noshowmatch nocursorcolumn number | endif 
-    "set updatetime=200
-endif
-
-augroup status_line_actions
-    autocmd!
-    autocmd BufEnter * let b:git_branch = FetchBranch()
-augroup END
-
-" set statusline=%{BufstatCol(v:insertmode)}%2*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
-" set statusline=%1*\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
-set statusline=\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{GitBranch()}%)
+set statusline=\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%{fugitive#statusline()}%)
 
 " See :help cinoptions-values
 :set cino+=g0             " place C++ scope declarations at start of line
