@@ -28,15 +28,16 @@ task :update do
   end
 end
 
-desc "add dotfiles"
+desc "add softlinks to dotfiles in home directory"
 task :dotfiles do
-  path = `pwd`.chomp / "dotfiles"  
-  Dir.foreach(path) do |dotfile|
-      link = "~" / File.basename(dotfile)
-      if File.exist? link
+  path = `pwd`.chomp / "dotfiles" / ".*" 
+  Dir[path].each do |dotfile|
+      next if [".",".."].include? File.basename(dotfile)
+      link = File.basename(dotfile)
+      if File.exists?(File.expand_path("~" / link))
           link << ".new"
       end 
-      puts("cd ~ && ln -s #{dotfile} link")
+      system("cd ~ && ln -s #{dotfile} #{link}")
   end
 end
 
