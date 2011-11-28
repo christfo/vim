@@ -72,8 +72,10 @@ end
 
 desc "init project"
 task :init do
-  system("git submodule init")
-  system("git submodule update")
+    Dir["bundle/*"].each { |mod|
+      next if [".",".."].include? File.basename(mod)
+      puts("git submodule update --init #{mod}")
+    }
 end
 
 desc 'update the installed bundles'
