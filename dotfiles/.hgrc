@@ -1,5 +1,28 @@
+[extensions]
+hgext.convert=
+hgext.color=
+hgext.extdiff=
+hgext.graphlog=
+hgext.hgk=
+hgext.mq=
+hgext.purge=
+hgext.schemes=
+relink=
+record=
+rebase=
+progress=
+parentrevspec=
+pager=
+
+[pager]
+pager = LESS='FGRX' less
+ignore = version, help, update
+attend = annotate, cat, diff, export, glog, log, qdiff
+
 [merge-tools]
 threesome.executable = vim
 threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
 threesome.premerge = keep
 threesome.priority = 1
+
+%include ~/.hgrc.private
