@@ -7,7 +7,7 @@ require 'pathname'
 
 desc "Performs bundles cleanup (delete plugins installed from git source)"
 task :cleanup do
-  path = File.join(File.dirname(__FILE__), 'bundles')
+  path = File.join(File.dirname(__FILE__), 'bundle')
   Dir.foreach(path) do |entry|
     if File.exist?(File.join(path, entry, ".git"))
       FileUtils.rm_rf(File.join(path, entry))
@@ -28,10 +28,11 @@ task :update do
   end
 end
 
-desc "add softlinks to dotfiles in home directory"
+desc "add softlinks to dotfiles in home directory and vim tempory dirs"
 task :dotfiles do
+  system("cd ~ && mkdir -p .vim-tmp/undodir")
   path = `pwd`.chomp / "dotfiles" / ".*" 
-  Dir[path].each do |dotfile|
+  ( Dir[path] + [`pwd`.chomp / ".vimrc" ] ).each do |dotfile|
       next if [".",".."].include? File.basename(dotfile)
       link = File.basename(dotfile)
       if File.exists?(File.expand_path("~" / link))
@@ -41,50 +42,26 @@ task :dotfiles do
   end
 end
 
-IGNORE_FILES = [/^\.gitignore$/, /^Rakefile$/,/^README.textile$/,/^\.gitmodules$/]
-
-files = `git ls-files`.split("\n").reject! {|f| f.match(/^bundle/)}
-
-target_dir=File.expand_path("~")
-
-Dir["bundle/**/*"].each { |file|
-  files << file unless File.directory?(file)
-}
-
-files.reject! { |f| IGNORE_FILES.any? { |re| f.match(re) } }
-
 desc "sync vimfiles in #{target_dir}"
 task :sync do
-  files.each do |file|
-    if File.exists?(file)
-      target_file = File.join(target_dir, ".#{file}")
-      FileUtils.mkdir_p File.dirname(target_file)
-      FileUtils.cp file, target_file
-
-      puts "Installed #{file} to #{target_file}"
-    else
-      puts "#{file} removed?"
-    end
-  end
-  command_t_path=File.join(File.expand_path("~"),".vim","bundle","command-t")
-  system("cd #{command_t_path}; rake make")
 end
 
 desc "init project"
 task :init do
     Dir["bundle/*"].each { |mod|
       next if [".",".."].include? File.basename(mod)
-      puts("git submodule update --init #{mod}")
+      system("git submodule update --init #{mod}")
     }
 end
 
-desc 'update the installed bundles'
-task :update_bundles do
-  bundles = `git submodule | cut -d' ' -f3`.split("\n")
-  bundles.each do |bundle|
-    system("cd #{bundle} && git pull origin master")
-  end
+desc "Remove a submodule from the bundle"
+task :remove, :bundle do |t,args|
+    bundle = args[:bundle]
+    if bundle && Pathname.new( bundle ).exists
+        puts "Not implemented" 
+    end
 end
+
 
 # task :default => ['sync']
 desc "=> base"
