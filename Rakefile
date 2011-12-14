@@ -42,7 +42,7 @@ task :dotfiles do
   end
 end
 
-desc "sync vimfiles in #{target_dir}"
+desc "sync vimfiles in #{}"
 task :sync do
 end
 

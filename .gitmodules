@@ -206,3 +206,6 @@
 [submodule "bundle/thermometer"]
 	path = bundle/thermometer
 	url = git@github.com:christfo/thermometer.git
+[submodule "bundle/molokai"]
+	path = bundle/molokai
+	url = https://github.com/tomasr/molokai.git
