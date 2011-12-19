@@ -72,8 +72,10 @@ function! HasPaste()
     endif
 endfunction
 
-highlight StatusLine  term=bold,reverse cterm=bold,reverse ctermfg=darkgreen  gui=bold,reverse guifg=darkgreen
-highlight StatusLineNC  ctermfg=green  
+highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=46  ctermbg=238 gui=bold,reverse guifg=darkgreen guibg=#444444
+highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=214                  guifg=#857b6f guibg=#444444
+"highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=darkgreen  gui=bold,reverse guifg=darkgreen
+"highlight StatusLineNC  ctermfg=green  
 
 set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
 
