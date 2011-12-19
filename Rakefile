@@ -47,6 +47,11 @@ desc "sync vimfiles in #{}"
 task :sync do
 end
 
+desc "reset all submodules"
+task :reset do
+    system("git submodule foreach --recursive git checkout -- . && git submodule foreach --recursive git clean -f")
+end
+
 desc "init project"
 task :init do
     Dir["bundle/*"].each { |mod|
