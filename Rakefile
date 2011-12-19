@@ -1,6 +1,7 @@
+require 'rubygems'
 require 'fileutils'
 require 'facets/string'
-require 'ruby-debug'
+#require 'ruby-debug'
 require 'rake'
 require 'find'
 require 'pathname'
