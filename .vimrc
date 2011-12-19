@@ -11,7 +11,8 @@ runtime macros/machit.vim
 syntax on
 filetype plugin indent on
 
-colorscheme harlequin
+"colorscheme harlequin
+colorscheme molokai
 set nocompatible
 set t_Co=256
 set showcmd             " display incomplete commands
