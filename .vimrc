@@ -3,7 +3,8 @@ filetype off
 
 let g:pathogen_disabled = []
 " call add(g:pathogen_disabled, 'statuslineHighlight' )
-call add(g:pathogen_disabled, 'syntastic' )
+call add(g:pathogen_disabled, 'syntastic')
+call add(g:pathogen_disabled, 'taghighlight' )
 call pathogen#helptags() 
 call pathogen#runtime_append_all_bundles() 
 
@@ -78,6 +79,19 @@ highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=
 "highlight StatusLineNC  ctermfg=green  
 
 set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
+
+" highlight Class           
+" highlight DefinedName     
+" highlight Enumerator      
+" highlight Function        
+" highlight EnumerationName 
+" highlight Member          
+" highlight Structure       
+" highlight Type            
+" highlight Union           
+" highlight GlobalConstant  
+" highlight GlobalVariable  
+" highlight LocalVariable   
 
 " See :help cinoptions-values
 :set cino+=g0             " place C++ scope declarations at start of line
