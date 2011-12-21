@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+## NOTE: currently this script doesn't have any syncing logic.
+## It simply links to this session, all of the windows in the session passed as argument1.
+## In the future I hope to make it idempotent.
+## I could not find a quick way to get the tty or the pid of the windows.
+## But, the good news is that renaming a window in one session changes it in all sessions.
+## Therefore, I can save the name in a var, rename, look for it in the other session, change the name back.
+## That will be the next advance.
+
+if [[ -z "$1" ]]; then
+    echo "Please specify a session"
+    exit 1
+fi
+
+get_indexes(){
+    sed '/^[0-9]\{1,\}/!d; s/:.*//'</dev/stdin
+}
+
+for i in $(tmux list-windows -t $1 | get_indexes); do
+    tmux link-window -s $1:$i
+done
+

@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'fileutils'
 require 'facets/string'
-#require 'ruby-debug'
+require 'ruby-debug'
 require 'rake'
 require 'find'
 require 'pathname'
@@ -32,6 +32,7 @@ end
 desc "add softlinks to dotfiles in home directory and vim tempory dirs"
 task :dotfiles do
   system("cd ~ && mkdir -p .vim-tmp/undodir")
+  system("cd ~ && mkdir -p bin")
   path = `pwd`.chomp / "dotfiles" / ".*" 
   ( Dir[path] + [`pwd`.chomp / ".vimrc" ] ).each do |dotfile|
       next if [".",".."].include? File.basename(dotfile)
@@ -40,6 +41,16 @@ task :dotfiles do
           link << ".new"
       end 
       system("cd ~ && ln -s #{dotfile} #{link}")
+  end
+  debugger
+  path = `pwd`.chomp / "binfiles" / "*" 
+  ( Dir[path] ).each do |binfile|
+      next if [".",".."].include? File.basename(binfile)
+      link = File.basename(binfile)
+      if File.exists?(File.expand_path("~/bin" / link))
+          link << ".new"
+      end 
+      system("cd ~/bin && ln -s #{binfile} #{link}")
   end
 end
 
