@@ -5,6 +5,8 @@ let g:pathogen_disabled = []
 " call add(g:pathogen_disabled, 'statuslineHighlight' )
 call add(g:pathogen_disabled, 'syntastic')
 call add(g:pathogen_disabled, 'taghighlight' )
+call add(g:pathogen_disabled, 'supertab' )
+call add(g:pathogen_disabled, 'ultisnips' )
 call pathogen#helptags() 
 call pathogen#runtime_append_all_bundles() 
 
@@ -153,7 +155,25 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 " // Set "<F12>" key for updating the tags file artificially 
 " let g:SrcExpl_updateTagsKey = "<F12>"
 
+set completeopt+=longest
 let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+" inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" inoremap <silent><CR>  <C-R>=neocomplcache#smart_close_popup()<CR><CR>
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" AutoComplPop like behavior.
+let g:neocomplcache_enable_auto_select = 1
+let  g:neocomplcache_snippets_dir='~/.vim/bundle/snippets'
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" :  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
@@ -306,10 +326,22 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
  
  
 :set completeopt=longest,menuone
-:let g:SuperTabDefaultCompletionType = 'context'
-:let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-:let g:SuperTabLongestEnhanced = 1
-:let g:SuperTabCrMapping = 0
+" " :let g:SuperTabDefaultCompletionType = 'context'
+" " :let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+" :let g:SuperTabLongestEnhanced = 1
+" " :let g:SuperTabCrMapping = 0
+
+" " SuperTab {
+"     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+"     let g:SuperTabCompletionContexts = ['s:ContextDiscover', 's:ContextText']
+"     let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+"     let g:SuperTabContextDiscoverDiscovery =
+"         \ ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-u>"]
+"     let g:SuperTabMappingForward = '<tab>'
+"     let g:SuperTabMappingBackward = '<s-tab>'
+"     " let g:SuperTabMappingForward = '<c-j>'
+"     " let g:SuperTabMappingBackward = '<c-k>'
+" " }
 
 nnoremap <F5> :GundoToggle<CR>
 " If you are using a console version of Vim, or dealing
