@@ -197,9 +197,6 @@
 [submodule "bundle/vim-puppet"]
 	path = bundle/vim-puppet
 	url = https://github.com/nanliu/vim-puppet.git
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = https://github.com/msanders/snipmate.vim.git
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
@@ -215,3 +212,6 @@
 [submodule "bundle/taghighlight"]
 	path = bundle/taghighlight
 	url = https://github.com/abudden/TagHighlight.git
+[submodule "bundle/ultisnips"]
+	path = bundle/ultisnips
+	url = https://github.com/rygwdn/ultisnips.git
