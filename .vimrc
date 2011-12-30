@@ -5,7 +5,7 @@ let g:pathogen_disabled = []
 " call add(g:pathogen_disabled, 'statuslineHighlight' )
 call add(g:pathogen_disabled, 'syntastic')
 call add(g:pathogen_disabled, 'taghighlight' )
-call add(g:pathogen_disabled, 'supertab' )
+" call add(g:pathogen_disabled, 'supertab' )
 call add(g:pathogen_disabled, 'ultisnips' )
 call pathogen#helptags() 
 call pathogen#runtime_append_all_bundles() 
@@ -172,7 +172,10 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 " AutoComplPop like behavior.
 let g:neocomplcache_enable_auto_select = 1
 let  g:neocomplcache_snippets_dir='~/.vim/bundle/snippets'
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" :  pumvisible() ? "\<C-n>" : "\<TAB>"
+" imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" :  pumvisible() ? "\<C-n>" : "\<TAB>"
+imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
+smap  <tab>  <right><plug>(neocomplcache_snippets_jump) 
+inoremap <expr><c-e>     neocomplcache#complete_common_string()
 
 nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
@@ -328,8 +331,8 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 :set completeopt=longest,menuone
 " " :let g:SuperTabDefaultCompletionType = 'context'
 " " :let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-" :let g:SuperTabLongestEnhanced = 1
-" " :let g:SuperTabCrMapping = 0
+:let g:SuperTabLongestEnhanced = 1
+:let g:SuperTabCrMapping = 0
 
 " " SuperTab {
 "     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
