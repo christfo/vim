@@ -67,6 +67,7 @@ desc "init project"
 task :init do
     Dir["bundle/*"].each { |mod|
       next if [".",".."].include? File.basename(mod)
+      system("git submodule checkout master #{mod}")
       system("git submodule update --init #{mod}")
     }
 end
