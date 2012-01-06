@@ -145,7 +145,7 @@ fi
 
 PATH=$PATH:~/bin/:/usr/pkg/bin:/usr/cross-tools-str9/bin:/usr/cross-tools/bin:/var/lib/gems/1.8/bin/:/var/lib/gems/1.9/bin ; export PATH
 #export PS1="[\[\033[1;34m\w\[\033[0m]$ "
-export EDITOR=/usr/bin/vim
+export EDITOR=/usr/local/bin/vim
 export HISTFILESIZE=8000 # the bash history should save 3000 commands
 export HISTCONTROL=ignoredups #don't put duplicate lines in the history.
 alias hist='history | grep $1' #Requires one input
@@ -314,6 +314,7 @@ alias cupq="cvs up 2>&1 |  egrep -hi '^[CM]'"
 echo -e $GREEN
 
 function convtags() { cp tags tags.uni ;  iconv -c -t WINDOWS-1251//IGNORE tags.uni > tags ; }
-if [[ -s /home/chrisf/.rvm/scripts/rvm ]] ; then source /home/chrisf/.rvm/scripts/rvm ; fi
+if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+# if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator/scripts/tmuxinator ; fi
 
-
+# . tmuxinator_completion
