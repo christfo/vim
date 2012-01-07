@@ -42,7 +42,6 @@ task :dotfiles do
       end 
       system("cd ~ && ln -s #{dotfile} #{link}")
   end
-  debugger
   path = `pwd`.chomp / "binfiles" / "*" 
   ( Dir[path] ).each do |binfile|
       next if [".",".."].include? File.basename(binfile)

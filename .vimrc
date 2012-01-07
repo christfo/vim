@@ -170,7 +170,7 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 " AutoComplPop like behavior.
-let g:neocomplcache_enable_auto_select = 1
+let g:neocomplcache_enable_auto_select = 0
 let  g:neocomplcache_snippets_dir='~/.vim/bundle/snippets'
 " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" :  pumvisible() ? "\<C-n>" : "\<TAB>"
 imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
@@ -328,7 +328,7 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 
  
  
-:set completeopt=longest,menuone
+" :set completeopt+=longest,menuone
 " " :let g:SuperTabDefaultCompletionType = 'context'
 " " :let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
 :let g:SuperTabLongestEnhanced = 1
