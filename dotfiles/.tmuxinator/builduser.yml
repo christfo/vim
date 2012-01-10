@@ -10,12 +10,12 @@ tabs:
   - logs: 
       layout: main-horizontal
       panes:
-          - tail -f build.out
+          - touch build.out && tail -f build.out
           - #empty, will just run plain bash
   - editor:
       - vim numbered_release.rb
   - shell: 
-      layout: main-horizontal
+      layout: even-vertical
       panes:
           - hg pull && hg st -q && hg id -bint && exctags -R
           - cd build_tools && hg pull && hg st -q && echo -e $RED &&  hg -R build_tools id -bint 
