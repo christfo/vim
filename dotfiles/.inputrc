@@ -39,7 +39,7 @@
 "\e[5D": backward-word
 "\e\e[C": forward-word
 "\e\e[D": backward-word
-# 
+"\C-W": backward-kill-word
 
 # Allow 8-bit input/output
 set meta-flag on

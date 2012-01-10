@@ -216,6 +216,8 @@ alias bbc='lynx -term=vt100 http://news.bbc.co.uk/text_only.stm'
 alias dmregister='lynx -term=vt100 http://desmoinesregister.com'
 
 function cgrep () { egrep -RnH --include=*.{h,c,cpp} -e "$1" *; }
+# stop tty from steeling ^W . defined in inputrc the same as alt backspace
+stty werase undef #
 
 
 # Less Colors for Man Pages
