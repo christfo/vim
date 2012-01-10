@@ -1,0 +1,21 @@
+# ~/.tmuxinator/mainline.yml
+# you can make as many tabs as you wish...
+
+project_name: netbsd
+project_root: ./
+# socket_name: tmux_netbsd # Not needed.  Remove to use default socket
+# rvm: 1.9.2@rails_project
+pre: cd usr ; cd src ;pwd
+tabs:
+  - logs: 
+      layout: main-horizontal
+      panes:
+        - touch build.out && tail -f build.out
+        - #empty, will just run plain bash
+  - editor:
+      - vim 
+  - shell: 
+      layout: main-horizontal
+      panes:
+        - hg pull && hg st -q && hg id -bint && exctags -R
+        - top

@@ -6,8 +6,8 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-export TERM=xterm-256color
-# export TERM=screen-256color
+# export TERM=xterm-256color
+export TERM=screen-256color
 #if [ ! -z "$TERMCAP" ] && [ "$TERM" == "screen" ]; then                         
 #    export TERMCAP=$(echo $TERMCAP | sed -e 's/Co#8/Co#256/g')                  
 #fi
@@ -98,7 +98,7 @@ export PS1='$(prompt_command)\n'$PS1
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+xterm*|rxvt*|screen*)
     PROMPT_COMMAND='history -a;echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
     ;;
 *)
@@ -149,6 +149,8 @@ export EDITOR=`which vim`
 export HISTFILESIZE=8000 # the bash history should save 3000 commands
 export HISTCONTROL=ignoredups #don't put duplicate lines in the history.
 alias hist='history | grep $1' #Requires one input
+alias tree='tree -C'
+alias pstree='pstree -g3'
 
 
 
