@@ -3,9 +3,9 @@
 
 project_name: netbsd
 project_root: ./
-socket_name: tmux_netbsd # Not needed.  Remove to use default socket
+# socket_name: tmux_netbsd # Not needed.  Remove to use default socket
 # rvm: 1.9.2@rails_project
-pre: cd usr ; cd src
+pre: cd usr ; cd src ;pwd
 tabs:
   - logs: 
       layout: main-horizontal

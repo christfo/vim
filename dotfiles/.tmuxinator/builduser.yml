@@ -1,7 +1,7 @@
 # ~/.tmuxinator/mainline.yml
 # you can make as many tabs as you wish...
 
-project_name: Mainline
+project_name: builduser
 project_root: ./
 # socket_name: tmux_mainline # Not needed.  Remove to use default socket
 # rvm: 1.9.2@rails_project
@@ -10,12 +10,15 @@ tabs:
   - logs: 
       layout: main-horizontal
       panes:
-        - tail -f build.out
-        - #empty, will just run plain bash
+          - tail -f build.out
+          - #empty, will just run plain bash
   - editor:
-      - vim tools/scripts/mcu_6_19.yaml
+      - vim numbered_release.rb
   - shell: 
       layout: main-horizontal
       panes:
-        - hg pull && hg st -q && hg id -bint && exctags -R
-        - top
+          - hg pull && hg st -q && hg id -bint && exctags -R
+          - cd build_tools && hg pull && hg st -q && echo -e $RED &&  hg -R build_tools id -bint 
+          - top
+  - scratch: 
+      - 
