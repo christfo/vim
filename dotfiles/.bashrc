@@ -6,8 +6,8 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-export TERM=xterm-256color
-# export TERM=screen-256color
+# export TERM=xterm-256color
+export TERM=screen-256color
 #if [ ! -z "$TERMCAP" ] && [ "$TERM" == "screen" ]; then                         
 #    export TERMCAP=$(echo $TERMCAP | sed -e 's/Co#8/Co#256/g')                  
 #fi
@@ -218,6 +218,8 @@ alias bbc='lynx -term=vt100 http://news.bbc.co.uk/text_only.stm'
 alias dmregister='lynx -term=vt100 http://desmoinesregister.com'
 
 function cgrep () { egrep -RnH --include=*.{h,c,cpp} -e "$1" *; }
+# stop tty from steeling ^W . defined in inputrc the same as alt backspace
+stty werase undef #
 
 
 # Less Colors for Man Pages

@@ -3,14 +3,14 @@
 
 project_name: Mainline
 project_root: ./
-socket_name: tmux_mainline # Not needed.  Remove to use default socket
+# socket_name: tmux_mainline # Not needed.  Remove to use default socket
 # rvm: 1.9.2@rails_project
 # pre: exctags -R
 tabs:
   - logs: 
       layout: main-horizontal
       panes:
-        - tail -f build.out
+        - touch build.out && tail -f build.out
         - #empty, will just run plain bash
   - editor:
       - vim tools/scripts/mcu_6_19.yaml
