@@ -1,0 +1,14 @@
+#krequire 'autotest/restart'
+ 
+# Autotest.add_hook :initialize do |at|
+#   at.unit_diff = 'cat'
+# end
+ 
+Autotest.add_hook :ran_command do |at|
+  File.open('/tmp/autotest.txt', 'wb') { |f|
+    # f.write( at.results.join.gsub( /\033\[[0-9]*;[0-9]*m/,'') )
+    # f.write( at.results.join.unpack("C*").pack("U*") )#.gsub( /\033\[[0-9;]*m/,'') )
+    f.write( at.results.join.gsub( /\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]/, '' ) )
+  }
+end
+

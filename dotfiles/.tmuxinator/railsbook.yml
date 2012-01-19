@@ -1,0 +1,27 @@
+# ~/.tmuxinator/railsbook.yml
+# you can make as many tabs as you wish...
+
+project_name: Railsbook
+project_root: ~/rubymess/sample_app
+# socket_name: railsmux # Not needed.  Remove to use default socket
+rvm: 1.9.2 #@rails_project
+# pre: sudo /etc/rc.d/mysqld start
+tabs:
+  - logs: tail -f log/development.log
+  - editor:
+      layout: main-vertical
+      panes:
+        - vim
+        - #empty, will just run plain bash
+        - top
+  - spec:
+      layout: even-vertical
+      panes:
+          - bundle exec autotest
+          - bundle exec spork 
+  - shell: git pull
+  - database: rails db
+  - server: rails s
+  - console: rails c
+  # - capistrano:
+  # - server: ssh me@myhost

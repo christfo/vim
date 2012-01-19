@@ -143,7 +143,7 @@ fi
 # EXPORTS
 #######################################################
 
-PATH=$PATH:~/bin/:/usr/pkg/bin:/usr/cross-tools-str9/bin:/usr/cross-tools/bin:/var/lib/gems/1.8/bin/:/var/lib/gems/1.9/bin ; export PATH
+PATH=/opt/local/bin:$PATH:~/bin/:/usr/pkg/bin:/usr/cross-tools-str9/bin:/usr/cross-tools/bin:/var/lib/gems/1.8/bin/:/var/lib/gems/1.9/bin ; export PATH
 #export PS1="[\[\033[1;34m\w\[\033[0m]$ "
 export EDITOR=`which vim`
 export HISTFILESIZE=8000 # the bash history should save 3000 commands
