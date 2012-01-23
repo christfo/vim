@@ -292,7 +292,7 @@ nnoremap <leader>dc :DiffSavedOff<cr>
 nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
-nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rubyunit<cr>
+nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rspec <cr>
 
 
 let MRU_Max_Entries = 400
