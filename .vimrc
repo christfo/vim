@@ -52,6 +52,7 @@ set tags=tags
 
 " may want to reconsider this if doing anything but ruby
 set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
+let g:ackprg="rak -H --nocolor --nogroup "
 
 " make options
 

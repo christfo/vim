@@ -224,3 +224,6 @@
 [submodule "bundle/mw-utils"]
 	path = bundle/mw-utils
 	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "bundle/ack"]
+	path = bundle/ack
+	url = https://github.com/mileszs/ack.vim.git
