@@ -347,6 +347,7 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 "     " let g:SuperTabMappingBackward = '<c-k>'
 " " }
 
+autocmd BufRead,BufNewFile *.log set syntax=log 
 nnoremap <F5> :GundoToggle<CR>
 " If you are using a console version of Vim, or dealing
 " with a file that changes externally (e.g. a web server log)

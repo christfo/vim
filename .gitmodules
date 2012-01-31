@@ -227,3 +227,9 @@
 [submodule "bundle/ack"]
 	path = bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
+[submodule "bundle/Lawrencium"]
+	path = bundle/Lawrencium
+	url = https://github.com/vim-scripts/Lawrencium.git
+[submodule "bundle/log"]
+	path = bundle/log
+	url = https://github.com/vim-scripts/log.vim--Sunlight.git
