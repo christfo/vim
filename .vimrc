@@ -61,6 +61,7 @@ vnoremap g<c-]> <c-]>
 
 " swap tag following shortcuts to show list by default
 
+let g:ackprg="rak -H --nocolor --nogroup "
 
 " make options
 
@@ -301,8 +302,8 @@ nnoremap <leader>dc :DiffSavedOff<cr>
 nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
-nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rubyunit<cr>
 nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
+nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rspec <cr>
 
 
 let MRU_Max_Entries = 400
@@ -356,6 +357,7 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 "     " let g:SuperTabMappingBackward = '<c-k>'
 " " }
 
+autocmd BufRead,BufNewFile *.log set syntax=log 
 nnoremap <F5> :GundoToggle<CR>
 " If you are using a console version of Vim, or dealing
 " with a file that changes externally (e.g. a web server log)
