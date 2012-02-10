@@ -293,6 +293,7 @@ nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rubyunit<cr>
+nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
 
 
 let MRU_Max_Entries = 400
@@ -320,7 +321,7 @@ call arpeggio#map('n', 's', 0, 'lf', ':LustyFilesystemExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lb', ':LustyBufferExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lg', ':LustyBufferGrep<CR>')
 call arpeggio#map('n',  's', 0, 'wf', '<c-w>F')
-call arpeggio#map('n',  's', 0, 'co', ':cfile<Up><CR>')
+call arpeggio#map('n',  's', 0, 'co', ':copen<CR>:cfile<Up><CR>')
 call arpeggio#map('n',  '', 0, 'ta', ':Tabularize /')
 call arpeggio#map('n',  's', 0, 'du', ':diffupdate<CR>')
 call arpeggio#map('n',  's', 0, 'do', ':DiffSaved<CR>')
