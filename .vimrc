@@ -51,7 +51,16 @@ set undoreload=10000
 set tags=tags
 
 " may want to reconsider this if doing anything but ruby
-set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
+" set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
+
+" swap tag following shortcuts to show list by default
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
+nnoremap g<c-]> <c-]>
+vnoremap g<c-]> <c-]>
+
+" swap tag following shortcuts to show list by default
+
 
 " make options
 
