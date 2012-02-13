@@ -50,9 +50,13 @@ set undolevels=1000
 set undoreload=10000
 set tags=tags
 
-" may want to reconsider this if doing anything but ruby
-set grepprg=rak\ --follow\ --output=\"fn+':'+i.to_s+':'+line\"
-" let g:ackprg="rak -H --nocolor --nogroup "
+" swap tag following shortcuts to show list by default
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
+nnoremap g<c-]> <c-]>
+vnoremap g<c-]> <c-]>
+
+let g:ackprg="rak -H --nocolor --nogroup "
 
 " make options
 
@@ -78,35 +82,12 @@ endfunction
 
 highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=46  ctermbg=238 gui=bold,reverse guifg=darkgreen guibg=#444444
 highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=214                  guifg=#857b6f guibg=#444444
-"highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=darkgreen  gui=bold,reverse guifg=darkgreen
-"highlight StatusLineNC  ctermfg=green  
 
 set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
 
-" highlight Class           
-" highlight DefinedName     
-" highlight Enumerator      
-" highlight Function        
-" highlight EnumerationName 
-" highlight Member          
-" highlight Structure       
-" highlight Type            
-" highlight Union           
-" highlight GlobalConstant  
-" highlight GlobalVariable  
-" highlight LocalVariable   
-
-" See :help cinoptions-values
 :set cino+=g0             " place C++ scope declarations at start of line
 :set cino+=t0             " place function return_type decl at start of line
 :set cino+=+4             " indent for a continuation line
-
-:set syntax=c.doxygen
-let g:DoxygenToolkit_briefTag_pre="@brief "
-let g:DoxygenToolkit_paramTag_pre="@param "
-let g:DoxygenToolkit_returnTag="@returns "
-let g:DoxygenToolkit_blockHeader=""
-let g:DoxygenToolkit_blockFooter=""
 
 " leader cd already taken, so use h insread
 let g:VCSCommandMapPrefix='<leader>h'
@@ -153,9 +134,6 @@ let g:SrcExpl_isUpdateTags = 1
 " // update a tags file 
 let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
 
-" // Set "<F12>" key for updating the tags file artificially 
-" let g:SrcExpl_updateTagsKey = "<F12>"
-
 set completeopt+=longest
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
@@ -186,7 +164,6 @@ nmap <C-L>  <C-W>l
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
-" Really useful!
 "  In visual mode when you press * or # to search for the current selection
 vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
@@ -225,6 +202,8 @@ endfunction
  " map <End> to move to end of line
  " if at end of line, move to end of window
  " if at end of window, move to end of file
+" Really useful!
+" Really useful!
  nnoremap <silent> <End> :call SmartEnd("n")<CR>
  inoremap <silent> <End> <C-O>:call SmartEnd("i")<CR>
  vnoremap <silent> <end> <esc>:call smartend("v")<cr>
@@ -293,6 +272,7 @@ nnoremap <leader>dc :DiffSavedOff<cr>
 nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
+nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
 nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rspec <cr>
 
 
@@ -321,7 +301,7 @@ call arpeggio#map('n', 's', 0, 'lf', ':LustyFilesystemExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lb', ':LustyBufferExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lg', ':LustyBufferGrep<CR>')
 call arpeggio#map('n',  's', 0, 'wf', '<c-w>F')
-call arpeggio#map('n',  's', 0, 'co', ':cfile<Up><CR>')
+call arpeggio#map('n',  's', 0, 'co', ':copen<CR>:cfile<Up><CR>')
 call arpeggio#map('n',  '', 0, 'ta', ':Tabularize /')
 call arpeggio#map('n',  's', 0, 'du', ':diffupdate<CR>')
 call arpeggio#map('n',  's', 0, 'do', ':DiffSaved<CR>')
