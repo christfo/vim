@@ -5,6 +5,7 @@ let g:pathogen_disabled = []
 " call add(g:pathogen_disabled, 'statuslineHighlight' )
 call add(g:pathogen_disabled, 'syntastic')
 call add(g:pathogen_disabled, 'taghighlight' )
+call add(g:pathogen_disabled, 'clang_comp' ) " not quite ready for the prime time yet.
 " call add(g:pathogen_disabled, 'supertab' )
 call add(g:pathogen_disabled, 'ultisnips' )
 call pathogen#helptags() 
@@ -176,6 +177,30 @@ nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
+
+" let g:clang_auto_select=1
+" let g:clang_complete_auto=0
+" let g:clang_complete_copen=1
+" let g:clang_hl_errors=1
+" let g:clang_periodic_quickfix=0
+" let g:clang_snippets=1
+" let g:clang_snippets_engine="clang_complete"
+" let g:clang_conceal_snippets=1
+" let g:clang_exec="clang"
+" let g:clang_user_options=""
+" let g:clang_auto_user_options="path, .clang_complete"
+" let g:clang_use_library=1
+" let g:clang_library_path="/usr/local/lib/" " /libclang.so
+" let g:clang_sort_algo="priority"
+" let g:clang_complete_macros=1
+" let g:clang_complete_patterns=0
+" nnoremap <Leader>q :call g:ClangUpdateQuickFix()<CR>
+
+" let g:clic_filename="../clangindex/index.db"
+" nnoremap <Leader>r :call ClangGetReferences()<CR>
+" nnoremap <Leader>d :call ClangGetDeclarations()<CR>
+" nnoremap <Leader>s :call ClangGetSubclasses()<CR>
+
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
