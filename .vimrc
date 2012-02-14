@@ -288,7 +288,8 @@ nnoremap <leader>dc :DiffSavedOff<cr>
 nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
-nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
+nnoremap <leader>co :copen<cr>:cfile<up><cr> 
+" nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
 nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rspec <cr>
 
 
