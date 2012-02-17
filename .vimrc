@@ -112,6 +112,14 @@ let g:VCSCommandMapPrefix='<leader>h'
 " Shortcut to fold at left brace
 map F zfa}
 
+let g:slime_target="tmux"
+function! To_Tmux()
+  let b:text = input("tmux:", "", "custom,")
+  call <SID>SlimeSend(b:text . "\\r")
+endfunction
+
+cmap tt :call To_Tmux()<CR>
+
 " Open and close all three plugins at same time
 nmap <F8> : TrinityToggleAll<CR>
 

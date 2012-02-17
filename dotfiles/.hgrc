@@ -7,12 +7,17 @@ hgext.hgk=
 hgext.mq=
 hgext.purge=
 hgext.schemes=
+hgext.bookmarks=
+hggit=
 relink=
 record=
 rebase=
 progress=
 parentrevspec=
 pager=
+
+[git]
+intree=True
 
 [pager]
 pager = LESS='FGRX' less
