@@ -57,6 +57,36 @@ vnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
+" Emacs style command line edit (Oh the shame of it!)
+:set <M-B>=b
+:set <M-F>=f
+:set <M-D>=d
+:imap b <M-B>
+:imap f <M-F>
+:imap d <M-D>
+" start of line
+:cnoremap <C-A>             <Home>
+" back one character
+:cnoremap <C-B>             <Left>
+" delete character under cursor
+:cnoremap <C-D>             <Del>
+" end of line
+:cnoremap <C-E>             <End>
+" forward one character
+:cnoremap <C-F>             <Right>
+" recall newer command-line
+:cnoremap <C-N>             <Down>
+" recall previous (older) command-line
+:cnoremap <C-P>             <Up>
+" back one word
+:cnoremap <Esc><C-B>        <S-Left>
+:cnoremap <M-B>             <S-Left>
+" forward one word
+:cnoremap <Esc><C-F>        <S-Right>
+:cnoremap <M-F>             <S-Right>
+" delete forward word
+:cnoremap <M-D>             <S-Right><C-W>
+
 nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>    "   's'   symbol: find all references to the token under cursor         
 nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>    "   'g'   global: find global definition(s) of the token under cursor    
 nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>    "   'c'   calls:  find all calls to the function name under cursor       
