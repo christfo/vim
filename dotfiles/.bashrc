@@ -35,15 +35,31 @@ NC='\e[0m'              # No Color
 # If not running interactively, don't do anything
 
 # don't put duplicate lines in the history. See bash(1) for more options
-export HISTCONTROL=ignoredups
 # ... and ignore same sucessive entries.
-export HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth:ignoredups:erasedups:ignorespace
+export HISTFILESIZE=100000 # the bash history should save 3000 commands
+export HISTSIZE=100000 # the bash history should save 3000 commands
+shopt -s histappend
+
+history() {
+    _bash_history_sync
+    builtin history "$0"
+}
+
+_bash_history_sync() {
+    builtin history -a
+    HISTFILESIZE=$HISTFILESIZE
+    builtin history -c
+    builtin history -r
+}
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 shopt -s extglob
-shopt -s histappend
+
+# stop tty from steeling ^W . defined in inputrc the same as alt backspace
+stty werase undef #
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
@@ -99,21 +115,18 @@ export PS1='$(prompt_command)\n'$PS1
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*|screen*)
-    PROMPT_COMMAND='history -a;echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+    # PROMPT_COMMAND='history -a;history -c;history -r;echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
     ;;
 *)
-    PROMPT_COMMAND='history -a'
     ;;
 esac
+export PROMPT_COMMAND="_bash_history_sync;${PROMPT_COMMAND}"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-#if [ -f ~/.bash_aliases ]; then
-#    . ~/.bash_aliases
-#fi
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
@@ -146,8 +159,6 @@ fi
 PATH=/opt/local/bin:$PATH:~/bin/:/usr/pkg/bin:/usr/cross-tools-str9/bin:/usr/cross-tools/bin:/var/lib/gems/1.8/bin/:/var/lib/gems/1.9/bin ; export PATH
 #export PS1="[\[\033[1;34m\w\[\033[0m]$ "
 export EDITOR=`which vim`
-export HISTFILESIZE=8000 # the bash history should save 3000 commands
-export HISTCONTROL=ignoredups #don't put duplicate lines in the history.
 alias hist='history | grep $1' #Requires one input
 alias tree='tree -C'
 alias pstree='pstree -g3'
@@ -159,18 +170,6 @@ alias pstree='pstree -g3'
 #######################################################
 
 # Alias's to local workstations
-
-# ALIAS TO REMOTE SERVERS
-# My server info removed from above for obvious reasons ;)
-
-# Alias's to TN5250 programs. AS400 access commands.
-alias d1='xt5250 env.TERM = IBM-3477-FC env.DEVNAME=D1 192.168.2.5 &'
-alias d2='xt5250 env.TERM = IBM-3477-FC env.DEVNAME=D2 192.168.2.5 &'
-alias tn5250j='nohup java -jar /home/crouse/tn5250j/lib/tn5250j.jar 2>>error.log &'
-
-
-# Alias's to control hardware
-alias scan='scanimage -L'
 
 # Alias's to modified commands
 alias ps='ps auxf'
@@ -213,14 +212,7 @@ alias aterm='aterm -ls -fg gray -bg black'
 alias xtop='xterm -fn 6x13 -bg LightSlateGray -fg black -e top &'
 alias xsu='xterm -fn 7x14 -bg DarkOrange4 -fg white -e su &'
 
-# Alias for lynx web browser
-alias bbc='lynx -term=vt100 http://news.bbc.co.uk/text_only.stm'
-alias dmregister='lynx -term=vt100 http://desmoinesregister.com'
-
 function cgrep () { egrep -RnH --include=*.{h,c,cpp} -e "$1" *; }
-# stop tty from steeling ^W . defined in inputrc the same as alt backspace
-stty werase undef #
-
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -234,12 +226,6 @@ export LESS=-FGRX
 
 # SOME OF MY UNUSED ALIAS's
 #######################################################
-
-# alias d=`echo "Good Morning Dave. today's date is" | festival --tts; date +'%A %B %e' | festival --tts`
-# alias shrink84='/home/crouse/shrink84/shrink84.sh'
-# alias tl='tail -f /var/log/apache/access.log'
-# alias te='tail -f /var/log/apache/error.log'
-
 
 # SPECIAL FUNCTIONS
 #######################################################
@@ -266,13 +252,6 @@ sleep .02
 echo -ne "${RED}\b+${NC}"
 }
 
-# scpsend ()
-# {
-# scp -P PORTNUMBERHERE "$@"
-# USERNAME@YOURWEBSITE.com:/var/www/html/pathtodirectoryonremoteserver/;
-# }
-
-
 # NOTES
 #######################################################
 
@@ -289,9 +268,7 @@ echo -ne "${RED}\b+${NC}"
 #######################################################
 
 clear
-#for i in `seq 1 15` ; do spin; done ;echo -ne "${WHITE} USA Linux Users
 #Group ${NC}"; for i in `seq 1 15` ; do spin; done ;echo "";
-echo -e ${LIGHTBLUE}`cat /etc/SUSE-release` ;
 echo -e "Kernel Information: " `uname -smr`;
 echo -e ${LIGHTBLUE}`bash --version`;echo ""
 echo -ne "Hello $USER today is "; date
@@ -300,22 +277,9 @@ echo -ne "${CYAN}";netinfo;
 mountedinfo ; echo ""
 echo -ne "${LIGHTBLUE}Uptime for this computer is ";uptime | awk /'up/
 {print $3,$4}'
-#for i in `seq 1 15` ; do spin; done ;echo -ne "${WHITE} http://usalug.org
-#${NC}"; for i in `seq 1 15` ; do spin; done ;echo "";
 echo ""; echo ""
 
-
-
-
-
-
-
-
-
-
 export CLICOLOR=exfxcxdxbxegedabagacad
-alias cupq="cvs up 2>&1 |  egrep -hi '^[CM]'"
-echo -e $GREEN
 
 function convtags() { cp tags tags.uni ;  iconv -c -t WINDOWS-1251//IGNORE tags.uni > tags ; }
 if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
