@@ -236,6 +236,6 @@
 [submodule "bundle/clang_comp"]
 	path = bundle/clang_comp
 	url = https://github.com/exclipy/clang_complete.git
-[submodule "bundle/slime"]
-	path = bundle/slime
-	url = https://github.com/jpalardy/vim-slime.git
+[submodule "bundle/slimecf"]
+	path = bundle/slimecf
+	url = git@github.com:christfo/vim-slime.git
