@@ -27,14 +27,14 @@ set hlsearch
 set smartcase
 set wildmenu
 set hidden
-set switchbuf=useopen,usetab,newtab
+set switchbuf=useopen,usetab ",newtab
 set backspace=indent,eol,start
 set cindent shiftwidth=4  " set auto-indenting num columns
 set softtabstop=4       " <tab> inserts 2 spaces (etc...)
 set cmdheight=2
 set laststatus=2
 let mapleader=","
-set history=5000
+set history=55000
 set wildmode=list:longest
 set scrolloff=3
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp
