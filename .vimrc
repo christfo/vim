@@ -49,6 +49,7 @@ set numberwidth=4
 set undofile
 set undolevels=1000
 set undoreload=10000
+set spell
 
 " swap tag following shortcuts to show list by default
 set tags=tags

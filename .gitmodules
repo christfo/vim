@@ -26,10 +26,6 @@
 	path = bundle/textile.vim
 	url = https://github.com/timcharper/textile.vim.git
         ignore = dirty
-[submodule "bundle/vim-rspec"]
-	path = bundle/vim-rspec
-	url = https://github.com/taq/vim-rspec.git
-        ignore = dirty
 [submodule "bundle/vim-markdown"]
 	path = bundle/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
