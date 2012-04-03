@@ -354,7 +354,7 @@ nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>co :copen<cr>:cfile<up><cr> 
 " nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
-nnoremap <leader>fd :cfile ./autotest.txt<cr> :compiler rspec <cr>
+nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>
 
 
 let MRU_Max_Entries = 400
