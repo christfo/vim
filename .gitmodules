@@ -235,3 +235,6 @@
 [submodule "bundle/slimecf"]
 	path = bundle/slimecf
 	url = git@github.com:christfo/vim-slime.git
+[submodule "bundle/cuteError"]
+	path = bundle/cuteError
+	url = https://github.com/Twinside/vim-cuteErrorMarker.git
