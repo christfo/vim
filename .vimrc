@@ -150,6 +150,7 @@ function! To_Tmux()
 endfunction
 
 cmap tt :call To_Tmux()<CR>
+cmap rr :call To_Tmux()<CR><c-p><cr>
 
 " Open and close all three plugins at same time
 nmap <F8> : TrinityToggleAll<CR>
@@ -352,9 +353,9 @@ nnoremap <leader>dc :DiffSavedOff<cr>
 nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
-nnoremap <leader>co :copen<cr>:cfile<up><cr> 
+nnoremap <leader>co :copen<cr>:cfile<up><cr>:MarkErrors<CR> 
 " nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
-nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>
+nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:MarkErrors<CR>
 
 
 let MRU_Max_Entries = 400
@@ -382,7 +383,7 @@ call arpeggio#map('n', 's', 0, 'lf', ':LustyFilesystemExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lb', ':LustyBufferExplorer<CR>')
 call arpeggio#map('n', 's', 0, 'lg', ':LustyBufferGrep<CR>')
 call arpeggio#map('n',  's', 0, 'wf', '<c-w>F')
-call arpeggio#map('n',  's', 0, 'co', ':copen<CR>:cfile<Up><CR>')
+call arpeggio#map('n',  's', 0, 'co', ':cfile<Up><CR>:copen<CR>:MarkErrors<CR>')
 call arpeggio#map('n',  '', 0, 'ta', ':Tabularize /')
 call arpeggio#map('n',  's', 0, 'du', ':diffupdate<CR>')
 call arpeggio#map('n',  's', 0, 'do', ':DiffSaved<CR>')
