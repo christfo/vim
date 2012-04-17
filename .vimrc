@@ -58,6 +58,11 @@ vnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
+" add the missing commands
+nnoremap Y yt$
+
+
+
 " Emacs style command line edit (Oh the shame of it!)
 :set <M-B>=b
 :set <M-F>=f
