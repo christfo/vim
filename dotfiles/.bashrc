@@ -286,3 +286,5 @@ if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
 if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator/scripts/tmuxinator ; fi
 
 # . tmuxinator_completion
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

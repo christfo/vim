@@ -154,8 +154,8 @@ function! To_Tmux()
   call <SID>SlimeSend(b:text . "\\r")
 endfunction
 
-cmap tt :call To_Tmux()<CR>
-cmap rr :call To_Tmux()<CR><c-p><cr>
+" cmap tt :call To_Tmux()<CR>
+" cmap rr :call To_Tmux()<CR><c-p><cr>
 
 " Open and close all three plugins at same time
 nmap <F8> : TrinityToggleAll<CR>
