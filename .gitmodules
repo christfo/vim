@@ -231,4 +231,5 @@
 	url = https://github.com/Twinside/vim-cuteErrorMarker.git
 [submodule "bundle/yankring"]
 	path = bundle/yankring
-	url = git://github.com/vim-scripts/YankRing.vim.git
+	url = https://github.com/vim-scripts/YankRing.vim.git
+
