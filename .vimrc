@@ -51,6 +51,8 @@ set undolevels=1000
 set undoreload=10000
 set spell
 
+hi MatchParen cterm=bold ctermbg=none ctermfg=green
+
 " swap tag following shortcuts to show list by default
 set tags=tags
 nnoremap <c-]> g<c-]>
