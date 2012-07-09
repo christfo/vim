@@ -63,7 +63,8 @@ vnoremap g<c-]> <c-]>
 " add the missing commands
 nnoremap Y yf$
 
-
+" select last paste in visual mode
+nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Emacs style command line edit (Oh the shame of it!)
 :set <M-B>=b
@@ -360,6 +361,7 @@ nnoremap <leader>dc :DiffSavedOff<cr>
 nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
+let g:cuteErrorMarkerBrutalSignRemoval=1
 nnoremap <leader>co :copen<cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 " nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
