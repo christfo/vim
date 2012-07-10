@@ -1,5 +1,6 @@
 filetype plugin off " We switch it back on again later, but off for pathogen to get a lookin
 filetype off
+autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
 let g:pathogen_disabled = []
 " call add(g:pathogen_disabled, 'statuslineHighlight' )
@@ -415,7 +416,6 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 "     " let g:SuperTabMappingForward = '<c-j>'
 "     " let g:SuperTabMappingBackward = '<c-k>'
 " " }
-autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
 nnoremap <F5> :GundoToggle<CR>
