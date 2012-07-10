@@ -96,6 +96,9 @@ nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 " delete forward word
 :cnoremap <M-D>             <S-Right><C-W>
 
+:nnoremap [t :tabp<cr>
+:nnoremap ]t :tabn<cr>
+
 nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>    "   's'   symbol: find all references to the token under cursor         
 nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>    "   'g'   global: find global definition(s) of the token under cursor    
 nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>    "   'c'   calls:  find all calls to the function name under cursor       
