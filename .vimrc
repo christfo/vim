@@ -4,6 +4,7 @@ autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
 let g:pathogen_disabled = []
 " call add(g:pathogen_disabled, 'statuslineHighlight' )
+call add(g:pathogen_disabled, 'miniscm')
 call add(g:pathogen_disabled, 'syntastic')
 call add(g:pathogen_disabled, 'taghighlight' )
 call add(g:pathogen_disabled, 'clang_comp' ) " not quite ready for the prime time yet.
