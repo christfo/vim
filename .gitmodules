@@ -226,10 +226,6 @@
 [submodule "bundle/cuteError"]
 	path = bundle/cuteError
 	url = https://github.com/Twinside/vim-cuteErrorMarker.git
-[submodule "bundle/yankring"]
-	path = bundle/yankring
-	url = https://github.com/vim-scripts/YankRing.vim.git
-
 [submodule "vim-slime"]
 	path = vim-slime
 	url = https://github.com/jpalardy/vim-slime.git
@@ -239,3 +235,6 @@
 [submodule "bundle/avim"]
 	path = bundle/avim
 	url = https://github.com/vim-scripts/a.vim.git
+[submodule "bundle/yankring"]
+	path = bundle/yankring
+	url = https://github.com/vim-scripts/YankRing.vim.git
