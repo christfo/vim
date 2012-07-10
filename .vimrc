@@ -27,7 +27,7 @@ set hlsearch
 set smartcase
 set wildmenu
 set hidden
-set switchbuf=useopen,usetab ",newtab
+set switchbuf=useopen,usetab,newtab
 set backspace=indent,eol,start
 set cindent shiftwidth=4  " set auto-indenting num columns
 set softtabstop=4       " <tab> inserts 2 spaces (etc...)
@@ -51,7 +51,6 @@ set undolevels=1000
 set undoreload=10000
 set spell
 
-hi MatchParen cterm=bold ctermbg=none ctermfg=green
 
 " swap tag following shortcuts to show list by default
 set tags=tags
@@ -396,13 +395,14 @@ call arpeggio#map('n',  's', 0, 'du', ':diffupdate<CR>')
 call arpeggio#map('n',  's', 0, 'do', ':DiffSaved<CR>')
 call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 
- 
- 
+
 " :set completeopt+=longest,menuone
-" " :let g:SuperTabDefaultCompletionType = 'context'
+:let g:SuperrTabDefaultCompletionType = 'context'
 " " :let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
 :let g:SuperTabLongestEnhanced = 1
 :let g:SuperTabCrMapping = 0
+:let g:SuperTabMappingForward = '<s-tab>'
+:let g:SuperTabMappingBackward = '<tab>'
 
 " " SuperTab {
 "     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
@@ -410,11 +410,10 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 "     let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 "     let g:SuperTabContextDiscoverDiscovery =
 "         \ ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-u>"]
-"     let g:SuperTabMappingForward = '<tab>'
-"     let g:SuperTabMappingBackward = '<s-tab>'
 "     " let g:SuperTabMappingForward = '<c-j>'
 "     " let g:SuperTabMappingBackward = '<c-k>'
 " " }
+autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
 nnoremap <F5> :GundoToggle<CR>
