@@ -4,6 +4,8 @@ autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
 let g:pathogen_disabled = []
 " call add(g:pathogen_disabled, 'statuslineHighlight' )
+call add(g:pathogen_disabled, 'snipmate')
+call add(g:pathogen_disabled, 'supertab')
 call add(g:pathogen_disabled, 'miniscm')
 call add(g:pathogen_disabled, 'syntastic')
 call add(g:pathogen_disabled, 'taghighlight' )
@@ -17,6 +19,125 @@ runtime macros/machit.vim
 syntax on
 filetype plugin indent on
 
+nmap <C-H>  <C-W>h
+nmap <C-J>  <C-W>j
+nmap <C-K>  <C-W>k
+nmap <C-L>  <C-W>l
+
+
+" set completeopt+=longest
+set completeopt+=longest,menuone
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+  let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
+" <TAB>: completion.
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+" SuperTab like snippets behavior.
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-p>" : "\<s-TAB>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+" let g:neocomplcache_enable_at_startup = 1
+" let g:neocomplcache_enable_smart_case = 1
+" let g:neocomplcache_enable_camel_case_completion = 1
+" let g:neocomplcache_enable_underbar_completion = 1
+" let g:neocomplcache_enable_auto_select = 0
+" let g:neocomplcache_snippets_dir='~/.vim/bundle/snippets'
+" " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" " inoremap <silent><CR>  <C-R>=neocomplcache#smart_close_popup()<CR><CR>
+" " <TAB>: completion.
+" " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" " <C-h>, <BS>: close popup and delete backword char.
+" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+" inoremap <expr><C-y>  neocomplcache#close_popup()
+" " inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" " AutoComplPop like behavior.
+" " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" :  pumvisible() ? "\<C-n>" : "\<TAB>"
+" imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
+" smap  <tab>  <right><plug>(neocomplcache_snippets_jump) 
+" inoremap <expr><c-e>     neocomplcache#complete_common_string()
+
+" :let g:SuperrTabDefaultCompletionType = 'context'
+" :let g:SuperTabLongestEnhanced = 1
+" :let g:SuperTabCrMapping = 0
+" :let g:SuperTabMappingForward = '<s-tab>'
+" :let g:SuperTabMappingBackward = '<tab>'
+
+" " SuperTab {
+"     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+"     let g:SuperTabCompletionContexts = ['s:ContextDiscover', 's:ContextText']
+"     let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+"     let g:SuperTabContextDiscoverDiscovery =
+"         \ ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-u>"]
+"     " let g:SuperTabMappingForward = '<c-j>'
+"     " let g:SuperTabMappingBackward = '<c-k>'
+" " }
 "colorscheme harlequin
 colorscheme molokai
 set nocompatible
@@ -203,33 +324,6 @@ let g:SrcExpl_isUpdateTags = 1
 " // update a tags file 
 let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
 
-set completeopt+=longest
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 1
-" inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" inoremap <silent><CR>  <C-R>=neocomplcache#smart_close_popup()<CR><CR>
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" AutoComplPop like behavior.
-let g:neocomplcache_enable_auto_select = 0
-let  g:neocomplcache_snippets_dir='~/.vim/bundle/snippets'
-" imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" :  pumvisible() ? "\<C-n>" : "\<TAB>"
-imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
-smap  <tab>  <right><plug>(neocomplcache_snippets_jump) 
-inoremap <expr><c-e>     neocomplcache#complete_common_string()
-
-nmap <C-H>  <C-W>h
-nmap <C-J>  <C-W>j
-nmap <C-K>  <C-W>k
-nmap <C-L>  <C-W>l
-
 " let g:clang_auto_select=1
 " let g:clang_complete_auto=0
 " let g:clang_complete_copen=1
@@ -402,24 +496,6 @@ call arpeggio#map('n',  's', 0, 'du', ':diffupdate<CR>')
 call arpeggio#map('n',  's', 0, 'do', ':DiffSaved<CR>')
 call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 
-
-" :set completeopt+=longest,menuone
-:let g:SuperrTabDefaultCompletionType = 'context'
-" " :let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-:let g:SuperTabLongestEnhanced = 1
-:let g:SuperTabCrMapping = 0
-:let g:SuperTabMappingForward = '<s-tab>'
-:let g:SuperTabMappingBackward = '<tab>'
-
-" " SuperTab {
-"     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-"     let g:SuperTabCompletionContexts = ['s:ContextDiscover', 's:ContextText']
-"     let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-"     let g:SuperTabContextDiscoverDiscovery =
-"         \ ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-u>"]
-"     " let g:SuperTabMappingForward = '<c-j>'
-"     " let g:SuperTabMappingBackward = '<c-k>'
-" " }
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
 nnoremap <F5> :GundoToggle<CR>
