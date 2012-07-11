@@ -68,12 +68,16 @@ inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
 " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 " SuperTab like snippets behavior.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <silent><expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 imap <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-p>" : "\<s-TAB>"
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" imap <silent><expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-e>" : "\<TAB>"
+" smap  <tab>  <right><plug>(neocomplcache_snippets_jump) 
+" inoremap <expr><C-e>  neocomplcache#complete_common_string()
+"
 
 " AutoComplPop like behavior.
 "let g:neocomplcache_enable_auto_select = 1
@@ -184,6 +188,10 @@ vnoremap g<c-]> <c-]>
 
 " add the missing commands
 nnoremap Y yf$
+
+" paste most recent
+cmap <c-r><c-r>  <c-r>"
+imap <c-r><c-r>  <c-r>"
 
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
