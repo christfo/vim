@@ -3,14 +3,12 @@ filetype off
 autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
 let g:pathogen_disabled = []
-" call add(g:pathogen_disabled, 'statuslineHighlight' )
 call add(g:pathogen_disabled, 'snipmate')
 call add(g:pathogen_disabled, 'supertab')
 call add(g:pathogen_disabled, 'miniscm')
 call add(g:pathogen_disabled, 'syntastic')
 call add(g:pathogen_disabled, 'taghighlight' )
 call add(g:pathogen_disabled, 'clang_comp' ) " not quite ready for the prime time yet.
-" call add(g:pathogen_disabled, 'supertab' )
 call add(g:pathogen_disabled, 'ultisnips' )
 call pathogen#helptags() 
 call pathogen#runtime_append_all_bundles() 
@@ -26,20 +24,17 @@ nmap <C-L>  <C-W>l
 
 
 " set completeopt+=longest
-set completeopt+=longest,menuone
-" Disable AutoComplPop.
+" set completeopt+=longest,menuone
 let g:acp_enableAtStartup = 0
-" Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
+let g:neocomplcache_enable_ignore_case = 0
 let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
 let g:neocomplcache_enable_underbar_completion = 1
-" Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -54,40 +49,19 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup()."\<CR>"
-" <TAB>: completion.
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-" SuperTab like snippets behavior.
-imap <silent><expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-imap <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-p>" : "\<s-TAB>"
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" imap <silent><expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-e>" : "\<TAB>"
-" smap  <tab>  <right><plug>(neocomplcache_snippets_jump) 
-" inoremap <expr><C-e>  neocomplcache#complete_common_string()
-"
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" inoremap   <expr><CR>   neocomplcache#smart_close_popup()."\<CR>"
+inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr> " avoid messing with endwise
+inoremap   <expr><C-g>   neocomplcache#undo_completion()
+inoremap   <expr><C-l>   neocomplcache#complete_common_string()
+inoremap   <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
+inoremap   <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
+inoremap   <expr><C-y>   neocomplcache#close_popup()
+inoremap   <expr><C-e>   neocomplcache#cancel_popup()
+imap       <expr><TAB>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
+imap       <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
+imap       <C-k>         <Plug>(neocomplcache_snippets_expand)
+smap       <C-k>         <Plug>(neocomplcache_snippets_expand)
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -101,40 +75,20 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
-" let g:neocomplcache_enable_at_startup = 1
-" let g:neocomplcache_enable_smart_case = 1
-" let g:neocomplcache_enable_camel_case_completion = 1
-" let g:neocomplcache_enable_underbar_completion = 1
-" let g:neocomplcache_enable_auto_select = 0
-" let g:neocomplcache_snippets_dir='~/.vim/bundle/snippets'
-" " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" " inoremap <silent><CR>  <C-R>=neocomplcache#smart_close_popup()<CR><CR>
-" " <TAB>: completion.
-" " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" " <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><C-y>  neocomplcache#close_popup()
-" " inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" " AutoComplPop like behavior.
-" " imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" :  pumvisible() ? "\<C-n>" : "\<TAB>"
-" imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
-" smap  <tab>  <right><plug>(neocomplcache_snippets_jump) 
-" inoremap <expr><c-e>     neocomplcache#complete_common_string()
 
-" :let g:SuperrTabDefaultCompletionType = 'context'
-" :let g:SuperTabLongestEnhanced = 1
-" :let g:SuperTabCrMapping = 0
-" :let g:SuperTabMappingForward = '<s-tab>'
-" :let g:SuperTabMappingBackward = '<tab>'
+""  SuperTab {
+"      let g:SuperTabDefaultCompletionType = ' <c-x><c-o> '
+"      :let g:SuperrTabDefaultCompletionType = 'context'
+"      :let g:SuperTabLongestEnhanced = 1
+"      :let g:SuperTabCrMapping = 0
+"      :let g:SuperTabMappingForward = '<s-tab>'
+"      :let g:SuperTabMappingBackward = '<tab>'
 
-" " SuperTab {
-"     " let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 "     let g:SuperTabCompletionContexts = ['s:ContextDiscover', 's:ContextText']
 "     let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 "     let g:SuperTabContextDiscoverDiscovery =
@@ -142,7 +96,7 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 "     " let g:SuperTabMappingForward = '<c-j>'
 "     " let g:SuperTabMappingBackward = '<c-k>'
 " " }
-"colorscheme harlequin
+
 colorscheme molokai
 set nocompatible
 set t_Co=256
@@ -154,7 +108,7 @@ set hlsearch
 set smartcase
 set wildmenu
 set hidden
-set switchbuf=useopen,usetab,newtab
+set switchbuf=useopen,usetab
 set backspace=indent,eol,start
 set cindent shiftwidth=4  " set auto-indenting num columns
 set softtabstop=4       " <tab> inserts 2 spaces (etc...)
@@ -187,7 +141,7 @@ nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
 " add the missing commands
-nnoremap Y yf$
+map Y yf$
 
 " paste most recent
 cmap <c-r><c-r>  <c-r>"
@@ -272,7 +226,9 @@ endfunction
 highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=46  ctermbg=238 gui=bold,reverse guifg=darkgreen guibg=#444444
 highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=214                  guifg=#857b6f guibg=#444444
 
-set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
+" the fugative statusline cds to current buffer, so disable for now
+" set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
+set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
 
 :set cino+=g0             " place C++ scope declarations at start of line
 :set cino+=t0             " place function return_type decl at start of line
@@ -298,7 +254,7 @@ nmap <F8> : TrinityToggleAll<CR>
 
 " Open and close srcExplr, taglist and NERD_tree individually
 nmap <F7> : SrcExplToggle<CR>
-nmap <F6> : TlistToggle<CR>
+nmap <F6> : TagbarToggle<CR>
 
 let g:SrcExpl_winHeight = 8 
 
@@ -331,29 +287,6 @@ let g:SrcExpl_isUpdateTags = 1
 " // Use program 'ctags' with argument  '--sort=foldcase -R' to create or 
 " // update a tags file 
 let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-
-" let g:clang_auto_select=1
-" let g:clang_complete_auto=0
-" let g:clang_complete_copen=1
-" let g:clang_hl_errors=1
-" let g:clang_periodic_quickfix=0
-" let g:clang_snippets=1
-" let g:clang_snippets_engine="clang_complete"
-" let g:clang_conceal_snippets=1
-" let g:clang_exec="clang"
-" let g:clang_user_options=""
-" let g:clang_auto_user_options="path, .clang_complete"
-" let g:clang_use_library=1
-" let g:clang_library_path="/usr/local/lib/" " /libclang.so
-" let g:clang_sort_algo="priority"
-" let g:clang_complete_macros=1
-" let g:clang_complete_patterns=0
-" nnoremap <Leader>q :call g:ClangUpdateQuickFix()<CR>
-
-" let g:clic_filename="../clangindex/index.db"
-" nnoremap <Leader>r :call ClangGetReferences()<CR>
-" nnoremap <Leader>d :call ClangGetDeclarations()<CR>
-" nnoremap <Leader>s :call ClangGetSubclasses()<CR>
 
 
 """"""""""""""""""""""""""""""
