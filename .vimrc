@@ -21,7 +21,7 @@ nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
-
+cmap ack  Ack
 
 " set completeopt+=longest
 " set completeopt+=longest,menuone
@@ -51,7 +51,8 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 
 " inoremap   <expr><CR>   neocomplcache#smart_close_popup()."\<CR>"
-inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr> " avoid messing with endwise
+ " avoid messing with endwise
+inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
 inoremap   <expr><C-g>   neocomplcache#undo_completion()
 inoremap   <expr><C-l>   neocomplcache#complete_common_string()
 inoremap   <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
