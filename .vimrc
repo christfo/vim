@@ -21,6 +21,7 @@ nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
+cmap ack  Ack
 
 
 " set completeopt+=longest
@@ -49,19 +50,18 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-
-" inoremap   <expr><CR>   neocomplcache#smart_close_popup()."\<CR>"
-inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr> " avoid messing with endwise
+inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
 inoremap   <expr><C-g>   neocomplcache#undo_completion()
 inoremap   <expr><C-l>   neocomplcache#complete_common_string()
 inoremap   <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><C-y>   neocomplcache#close_popup()
-inoremap   <expr><C-e>   neocomplcache#cancel_popup()
+inoremap   <expr><C-e>   pumvisible() ? neocomplcache#cancel_popup() : "\<Right>"
 imap       <expr><TAB>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
 imap       <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
 imap       <C-k>         <Plug>(neocomplcache_snippets_expand)
 smap       <C-k>         <Plug>(neocomplcache_snippets_expand)
+
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -78,24 +78,7 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
-
-""  SuperTab {
-"      let g:SuperTabDefaultCompletionType = ' <c-x><c-o> '
-"      :let g:SuperrTabDefaultCompletionType = 'context'
-"      :let g:SuperTabLongestEnhanced = 1
-"      :let g:SuperTabCrMapping = 0
-"      :let g:SuperTabMappingForward = '<s-tab>'
-"      :let g:SuperTabMappingBackward = '<tab>'
-
-"     let g:SuperTabCompletionContexts = ['s:ContextDiscover', 's:ContextText']
-"     let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-"     let g:SuperTabContextDiscoverDiscovery =
-"         \ ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-u>"]
-"     " let g:SuperTabMappingForward = '<c-j>'
-"     " let g:SuperTabMappingBackward = '<c-k>'
-" " }
 
 colorscheme molokai
 set nocompatible
@@ -250,11 +233,12 @@ endfunction
 " cmap rr :call To_Tmux()<CR><c-p><cr>
 
 " Open and close all three plugins at same time
-nmap <F8> : TrinityToggleAll<CR>
+nnoremap <F8> : TrinityToggleAll<CR>
 
 " Open and close srcExplr, taglist and NERD_tree individually
-nmap <F7> : SrcExplToggle<CR>
-nmap <F6> : TagbarToggle<CR>
+nnoremap <F7> : SrcExplToggle<CR>
+nnoremap <F6> : TagbarToggle<CR>
+nnoremap <F5> :GundoToggle<CR>
 
 let g:SrcExpl_winHeight = 8 
 
@@ -439,7 +423,6 @@ call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
-nnoremap <F5> :GundoToggle<CR>
 " If you are using a console version of Vim, or dealing
 " with a file that changes externally (e.g. a web server log)
 " then Vim does not always check to see if the file has been changed.
