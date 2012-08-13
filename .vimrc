@@ -23,6 +23,8 @@ nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
 cmap ack  Ack
 
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
 
 " set completeopt+=longest
 " set completeopt+=longest,menuone
@@ -51,16 +53,16 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
-inoremap   <expr><C-g>   neocomplcache#undo_completion()
+inoremap   <expr><C-g>   pumvisible() ? neocomplcache#undo_completion() : "\<c-g>"
 inoremap   <expr><C-l>   neocomplcache#complete_common_string()
 inoremap   <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><C-y>   neocomplcache#close_popup()
-inoremap   <expr><C-e>   pumvisible() ? neocomplcache#cancel_popup() : "\<Right>"
+inoremap   <expr><C-e>   pumvisible() ? neocomplcache#smart_close_popup() : "\<c-e>"
 imap       <expr><TAB>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
 imap       <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
-imap       <C-k>         <Plug>(neocomplcache_snippets_expand)
-smap       <C-k>         <Plug>(neocomplcache_snippets_expand)
+imap       <C-k>          <Plug>(neocomplcache_snippets_expand) 
+smap       <C-k>          <Plug>(neocomplcache_snippets_expand) 
 
 
 " Enable omni completion.
