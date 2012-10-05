@@ -58,7 +58,7 @@ inoremap   <expr><C-l>   neocomplcache#complete_common_string()
 inoremap   <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><C-y>   neocomplcache#close_popup()
-inoremap   <expr><C-e>   pumvisible() ? neocomplcache#smart_close_popup() : "\<c-e>"
+inoremap   <expr><C-e>   pumvisible() ? neocomplcache#smart_close_popup() : "\<c-o>h\<c-o>e\<c-o>l"
 imap       <expr><TAB>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
 imap       <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
 imap       <C-k>          <Plug>(neocomplcache_snippets_expand) 
@@ -128,7 +128,7 @@ nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
 " add the missing commands
-map Y yf$
+nnoremap Y yf$
 
 " paste most recent
 cmap <c-r><c-r>  <c-r>"
@@ -389,7 +389,7 @@ nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 let g:cuteErrorMarkerBrutalSignRemoval=1
-nnoremap <leader>co :copen<cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
+nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 " nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
