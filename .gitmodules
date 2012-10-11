@@ -253,3 +253,6 @@
 [submodule "bundle/yankring"]
 	path = bundle/yankring
 	url = https://github.com/vim-scripts/YankRing.vim.git
+[submodule "bundle/cscope"]
+	path = bundle/cscope
+	url = https://github.com/brookhong/cscope.vim.git
