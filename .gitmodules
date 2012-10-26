@@ -199,9 +199,6 @@
 [submodule "bundle/golang"]
 	path = bundle/golang
 	url = https://github.com/jnwhiteh/vim-golang.git
-[submodule "bundle/taghighlight"]
-	path = bundle/taghighlight
-	url = https://github.com/abudden/TagHighlight.git
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
 	url = https://github.com/rygwdn/ultisnips.git
@@ -253,3 +250,6 @@
 [submodule "bundle/cscope"]
 	path = bundle/cscope
 	url = https://github.com/brookhong/cscope.vim.git
+[submodule "bundle/neosnippet"]
+	path = bundle/neosnippet
+	url = https://github.com/Shougo/neosnippet.git
