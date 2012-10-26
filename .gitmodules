@@ -244,9 +244,6 @@
 [submodule "bundle/showmarks"]
 	path = bundle/showmarks
 	url = https://github.com/juanpabloaj/ShowMarks.git
-[submodule "bundle/neocomplcache-snippets"]
-	path = bundle/neocomplcache-snippets
-	url = https://github.com/Shougo/neocomplcache-snippets-complete
 [submodule "bundle/foldsearch"]
 	path = bundle/foldsearch
 	url = https://github.com/vim-scripts/foldsearch.git
