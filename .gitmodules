@@ -256,3 +256,9 @@
 [submodule "bundle/easy_grep"]
 	path = bundle/easy_grep
 	url = https://github.com/vim-scripts/EasyGrep.git
+[submodule "bundle/powerline"]
+	path = bundle/powerline
+	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "dotfiles/tmux-powerline"]
+	path = dotfiles/tmux-powerline
+	url = https://github.com/erikw/tmux-powerline.git
