@@ -219,7 +219,8 @@ highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=
 
 " the fugative statusline cds to current buffer, so disable for now
 " set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
-set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
+" set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
+set statusline=\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
 
 :set cino+=g0             " place C++ scope declarations at start of line
 :set cino+=t0             " place function return_type decl at start of line
