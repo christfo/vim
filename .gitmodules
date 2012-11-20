@@ -223,9 +223,6 @@
 [submodule "bundle/cuteError"]
 	path = bundle/cuteError
 	url = https://github.com/Twinside/vim-cuteErrorMarker.git
-[submodule "vim-slime"]
-	path = vim-slime
-	url = https://github.com/jpalardy/vim-slime.git
 [submodule "bundle/vim-slime"]
 	path = bundle/vim-slime
 	url = https://github.com/jpalardy/vim-slime.git
@@ -253,3 +250,9 @@
 [submodule "bundle/neosnippet"]
 	path = bundle/neosnippet
 	url = https://github.com/Shougo/neosnippet.git
+[submodule "bundle/mercenary"]
+	path = bundle/mercenary
+	url = https://github.com/phleet/vim-mercenary.git
+[submodule "bundle/cmake_project"]
+	path = bundle/cmake_project
+	url = https://github.com/vim-scripts/vim-cmake-project.git

@@ -7,6 +7,7 @@ call add(g:pathogen_disabled, 'snipmate')
 call add(g:pathogen_disabled, 'supertab')
 call add(g:pathogen_disabled, 'miniscm')
 call add(g:pathogen_disabled, 'syntastic')
+call add(g:pathogen_disabled, 'neosnippet' )
 call add(g:pathogen_disabled, 'taghighlight' )
 call add(g:pathogen_disabled, 'clang_comp' ) " not quite ready for the prime time yet.
 call add(g:pathogen_disabled, 'ultisnips' )
@@ -59,8 +60,11 @@ inoremap   <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><C-y>   neocomplcache#close_popup()
 inoremap   <expr><C-e>   pumvisible() ? neocomplcache#smart_close_popup() : "\<c-o>h\<c-o>e\<c-o>l"
-imap       <expr><TAB>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
-imap       <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
+
+" imap       <expr><TAB>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
+" imap       <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
+imap       <expr><TAB>    pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
+imap       <expr><s-TAB>  pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
 imap       <C-k>          <Plug>(neocomplcache_snippets_expand) 
 smap       <C-k>          <Plug>(neocomplcache_snippets_expand) 
 
