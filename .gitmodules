@@ -151,9 +151,6 @@
 [submodule "bundle/qfixtoggle"]
 	path = bundle/qfixtoggle
 	url = https://github.com/sunaku/QFixToggle.git
-[submodule "bundle/easygrep"]
-	path = bundle/easygrep
-	url = https://github.com/gaving/vim-easygrep.git
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = https://github.com/ervandew/supertab.git
@@ -256,3 +253,6 @@
 [submodule "bundle/cmake_project"]
 	path = bundle/cmake_project
 	url = https://github.com/vim-scripts/vim-cmake-project.git
+[submodule "bundle/easy_grep"]
+	path = bundle/easy_grep
+	url = https://github.com/vim-scripts/EasyGrep.git
