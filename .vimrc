@@ -4,6 +4,7 @@ autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
 let g:pathogen_disabled = []
 call add(g:pathogen_disabled, 'snipmate')
+call add(g:pathogen_disabled, 'showmarks')
 call add(g:pathogen_disabled, 'supertab')
 call add(g:pathogen_disabled, 'miniscm')
 call add(g:pathogen_disabled, 'syntastic')
@@ -214,8 +215,8 @@ function! HasPaste()
     endif
 endfunction
 
-highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=46  ctermbg=238 gui=bold,reverse guifg=darkgreen guibg=#444444
-highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=214                  guifg=#857b6f guibg=#444444
+" highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=46  ctermbg=238 gui=bold,reverse guifg=darkgreen guibg=#444444
+" highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=214                  guifg=#857b6f guibg=#444444
 let g:Powerline_symbols = 'fancy'
 set statusline=%f    " Path.
 set statusline+=%m   " Modified flag.
