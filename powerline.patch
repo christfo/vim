@@ -1,0 +1,46 @@
+diff -rupN /home/chrisf/.vim.orig/bundle/powerline/autoload/Powerline/Colorschemes/default.vim bundle/vim-powerline/autoload/Powerline/Colorschemes/default.vim
+--- /home/chrisf/.vim.orig/bundle/powerline/autoload/Powerline/Colorschemes/default.vim	2012-12-04 10:46:56.958726420 +0000
++++ bundle/vim-powerline/autoload/Powerline/Colorschemes/default.vim	2012-12-04 11:06:43.142685346 +0000
+@@ -41,8 +41,8 @@ call Pl#Hi#Allocate({
+ 
+ let g:Powerline#Colorschemes#default#colorscheme = Pl#Colorscheme#Init([
+ 	\ Pl#Hi#Segments(['SPLIT'], {
+-		\ 'n': ['white', 'darkgreen'],
+-		\ 'N': ['white', 'gray2'],
++		\ 'n': ['white', 'gray2'],
++		\ 'N': ['white', 'gray0'],
+ 		\ 'i': ['white', 'darkestblue'],
+ 		\ }),
+ 	\
+@@ -79,8 +79,8 @@ let g:Powerline#Colorschemes#default#col
+ 		\ }),
+ 	\
+ 	\ Pl#Hi#Segments(['fileinfo.flags'], {
+-		\ 'n': ['brightestred', 'darkred',  ['bold']],
+-		\ 'N': ['brightestred', 'darkred',  ['bold']],
++		\ 'n': ['brightestred', ['bold']],
++		\ 'N': ['darkred'],
+ 		\ 'i': ['brightestred', ['bold']],
+ 		\ }),
+ 	\
+@@ -90,7 +90,7 @@ let g:Powerline#Colorschemes#default#col
+ 		\ }),
+ 	\
+ 	\ Pl#Hi#Segments(['lineinfo'], {
+-		\ 'n': ['darkgreen', 'gray10', ['bold']],
++		\ 'n': ['gray2', 'gray10', ['bold']],
+ 		\ 'N': ['gray7', 'gray1', ['bold']],
+ 		\ 'i': ['darkestcyan', 'mediumcyan', ['bold']],
+ 		\ }),
+diff -rupN /home/chrisf/.vim.orig/bundle/powerline/autoload/Powerline/Segments.vim bundle/vim-powerline/autoload/Powerline/Segments.vim
+--- /home/chrisf/.vim.orig/bundle/powerline/autoload/Powerline/Segments.vim	2012-12-04 10:46:56.926726422 +0000
++++ bundle/vim-powerline/autoload/Powerline/Segments.vim	2012-12-04 11:06:43.146685346 +0000
+@@ -8,7 +8,7 @@ let g:Powerline#Segments#segments = Pl#S
+ 		\ Pl#Segment#Create('flags.ro'    , '%{&readonly ? "$RO" : ""}'),
+ 		\ Pl#Segment#Create('filepath'    , '%{Powerline#Functions#GetFilepath()}', Pl#Segment#NoPadding()),
+ 		\ Pl#Segment#Create('filename'    , '%t'),
+-		\ Pl#Segment#Create('flags.mod'   , '%M!!!!!!!!!!!!!!!!!'),
++		\ Pl#Segment#Create('flags.mod'   , '%M'),
+ 		\ Pl#Segment#Create('flags.type'  , '%H%W'),
+ 	\ ),
+ 	\ Pl#Segment#Create('filename'        , '%t'),

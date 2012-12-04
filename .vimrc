@@ -287,20 +287,15 @@ set statusline=%f    " Path.
 set statusline+=%m   " Modified flag.
 set statusline+=%r   " Readonly flag.
 set statusline+=%w   " Preview window flag.
-
 set statusline+=\    " Space.
-
 set statusline+=%#redbar#                " Highlight the following as a warning.
 set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
 set statusline+=%*                           " Reset highlighting.
-
 set statusline+=%=   " Right align.
-
 " File format, encoding and type.  Ex: "(unix/utf-8/python)"
 set statusline+=(
 set statusline+=%{&ft}                        " Type (python).
 set statusline+=)
-
 " Line and column position and counts.
 set statusline+=\ (L%l\/%L,\ C%03c)
 
@@ -328,12 +323,9 @@ endfunction
 " cmap tt :call To_Tmux()<CR>
 " cmap rr :call To_Tmux()<CR><c-p><cr>
 
-" Open and close all three plugins at same time
-nnoremap <F8> : TrinityToggleAll<CR>
-
 " Open and close srcExplr, taglist and NERD_tree individually
-nnoremap <F7> : SrcExplToggle<CR>
-nnoremap <F6> : TagbarToggle<CR>
+nnoremap <F7> :SrcExplToggle<CR>
+nnoremap <F6> :TagbarToggle<CR>
 nnoremap <F5> :GundoToggle<CR>
 
 let g:SrcExpl_winHeight = 8 
