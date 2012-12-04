@@ -8,6 +8,7 @@ hgext.mq=
 hgext.purge=
 hgext.schemes=
 hgext.bookmarks=
+mercurial_keyring=
 hggit=
 relink=
 record=
