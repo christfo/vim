@@ -2,20 +2,106 @@ filetype plugin off " We switch it back on again later, but off for pathogen to 
 filetype off
 autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
-let g:pathogen_disabled = []
-call add(g:pathogen_disabled, 'snipmate')
-call add(g:pathogen_disabled, 'showmarks')
-call add(g:pathogen_disabled, 'supertab')
-call add(g:pathogen_disabled, 'miniscm')
-call add(g:pathogen_disabled, 'syntastic')
-call add(g:pathogen_disabled, 'neosnippet' )
-call add(g:pathogen_disabled, 'taghighlight' )
-call add(g:pathogen_disabled, 'clang_comp' ) " not quite ready for the prime time yet.
-call add(g:pathogen_disabled, 'ultisnips' )
-call pathogen#helptags() 
-call pathogen#runtime_append_all_bundles() 
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
 
-runtime macros/machit.vim
+Bundle 'git@github.com:christfo/thermometer'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'Raimondi/delimitMate'
+Bundle 'Shougo/neocomplcache'
+" Bundle 'Shougo/neosnippet'
+Bundle 'Twinside/vim-cuteErrorMarker'
+Bundle 'brookhong/cscope.vim'
+Bundle 'erikw/tmux-powerline'
+" Bundle 'ervandew/supertab'
+" Bundle 'garbas/vim-snipmate'
+Bundle 'godlygeek/tabular'
+Bundle 'jnwhiteh/vim-golang'
+Bundle 'jpalardy/vim-slime'
+" Bundle 'juanpabloaj/ShowMarks'
+Bundle 'kana/vim-arpeggio'
+Bundle 'kana/vim-textobj-user'
+Bundle 'majutsushi/tagbar'
+Bundle 'mileszs/ack.vim'
+Bundle 'nanliu/vim-puppet'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'nviennot/irb-config'
+Bundle 'othree/eregex.vim'
+Bundle 'phleet/vim-mercenary'
+Bundle 'pydave/powerline-sanity'
+" Bundle 'rygwdn/ultisnips'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/snipmate-snippets'
+" Bundle 'scrooloose/syntastic'
+Bundle 'sjbach/lusty'
+Bundle 'sjl/gundo.vim'
+Bundle 'sjl/threesome.vim'
+Bundle 'sunaku/QFixToggle'
+Bundle 'timcharper/textile.vim'
+Bundle 'tomasr/molokai'
+Bundle 'tomtom/quickfixsigns_vim'
+Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'vim-scripts/CVS-conflict-highlight'
+Bundle 'vim-scripts/Colortest'
+Bundle 'vim-scripts/DoxygenToolkit.vim'
+Bundle 'vim-scripts/EasyGrep'
+Bundle 'vim-scripts/Lawrencium'
+Bundle 'vim-scripts/Mark--Karkat'
+Bundle 'vim-scripts/QuickBuf'
+Bundle 'vim-scripts/ScmFrontEnd-former-name--MinSCM'
+Bundle 'vim-scripts/SearchCompl.vim'
+Bundle 'vim-scripts/Source-Explorer-srcexpl.vim'
+Bundle 'vim-scripts/TailMinusF'
+Bundle 'vim-scripts/The-Vim-Gardener'
+Bundle 'vim-scripts/YankRing.vim'
+Bundle 'vim-scripts/a.vim'
+" Bundle 'vim-scripts/clang'
+Bundle 'vim-scripts/compview'
+" Bundle 'vim-scripts/darkburn'
+Bundle 'vim-scripts/foldsearch'
+Bundle 'vim-scripts/grep.vim'
+" Bundle 'vim-scripts/inkpot'
+" Bundle 'vim-scripts/log.vim--Sunlight'
+Bundle 'vim-scripts/matchit.zip'
+Bundle 'vim-scripts/mru.vim'
+" Bundle 'vim-scripts/neverland.vim--All-colorschemes-suck'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'vim-scripts/tlib'
+Bundle 'vim-scripts/trinity.vim'
+Bundle 'vim-scripts/vcscommand.vim'
+Bundle 'vim-scripts/vim-cmake-project'
+Bundle 'vim-scripts/vim-json-bundle'
+
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :BundleInstall
+endif
+" Setting up Vundle - the vim plugin bundler end
 syntax on
 filetype plugin indent on
 
