@@ -50,6 +50,7 @@ Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-rsi'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-ragtag'
@@ -84,6 +85,8 @@ endif
 " Setting up Vundle - the vim plugin bundler end
 syntax on
 filetype plugin indent on
+runtime ftplugin/man.vim
+source $VIMRUNTIME/ftplugin/man.vim
 
 nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
@@ -207,35 +210,10 @@ imap <c-r><c-r>  <c-r>"
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" Emacs style command line edit (Oh the shame of it!)
-:set <M-B>=b
-:set <M-F>=f
-:set <M-D>=d
-:imap b <M-B>
-:imap f <M-F>
-:imap d <M-D>
-" start of line
-:cnoremap <C-A>             <Home>
-" back one character
-:cnoremap <C-B>             <Left>
-" delete character under cursor
-:cnoremap <C-D>             <Del>
-" end of line
-:cnoremap <C-E>             <End>
-" forward one character
-:cnoremap <C-F>             <Right>
-" recall newer command-line
+" " recall newer command-line
 :cnoremap <C-N>             <Down>
-" recall previous (older) command-line
+" " recall previous (older) command-line
 :cnoremap <C-P>             <Up>
-" back one word
-:cnoremap <Esc><C-B>        <S-Left>
-:cnoremap <M-B>             <S-Left>
-" forward one word
-:cnoremap <Esc><C-F>        <S-Right>
-:cnoremap <M-F>             <S-Right>
-" delete forward word
-:cnoremap <M-D>             <S-Right><C-W>
 
 :nnoremap [t :tabp<cr>
 :nnoremap ]t :tabn<cr>
@@ -280,8 +258,6 @@ function! HasPaste()
     endif
 endfunction
 
-" highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=46  ctermbg=238 gui=bold,reverse guifg=darkgreen guibg=#444444
-" highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=214                  guifg=#857b6f guibg=#444444
 let g:Powerline_symbols = 'fancy'
 set statusline=%f    " Path.
 set statusline+=%m   " Modified flag.
@@ -298,11 +274,6 @@ set statusline+=%{&ft}                        " Type (python).
 set statusline+=)
 " Line and column position and counts.
 set statusline+=\ (L%l\/%L,\ C%03c)
-
-" the fugative statusline cds to current buffer, so disable for now
-" set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
-" set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
-" set statusline=\ %{HasPaste()}%F%m%r%h%w\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
 
 :set cino+=g0             " place C++ scope declarations at start of line
 :set cino+=t0             " place function return_type decl at start of line
@@ -402,8 +373,6 @@ endfunction
  " map <End> to move to end of line
  " if at end of line, move to end of window
  " if at end of window, move to end of file
-" Really useful!
-" Really useful!
  nnoremap <silent> <End> :call SmartEnd("n")<CR>
  inoremap <silent> <End> <C-O>:call SmartEnd("i")<CR>
  vnoremap <silent> <end> <esc>:call smartend("v")<cr>
@@ -474,7 +443,6 @@ nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 let g:cuteErrorMarkerBrutalSignRemoval=1
 nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
-" nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
 
