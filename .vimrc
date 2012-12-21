@@ -2,20 +2,91 @@ filetype plugin off " We switch it back on again later, but off for pathogen to 
 filetype off
 autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
-let g:pathogen_disabled = []
-call add(g:pathogen_disabled, 'snipmate')
-call add(g:pathogen_disabled, 'supertab')
-call add(g:pathogen_disabled, 'miniscm')
-call add(g:pathogen_disabled, 'syntastic')
-call add(g:pathogen_disabled, 'taghighlight' )
-call add(g:pathogen_disabled, 'clang_comp' ) " not quite ready for the prime time yet.
-call add(g:pathogen_disabled, 'ultisnips' )
-call pathogen#helptags() 
-call pathogen#runtime_append_all_bundles() 
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
 
-runtime macros/machit.vim
+" Bundle 'scrooloose/syntastic'
+Bundle 'git@github.com:christfo/thermometer'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'Raimondi/delimitMate'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Twinside/vim-cuteErrorMarker'
+Bundle 'brookhong/cscope.vim'
+Bundle 'erikw/tmux-powerline'
+Bundle 'godlygeek/tabular'
+Bundle 'jnwhiteh/vim-golang'
+Bundle 'jpalardy/vim-slime'
+Bundle 'kana/vim-arpeggio'
+Bundle 'kana/vim-textobj-user'
+Bundle 'majutsushi/tagbar'
+Bundle 'mileszs/ack.vim'
+Bundle 'nanliu/vim-puppet'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'nviennot/irb-config'
+Bundle 'phleet/vim-mercenary'
+Bundle 'pydave/powerline-sanity'
+Bundle 'scrooloose/nerdtree'
+Bundle 'sjbach/lusty'
+Bundle 'sjl/gundo.vim'
+Bundle 'sjl/threesome.vim'
+Bundle 'sunaku/QFixToggle'
+Bundle 'timcharper/textile.vim'
+Bundle 'tomasr/molokai'
+Bundle 'tomtom/quickfixsigns_vim'
+Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-rsi'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'vim-scripts/Colortest'
+Bundle 'vim-scripts/EasyGrep'
+Bundle 'vim-scripts/Mark--Karkat'
+Bundle 'vim-scripts/QuickBuf'
+Bundle 'vim-scripts/SearchCompl.vim'
+Bundle 'vim-scripts/Source-Explorer-srcexpl.vim'
+Bundle 'vim-scripts/TailMinusF'
+Bundle 'vim-scripts/YankRing.vim'
+Bundle 'vim-scripts/a.vim'
+Bundle 'vim-scripts/foldsearch'
+Bundle 'vim-scripts/grep.vim'
+Bundle 'vim-scripts/matchit.zip'
+Bundle 'vim-scripts/mru.vim'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'vim-scripts/tlib'
+Bundle 'vim-scripts/vim-cmake-project'
+Bundle 'vim-scripts/vim-json-bundle'
+
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :BundleInstall
+endif
+" Setting up Vundle - the vim plugin bundler end
 syntax on
 filetype plugin indent on
+runtime ftplugin/man.vim
+source $VIMRUNTIME/ftplugin/man.vim
 
 nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
@@ -59,8 +130,11 @@ inoremap   <expr><C-h>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><BS>    neocomplcache#smart_close_popup()."\<C-h>"
 inoremap   <expr><C-y>   neocomplcache#close_popup()
 inoremap   <expr><C-e>   pumvisible() ? neocomplcache#smart_close_popup() : "\<c-o>h\<c-o>e\<c-o>l"
-imap       <expr><TAB>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
-imap       <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
+
+" imap       <expr><TAB>   neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
+" imap       <expr><s-TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
+imap       <expr><TAB>    pumvisible() ? neocomplcache#complete_common_string()."\<C-n>" : "\<TAB>"
+imap       <expr><s-TAB>  pumvisible() ? neocomplcache#complete_common_string()."\<C-p>" : "\<s-TAB>"
 imap       <C-k>          <Plug>(neocomplcache_snippets_expand) 
 smap       <C-k>          <Plug>(neocomplcache_snippets_expand) 
 
@@ -94,7 +168,6 @@ set virtualedit=onemore
 set hlsearch
 set smartcase
 set wildmenu
-set hidden
 set switchbuf=useopen,usetab
 set backspace=indent,eol,start
 set cindent shiftwidth=4  " set auto-indenting num columns
@@ -137,35 +210,10 @@ imap <c-r><c-r>  <c-r>"
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" Emacs style command line edit (Oh the shame of it!)
-:set <M-B>=b
-:set <M-F>=f
-:set <M-D>=d
-:imap b <M-B>
-:imap f <M-F>
-:imap d <M-D>
-" start of line
-:cnoremap <C-A>             <Home>
-" back one character
-:cnoremap <C-B>             <Left>
-" delete character under cursor
-:cnoremap <C-D>             <Del>
-" end of line
-:cnoremap <C-E>             <End>
-" forward one character
-:cnoremap <C-F>             <Right>
-" recall newer command-line
+" " recall newer command-line
 :cnoremap <C-N>             <Down>
-" recall previous (older) command-line
+" " recall previous (older) command-line
 :cnoremap <C-P>             <Up>
-" back one word
-:cnoremap <Esc><C-B>        <S-Left>
-:cnoremap <M-B>             <S-Left>
-" forward one word
-:cnoremap <Esc><C-F>        <S-Right>
-:cnoremap <M-F>             <S-Right>
-" delete forward word
-:cnoremap <M-D>             <S-Right><C-W>
 
 :nnoremap [t :tabp<cr>
 :nnoremap ]t :tabn<cr>
@@ -210,12 +258,22 @@ function! HasPaste()
     endif
 endfunction
 
-highlight StatusLine    term=bold,reverse cterm=bold,reverse ctermfg=46  ctermbg=238 gui=bold,reverse guifg=darkgreen guibg=#444444
-highlight StatusLineNC  term=reverse                         ctermfg=59 ctermbg=214                  guifg=#857b6f guibg=#444444
-
-" the fugative statusline cds to current buffer, so disable for now
-" set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ %{fugitive#statusline()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
-set statusline=\ %{HasPaste()}%F%m%r%h%w\ %{g:HgStatusForFile()}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CWD:\ %r%{CurDir()}%h\ \ \ %=%(%c%V\ \ Line:\ \ %l/%L\ \ %P%)
+let g:Powerline_symbols = 'fancy'
+set statusline=%f    " Path.
+set statusline+=%m   " Modified flag.
+set statusline+=%r   " Readonly flag.
+set statusline+=%w   " Preview window flag.
+set statusline+=\    " Space.
+set statusline+=%#redbar#                " Highlight the following as a warning.
+set statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+set statusline+=%*                           " Reset highlighting.
+set statusline+=%=   " Right align.
+" File format, encoding and type.  Ex: "(unix/utf-8/python)"
+set statusline+=(
+set statusline+=%{&ft}                        " Type (python).
+set statusline+=)
+" Line and column position and counts.
+set statusline+=\ (L%l\/%L,\ C%03c)
 
 :set cino+=g0             " place C++ scope declarations at start of line
 :set cino+=t0             " place function return_type decl at start of line
@@ -236,12 +294,9 @@ endfunction
 " cmap tt :call To_Tmux()<CR>
 " cmap rr :call To_Tmux()<CR><c-p><cr>
 
-" Open and close all three plugins at same time
-nnoremap <F8> : TrinityToggleAll<CR>
-
 " Open and close srcExplr, taglist and NERD_tree individually
-nnoremap <F7> : SrcExplToggle<CR>
-nnoremap <F6> : TagbarToggle<CR>
+nnoremap <F7> :SrcExplToggle<CR>
+nnoremap <F6> :TagbarToggle<CR>
 nnoremap <F5> :GundoToggle<CR>
 
 let g:SrcExpl_winHeight = 8 
@@ -318,8 +373,6 @@ endfunction
  " map <End> to move to end of line
  " if at end of line, move to end of window
  " if at end of window, move to end of file
-" Really useful!
-" Really useful!
  nnoremap <silent> <End> :call SmartEnd("n")<CR>
  inoremap <silent> <End> <C-O>:call SmartEnd("i")<CR>
  vnoremap <silent> <end> <esc>:call smartend("v")<cr>
@@ -390,7 +443,6 @@ nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 let g:cuteErrorMarkerBrutalSignRemoval=1
 nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
-" nnoremap <leader>co :cclose<cr>:cfile<up><cr>:copen<cr> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
 
@@ -601,4 +653,39 @@ endfunction
 
 " call WatchForChanges('*')
 
+command! -nargs=? -range Dec2hex call s:Dec2hex(<line1>, <line2>, '<args>')
+function! s:Dec2hex(line1, line2, arg) range
+  if empty(a:arg)
+    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+      let cmd = 's/\%V\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    else
+      let cmd = 's/\<\d\+\>/\=printf("0x%x",submatch(0)+0)/g'
+    endif
+    try
+      execute a:line1 . ',' . a:line2 . cmd
+    catch
+      echo 'Error: No decimal number found'
+    endtry
+  else
+    echo printf('%x', a:arg + 0)
+  endif
+endfunction
+
+command! -nargs=? -range Hex2dec call s:Hex2dec(<line1>, <line2>, '<args>')
+function! s:Hex2dec(line1, line2, arg) range
+  if empty(a:arg)
+    if histget(':', -1) =~# "^'<,'>" && visualmode() !=# 'V'
+      let cmd = 's/\%V0x\x\+/\=submatch(0)+0/g'
+    else
+      let cmd = 's/0x\x\+/\=submatch(0)+0/g'
+    endif
+    try
+      execute a:line1 . ',' . a:line2 . cmd
+    catch
+      echo 'Error: No hex number starting "0x" found'
+    endtry
+  else
+    echo (a:arg =~? '^0x') ? a:arg + 0 : ('0x'.a:arg) + 0
+  endif
+endfunction
 
