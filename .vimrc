@@ -6,11 +6,12 @@ autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
 if !filereadable(vundle_readme)
-    echo "Installing Vundle.."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
+
+  echo "Installing Vundle.."
+  echo ""
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+  let iCanHazVundle=0
 endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -58,6 +59,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-sleuth'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/Colortest'
 Bundle 'vim-scripts/EasyGrep'
@@ -78,9 +80,9 @@ Bundle 'vim-scripts/vim-cmake-project'
 Bundle 'vim-scripts/vim-json-bundle'
 
 if iCanHazVundle == 0
-    echo "Installing Bundles, please ignore key map error messages"
-    echo ""
-    :BundleInstall
+  echo "Installing Bundles, please ignore key map error messages"
+  echo ""
+  :BundleInstall
 endif
 " Setting up Vundle - the vim plugin bundler end
 syntax on
@@ -112,10 +114,10 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ }
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
@@ -171,7 +173,6 @@ set wildmenu
 set switchbuf=useopen,usetab
 set backspace=indent,eol,start
 set cindent shiftwidth=4  " set auto-indenting num columns
-set softtabstop=4       " <tab> inserts 2 spaces (etc...)
 set cmdheight=2
 set laststatus=2
 let mapleader=","
@@ -184,7 +185,6 @@ set undodir=~/.vim-tmp/undodir
 set wildignore=*.o,*~,tags
 set ttyfast
 set hidden
-set smarttab
 set expandtab
 set numberwidth=4
 set undofile
@@ -203,9 +203,9 @@ vnoremap g<c-]> <c-]>
 " add the missing commands
 nnoremap Y yf$
 
-" paste most recent
+" paste most recent. using 0 allows you to replace previous when using cw
 cmap <c-r><c-r>  <c-r>"
-imap <c-r><c-r>  <c-r>"
+imap <c-r><c-r>  <c-r>0   
 
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -228,7 +228,7 @@ nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>  "   'i'   includes: fi
 nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>    "   'd'   called: find functions that function under cursor calls        
 
 if filereadable("cscope.out")
-    cs add cscope.out
+  cs add cscope.out
 endif
 set cscopetag
 set cscopeverbose
@@ -246,16 +246,16 @@ nnoremap ? ?\v
 cmap w!! %!sudo tee > /dev/null %
 
 function! CurDir()
-    let curdir = getcwd()
-    return curdir
+  let curdir = getcwd()
+  return curdir
 endfunction
 
 function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    else
-        return ''
-    endif
+  if &paste
+    return 'PASTE MODE  '
+  else
+    return ''
+  endif
 endfunction
 
 let g:Powerline_symbols = 'fancy'
@@ -314,10 +314,10 @@ let g:SrcExpl_gobackKey = "<SPACE>"
 " // are using buffers. And you need add their bufname into the list below 
 " // according to the command ":buffers!" 
 let g:SrcExpl_pluginList = [ 
-	    \ "__Tag_List__", 
-	    \ "_NERD_tree_", 
-	    \ "Source_Explorer" 
-	    \ ] 
+      \ "__Tag_List__", 
+      \ "_NERD_tree_", 
+      \ "Source_Explorer" 
+      \ ] 
 
 " // Enable/Disable the local definition searching, and note that this is not 
 " // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
@@ -345,55 +345,55 @@ map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 
 
 function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
+  exe "menu Foo.Bar :" . a:str
+  emenu Foo.Bar
+  unmenu Foo
 endfunction
 
 " From an idea by Michael Naumann
 function! VisualSearch(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+  let l:saved_reg = @"
+  execute "normal! vgvy"
 
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
+  if a:direction == 'b'
+    execute "normal ?" . l:pattern . "^M"
+  elseif a:direction == 'gv'
+    call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+  elseif a:direction == 'f'
+    execute "normal /" . l:pattern . "^M"
+  endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
 
- " map <End> to move to end of line
- " if at end of line, move to end of window
- " if at end of window, move to end of file
- nnoremap <silent> <End> :call SmartEnd("n")<CR>
- inoremap <silent> <End> <C-O>:call SmartEnd("i")<CR>
- vnoremap <silent> <end> <esc>:call smartend("v")<cr>
- function!  SmartEnd(mode)
-   if col('.') < col('$')-1
-     normal! $
-   elseif  winline() < winheight(0) - &scrolloff 
-     normal! m`L$
-   else
-     normal! m`G$
-   endif
-   if a:mode == "v"
-     normal! msgv`s
-   endif
- endfun
+" map <End> to move to end of line
+" if at end of line, move to end of window
+" if at end of window, move to end of file
+nnoremap <silent> <End> :call SmartEnd("n")<CR>
+inoremap <silent> <End> <C-O>:call SmartEnd("i")<CR>
+vnoremap <silent> <end> <esc>:call smartend("v")<cr>
+function!  SmartEnd(mode)
+  if col('.') < col('$')-1
+    normal! $
+  elseif  winline() < winheight(0) - &scrolloff 
+    normal! m`L$
+  else
+    normal! m`G$
+  endif
+  if a:mode == "v"
+    normal! msgv`s
+  endif
+endfun
 
 
 " alt+n or alt+p to navigate between entries in QuickFix
 map <silent> <m-p> :cp <cr>
 map <silent> <m-n> :cn <cr>
- 
+
 :let ruby_operators = 1
 :let ruby_minlines = 100
 
@@ -408,28 +408,28 @@ nmap <silent> <leader>` :QFix<CR>
 
 " Diff with saved version of the file
 function! s:DiffWithSaved()
-    let g:diffline = line('.') 
-    let filetype=&ft
-    diffthis
-    vnew | r # | :exe "normal! ".g:diffline."G"
-    diffthis
-    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-    let g:diffbuf = bufname('%') 
+  let g:diffline = line('.') 
+  let filetype=&ft
+  diffthis
+  vnew | r # | :exe "normal! ".g:diffline."G"
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  let g:diffbuf = bufname('%') 
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 
 function! s:DiffWithSavedOff()
-    if exists("g:diffbuf")
-        " exe "norm! ".g:diffbuf."G"
-        echom g:diffbuf
-        unlet g:diffbuf
-    end
-    exe "q"
-    diffoff
-    if exists("g:diffline")
-        exe "norm! ".g:diffline."G"
-        unlet g:diffline
-    end
+  if exists("g:diffbuf")
+    " exe "norm! ".g:diffbuf."G"
+    echom g:diffbuf
+    unlet g:diffbuf
+  end
+  exe "q"
+  diffoff
+  if exists("g:diffline")
+    exe "norm! ".g:diffline."G"
+    unlet g:diffline
+  end
 endfunction
 com! DiffSavedOff call s:DiffWithSavedOff()
 " command DiffOrig let g:diffline = line('.') | vert new | set bt=nofile | r # | 0d_ | diffthis | :exe "norm! ".g:diffline."G" | wincmd p | diffthis | wincmd p
@@ -590,7 +590,7 @@ function! WatchForChanges(bufname, ...)
 
   " Check to see if the autocommand already exists
   redir @"
-    silent! exec 'au '.id
+  silent! exec 'au '.id
   redir END
   let l:defined = (@" !~ 'E216: No such group or event:')
 
@@ -605,50 +605,50 @@ function! WatchForChanges(bufname, ...)
       end
     end
     silent! exec 'augroup '.id
-      if a:bufname != '*'
-        exec "au BufDelete    ".a:bufname . " :silent! au! ".id . " | silent! augroup! ".id
-        exec "au BufDelete    ".a:bufname . " :echomsg 'Removing autocommands for ".id."' | au! ".id . " | augroup! ".id
-        exec "au BufDelete    ".a:bufname . " execute 'au! ".id."' | execute 'augroup! ".id."'"
-      end
-        exec "au BufEnter     ".event_bufspec . " :checktime ".bufspec
-        exec "au CursorHold   ".event_bufspec . " :checktime ".bufspec
-        exec "au CursorHoldI  ".event_bufspec . " :checktime ".bufspec
-
-      " The following events might slow things down so we provide a way to disable them...
-      " vim docs warn:
-      "   Careful: Don't do anything that the user does
-      "   not expect or that is slow.
-      if more_events
-        exec "au CursorMoved  ".event_bufspec . " :checktime ".bufspec
-        exec "au CursorMovedI ".event_bufspec . " :checktime ".bufspec
-      end
-    augroup END
-    let msg = msg . 'Now watching ' . bufspec . ' for external updates...'
-  end
-
-  " If they want to disable it, or it is defined and they want to toggle it,
-  if l:disable || (l:toggle && l:defined)
-    if l:autoread
-      let msg = msg . 'Autoread disabled - '
-      if a:bufname == '*'
-        set noautoread
-      else
-        setlocal noautoread
-      end
+    if a:bufname != '*'
+      exec "au BufDelete    ".a:bufname . " :silent! au! ".id . " | silent! augroup! ".id
+      exec "au BufDelete    ".a:bufname . " :echomsg 'Removing autocommands for ".id."' | au! ".id . " | augroup! ".id
+      exec "au BufDelete    ".a:bufname . " execute 'au! ".id."' | execute 'augroup! ".id."'"
     end
-    " Using an autogroup allows us to remove it easily with the following
-    " command. If we do not use an autogroup, we cannot remove this
-    " single :checktime command
-    " augroup! checkforupdates
-    silent! exec 'au! '.id
-    silent! exec 'augroup! '.id
-    let msg = msg . 'No longer watching ' . bufspec . ' for external updates.'
-  elseif l:defined
-    let msg = msg . 'Already watching ' . bufspec . ' for external updates'
-  end
+    exec "au BufEnter     ".event_bufspec . " :checktime ".bufspec
+    exec "au CursorHold   ".event_bufspec . " :checktime ".bufspec
+    exec "au CursorHoldI  ".event_bufspec . " :checktime ".bufspec
 
-  echo msg
-  let @"=reg_saved
+    " The following events might slow things down so we provide a way to disable them...
+    " vim docs warn:
+    "   Careful: Don't do anything that the user does
+    "   not expect or that is slow.
+    if more_events
+      exec "au CursorMoved  ".event_bufspec . " :checktime ".bufspec
+      exec "au CursorMovedI ".event_bufspec . " :checktime ".bufspec
+    end
+  augroup END
+  let msg = msg . 'Now watching ' . bufspec . ' for external updates...'
+end
+
+" If they want to disable it, or it is defined and they want to toggle it,
+if l:disable || (l:toggle && l:defined)
+  if l:autoread
+    let msg = msg . 'Autoread disabled - '
+    if a:bufname == '*'
+      set noautoread
+    else
+      setlocal noautoread
+    end
+  end
+  " Using an autogroup allows us to remove it easily with the following
+  " command. If we do not use an autogroup, we cannot remove this
+  " single :checktime command
+  " augroup! checkforupdates
+  silent! exec 'au! '.id
+  silent! exec 'augroup! '.id
+  let msg = msg . 'No longer watching ' . bufspec . ' for external updates.'
+elseif l:defined
+  let msg = msg . 'Already watching ' . bufspec . ' for external updates'
+end
+
+echo msg
+let @"=reg_saved
 endfunction
 
 " call WatchForChanges('*')
