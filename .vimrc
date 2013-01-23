@@ -18,7 +18,21 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundle 'scrooloose/syntastic'
-Bundle 'git@github.com:christfo/thermometer'
+Bundle 'tpope/vim-sensible'
+Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-rsi'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-ragtag'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-sleuth'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Raimondi/delimitMate'
@@ -46,20 +60,7 @@ Bundle 'sunaku/QFixToggle'
 Bundle 'timcharper/textile.vim'
 Bundle 'tomasr/molokai'
 Bundle 'tomtom/quickfixsigns_vim'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rsi'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-sleuth'
+Bundle 'gorkunov/smartpairs.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/Colortest'
 Bundle 'vim-scripts/EasyGrep'
@@ -85,8 +86,6 @@ if iCanHazVundle == 0
   :BundleInstall
 endif
 " Setting up Vundle - the vim plugin bundler end
-syntax on
-filetype plugin indent on
 runtime ftplugin/man.vim
 source $VIMRUNTIME/ftplugin/man.vim
 
@@ -94,7 +93,8 @@ nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
-cmap ack  Ack
+"cmap ack  Ack
+cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
@@ -163,25 +163,16 @@ let delimitMate_expand_cr = 1
 colorscheme molokai
 set nocompatible
 set t_Co=256
-set showcmd             " display incomplete commands
-set incsearch           " do incremental searching
 set ignorecase
 set virtualedit=onemore
 set hlsearch
-set smartcase
-set wildmenu
 set switchbuf=useopen,usetab
-set backspace=indent,eol,start
-set cindent shiftwidth=4  " set auto-indenting num columns
+"set cindent shiftwidth=4  " set auto-indenting num columns
 set cmdheight=2
-set laststatus=2
 let mapleader=","
 set history=55000
 set wildmode=list:longest
 set scrolloff=3
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp
-set undodir=~/.vim-tmp/undodir
 set wildignore=*.o,*~,tags
 set ttyfast
 set hidden
@@ -191,6 +182,7 @@ set undofile
 set undolevels=1000
 set undoreload=10000
 set spell
+set fillchars+=vert:\|
 
 
 " swap tag following shortcuts to show list by default
@@ -200,12 +192,9 @@ vnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
-" add the missing commands
-nnoremap Y yf$
-
-" paste most recent. using 0 allows you to replace previous when using cw
+" paste most recent. using 0 allows you to replace previous when using cw cmap <c-r><c-r>  <c-r>"
+imap <c-r><c-r>  <c-r>0
 cmap <c-r><c-r>  <c-r>"
-imap <c-r><c-r>  <c-r>0   
 
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -233,10 +222,6 @@ endif
 set cscopetag
 set cscopeverbose
 set csto=0
-
-" let g:ackprg="rak -H --nocolor --nogroup "
-
-" make options
 
 " always magic on search
 nnoremap / /\v

@@ -288,3 +288,5 @@ if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator
 # . tmuxinator_completion
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:/opt/Xilinx/13.2/ISE_DS/ISE/bin/lin64/
+export PATH

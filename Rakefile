@@ -32,6 +32,7 @@ end
 desc "add softlinks to dotfiles in home directory and vim tempory dirs"
 task :dotfiles do
   system("cd ~ && mkdir -p .vim-tmp/undodir")
+  system("cd ~ && mkdir -p ~/.local/share/vim/{swap,backup,undo}")
   system("cd ~ && mkdir -p bin")
   path = `pwd`.chomp / "dotfiles" / ".*" 
   ( Dir[path] + [`pwd`.chomp / ".vimrc" ] ).each do |dotfile|
@@ -66,8 +67,8 @@ desc "init project"
 task :init do
     Dir["bundle/*"].each { |mod|
       next if [".",".."].include? File.basename(mod)
-      system("cd #{mod} && git checkout master ")
-      system("git submodule update --init #{mod}")
+      # system("cd #{mod} && git checkout master ")
+      # system("git submodule update --init #{mod}")
     }
 end
 
