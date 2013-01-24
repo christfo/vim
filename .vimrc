@@ -2,6 +2,8 @@ filetype plugin off " We switch it back on again later, but off for pathogen to 
 filetype off
 autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
+python from powerline.bindings.vim import source_plugin; source_plugin()
+
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
@@ -33,7 +35,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-sleuth'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Raimondi/delimitMate'
 Bundle 'Shougo/neocomplcache'
@@ -55,7 +57,7 @@ Bundle 'pydave/powerline-sanity'
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjbach/lusty'
 Bundle 'sjl/gundo.vim'
-Bundle 'sjl/threesome.vim'
+Bundle 'sjl/splice.vim'
 Bundle 'sunaku/QFixToggle'
 Bundle 'timcharper/textile.vim'
 Bundle 'tomasr/molokai'
