@@ -438,7 +438,7 @@ map <Leader>f :MRU<CR>
 
 
 nnoremap dg do
-call arpeggio#map('i',  's', 0, 'jk', '<Esc>')
+call arpeggio#map('iv',  's', 0, 'jk', '<Esc>')
 "call arpeggio#map('n',  's', 0, 'tp', ':set invpaste<CR>')
 call arpeggio#map('in',  's', 0, '[q', '<Esc>:cp<CR>i')
 call arpeggio#map('in',  's', 0, ']q', '<Esc>:cn<CR>i')
@@ -463,7 +463,9 @@ call arpeggio#map('n',  '', 0, 'ta', ':Tabularize /')
 call arpeggio#map('n',  's', 0, 'du', ':diffupdate<CR>')
 call arpeggio#map('n',  's', 0, 'do', ':DiffSaved<CR>')
 call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
-
+call arpeggio#map('n',  's', 0, 'ru', ':execute    <up><cr>')
+" run the following to dow tmux repeat command, then 'ru' chord to repeat that
+" :execute    'silent !tmux send-keys -t target.2 "dow "\' | redraw!
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
 " If you are using a console version of Vim, or dealing

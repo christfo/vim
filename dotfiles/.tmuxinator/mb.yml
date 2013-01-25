@@ -1,0 +1,25 @@
+# ~/.tmuxinator/mb.yml
+# you can make as many tabs as you wish...
+
+project_name: Microblaze
+project_root: ~/wowhub/
+# socket_name: tmux_mainline # Not needed.  Remove to use default socket
+pre: . /opt/Xilinx/13.4/ISE_DS/settings32.sh
+tabs:
+  - target: 
+      layout: horizontal
+      panes:
+        - cu -l /dev/ttyACM0 -s 115200 | tee serial.raw
+        - . /opt/Xilinx/13.4/ISE_DS/settings32.sh; linux32 xmd
+  - editor:
+      - vim pal/pal_spi.c
+  - shell: 
+      layout: horizontal
+      panes:
+        - . /opt/Xilinx/13.4/ISE_DS/settings32.sh ; watchr build.watchr
+        - hg pull && hg st -q && hg id -bint && exctags -R ; . /opt/Xilinx/13.4/ISE_DS/settings32.sh
+  - system: 
+      layout: main-horizontal
+      panes:
+        - . /opt/Xilinx/13.4/ISE_DS/settings32.sh 
+        - glances

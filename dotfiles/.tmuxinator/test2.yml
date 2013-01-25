@@ -8,9 +8,9 @@ project_root: .
 # pre: sudo /etc/rc.d/mysqld start
 tabs:
   - editor:
-      layout: even-horizontal
+      layout: horizontal
       panes:
-        - top
+        - 
         - 
 
   #- shell: hg pull
