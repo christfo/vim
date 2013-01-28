@@ -169,6 +169,7 @@ set ignorecase
 set virtualedit=onemore
 set hlsearch
 set switchbuf=useopen,usetab
+"set cindent shiftwidth=4  " set auto-indenting num columns
 set cmdheight=2
 let mapleader=","
 set history=55000
@@ -429,7 +430,7 @@ nnoremap <leader><Leader>  :noh<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 let g:cuteErrorMarkerBrutalSignRemoval=1
 nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
-nnoremap <leader>bo :copen 35 <cr>:cfile build.out<cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
+nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
 
