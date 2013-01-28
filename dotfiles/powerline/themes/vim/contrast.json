@@ -37,7 +37,7 @@
 			},
 			{
 				"name": "modified_indicator",
-				"args": { "text": "+  !!!!!!!!!!!!!!!!!!!!!!!!!!  " },
+				"args": { "text": "+   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   " },
 				"before": " "
 			},
 			{
@@ -69,7 +69,7 @@
 				"name": "line_percent",
 				"args": { "gradient": true },
 				"priority": 30,
-				"after": "%",
+				"after": "",
 				"rjust": 4
 			},
 			{
