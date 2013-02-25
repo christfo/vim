@@ -81,6 +81,11 @@ Bundle 'vim-scripts/taglist.vim'
 Bundle 'vim-scripts/tlib'
 Bundle 'vim-scripts/vim-cmake-project'
 Bundle 'vim-scripts/vim-json-bundle'
+Bundle 'vim-scripts/vim-javascript'
+Bundle 'vim-scripts/ag.vim'
+Bundle 'vim-scripts/pry.vim'
+Bundle 'vim-scripts/zoomwintab.vim'
+"Bundle 'vim-scripts/QuickFixCurrentNumber'
 
 if iCanHazVundle == 0
   echo "Installing Bundles, please ignore key map error messages"
@@ -97,6 +102,7 @@ nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
 "cmap ack  Ack
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
+cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
 
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
@@ -198,6 +204,10 @@ vnoremap g<c-]> <c-]>
 imap <c-r><c-r>  <c-r>0
 cmap <c-r><c-r>  <c-r>"
 
+" preserve selection in visual shifting
+vnoremap  <  <gv
+vnoremap  >  >gv
+
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
@@ -230,7 +240,7 @@ nnoremap / /\v
 nnoremap ? ?\v
 
 "add :w!! to write as sudo
-cmap w!! %!sudo tee > /dev/null %
+cmap w!! w !sudo tee % > /dev/null 
 
 function! CurDir()
   let curdir = getcwd()
@@ -466,7 +476,9 @@ call arpeggio#map('n',  's', 0, 'do', ':DiffSaved<CR>')
 call arpeggio#map('n',  's', 0, 'dc', ':DiffSavedOff<CR>')
 call arpeggio#map('n',  's', 0, 'ru', ':execute    <up><cr>')
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
-" :execute    'silent !tmux send-keys -t target.2 "dow "\' | redraw!
+" :execute    'silent !tmux send-keys -t target.2 "dow "\' | redraw! 
+" execute    'silent !tmux send-keys -t target.2 "stopecho '''' > serial.raw dow ./apps/bin/box_img.elf run"' | redraw!
+
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
 " If you are using a console version of Vim, or dealing
