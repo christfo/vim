@@ -1,0 +1,2 @@
+nnoremap :bd :Bclose
+
