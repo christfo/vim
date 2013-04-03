@@ -145,7 +145,6 @@ nmap <C-J>  <C-W>j
 nmap <C-K>  <C-W>k
 nmap <C-L>  <C-W>l
 
-
 "cmap ack  Ack
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
@@ -213,6 +212,8 @@ nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkError
 nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
+highlight Pmenu       ctermbg=238       gui=bold ctermfg=blue 
+highlight PmenuSel    ctermbg=darkblue  gui=bold ctermfg=blue 
 
 
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
@@ -222,5 +223,5 @@ nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:Clea
 autocmd BufRead,BufNewFile *.log set syntax=log 
 
 runtime! bundle_config/*.vim
-inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
+"inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
 
