@@ -134,6 +134,9 @@ set undofile
 set undolevels=1000
 set undoreload=10000
 set spell
+set cino+=g0             " place C++ scope declarations at start of line
+set cino+=t0             " place function return_type decl at start of line
+set cino+=+4             " indent for a continuation line
 set fillchars+=vert:\|
 
 nmap <C-H>  <C-W>h
@@ -171,12 +174,14 @@ vnoremap  >  >gv
 
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
+nnoremap Y y$
+nnoremap 0 ^
 
-:cnoremap <C-N>  <Down>
-:cnoremap <C-P>  <Up>
+cnoremap <C-N>  <Down>
+cnoremap <C-P>  <Up>
 
-:nnoremap [t :tabp<cr>
-:nnoremap ]t :tabn<cr>
+nnoremap [t :tabp<cr>
+nnoremap ]t :tabn<cr>
 
 " always magic on search
 nnoremap / /\v
@@ -184,10 +189,6 @@ nnoremap ? ?\v
 
 "add :w!! to write as sudo
 cmap w!! w !sudo tee % > /dev/null 
-
-:set cino+=g0             " place C++ scope declarations at start of line
-:set cino+=t0             " place function return_type decl at start of line
-:set cino+=+4             " indent for a continuation line
 
 let g:slime_target="tmux"
 function! To_Tmux()
@@ -200,12 +201,9 @@ nnoremap <F5> :GundoToggle<CR>
 nnoremap <F6> :TagbarToggle<CR>
 nnoremap <F7> :NERDTreeToggle<CR>
 
-nnoremap 0 ^
-
-
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <Leader>do :DiffChangesDiffToggle<cr>
-nnoremap <leader>tp  :set invpaste<cr>
+nnoremap <leader>tp :set invpaste<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
