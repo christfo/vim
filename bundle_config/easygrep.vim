@@ -1,0 +1,17 @@
+let g:EasyGrepMode=2              " Track
+let g:EasyGrepCommand=0
+let g:EasyGrepRecursive=1         " Recurse
+let g:EasyGrepIgnoreCase=1
+let g:EasyGrepHidden=0
+let g:EasyGrepSearchCurrentBufferDir=1
+let g:EasyGrepAllOptionsInExplorer=1
+let g:EasyGrepWindow=0
+let g:EasyGrepReplaceWindowMode=2 " No new windows1
+let g:EasyGrepOpenWindowOnMatch=0
+let g:EasyGrepEveryMatch=1
+let g:EasyGrepJumpToMatch=1
+let g:EasyGrepInvertWholeWord=1
+let g:EasyGrepFileAssociationsInExplorer=1
+let g:EasyGrepExtraWarnings=1
+let g:EasyGrepOptionPrefix='<leader>v'
+let g:EasyGrepReplaceAllPerFile=0

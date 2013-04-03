@@ -20,6 +20,9 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundle 'scrooloose/syntastic'
+Bundle 'hexconv'                " hard plugin 
+Bundle 'watch_for_changes'      " hard plugin 
+Bundle 'buffer_motion'          " hard plugin 
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-commentary'
@@ -78,7 +81,9 @@ Bundle 'TailMinusF'
 Bundle 'YankRing.vim'
 Bundle 'a.vim'
 Bundle 'foldsearch'
-Bundle 'grep.vim'
+Bundle 'gregsexton/gitv'
+Bundle 'gregsexton/VimCalc'
+"Bundle 'grep.vim'
 Bundle 'matchit.zip'
 Bundle 'mru.vim'
 Bundle 'tlib'
@@ -89,9 +94,9 @@ Bundle 'vim-javascript'
 Bundle 'ag.vim'
 Bundle 'zoomwin'
 Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'yazug/vim-taglist-plus'
 Bundle 'hwrod/interactive-replace.git'
-" Bundle 'vim-scripts/pry.vim'
+"Bundle 'yazug/vim-taglist-plus'
+"Bundle 'vim-scripts/pry.vim'
 "Bundle 'vim-scripts/neosnippet'
 "Bundle 'vim-scripts/QuickFixCurrentNumber'
 
@@ -104,14 +109,6 @@ endif
 runtime ftplugin/man.vim
 source $VIMRUNTIME/ftplugin/man.vim
 
-nmap <C-H>  <C-W>h
-nmap <C-J>  <C-W>j
-nmap <C-K>  <C-W>k
-nmap <C-L>  <C-W>l
-
-"cmap ack  Ack
-cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
-cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -127,7 +124,6 @@ set ignorecase
 set virtualedit=onemore
 set hlsearch
 set switchbuf=useopen,usetab
-"set cindent shiftwidth=4  " set auto-indenting num columns
 set cmdheight=2
 let mapleader=","
 set history=55000
@@ -144,6 +140,23 @@ set undoreload=10000
 set spell
 set fillchars+=vert:\|
 
+nmap <C-H>  <C-W>h
+nmap <C-J>  <C-W>j
+nmap <C-K>  <C-W>k
+nmap <C-L>  <C-W>l
+
+
+"cmap ack  Ack
+cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
+cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
+if executable('ack')
+  set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
+  set grepformat=%f:%l:%c:%m
+endif
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
+  set grepformat=%f:%l:%c:%m
+endif
 
 " swap tag following shortcuts to show list by default
 set tags=tags
