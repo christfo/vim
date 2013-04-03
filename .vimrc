@@ -42,7 +42,8 @@ Bundle 'rbgrouleff/bclose.vim'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Raimondi/delimitMate'
-Bundle 'Shougo/neocomplcache'
+" Bundle 'Shougo/neocomplcache'
+Bundle 'Valloric/YouCompleteMe.git'
 Bundle 'Twinside/vim-cuteErrorMarker'
 Bundle 'brookhong/cscope.vim'
 Bundle 'erikw/tmux-powerline'
@@ -186,6 +187,9 @@ nnoremap ]t :tabn<cr>
 " always magic on search
 nnoremap / /\v
 nnoremap ? ?\v
+vnoremap / /\v
+vnoremap ? ?\v
+cnoremap s/ s/\v
 
 "add :w!! to write as sudo
 cmap w!! w !sudo tee % > /dev/null 
