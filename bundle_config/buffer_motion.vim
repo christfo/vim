@@ -17,7 +17,7 @@ endf "}}}
 :nmap <silent> <leader>wh  :call PasteWindow('split')<cr>
 :nmap <silent> <leader>w_  :call PasteWindow('split')<cr>
 :nmap <silent> <leader>wv  :call PasteWindow('vsplit')<cr>
-:nmap <silent> <leader>w|  :call PasteWindow('vsplit')<cr>
+:nmap <silent> <leader>w<pipe>  :call PasteWindow('vsplit')<cr>
 :nmap <silent> <leader>wt  :call PasteWindow('tabnew')<cr>
 
 

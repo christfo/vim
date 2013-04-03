@@ -20,9 +20,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundle 'scrooloose/syntastic'
-Bundle 'hexconv'                " hard plugin 
-Bundle 'watch_for_changes'      " hard plugin 
-Bundle 'buffer_motion'          " hard plugin 
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-commentary'
@@ -83,7 +80,6 @@ Bundle 'a.vim'
 Bundle 'foldsearch'
 Bundle 'gregsexton/gitv'
 Bundle 'gregsexton/VimCalc'
-"Bundle 'grep.vim'
 Bundle 'matchit.zip'
 Bundle 'mru.vim'
 Bundle 'tlib'
@@ -176,14 +172,11 @@ vnoremap  >  >gv
 " select last paste in visual mode
 nnoremap <expr> gb '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" " recall newer command-line
-:cnoremap <C-N>             <Down>
-" " recall previous (older) command-line
-:cnoremap <C-P>             <Up>
+:cnoremap <C-N>  <Down>
+:cnoremap <C-P>  <Up>
 
 :nnoremap [t :tabp<cr>
 :nnoremap ]t :tabn<cr>
-
 
 " always magic on search
 nnoremap / /\v
@@ -196,43 +189,30 @@ cmap w!! w !sudo tee % > /dev/null
 :set cino+=t0             " place function return_type decl at start of line
 :set cino+=+4             " indent for a continuation line
 
-" leader cd already taken, so use h insread
-let g:VCSCommandMapPrefix='<leader>h'
-
-" Shortcut to fold at left brace
-map F zfa}
-
 let g:slime_target="tmux"
 function! To_Tmux()
   let b:text = input("tmux:", "", "custom,")
   call <SID>SlimeSend(b:text . "\\r")
 endfunction
 
-" cmap tt :call To_Tmux()<CR>
-" cmap rr :call To_Tmux()<CR><c-p><cr>
-
 " Open and close srcExplr, taglist and NERD_tree individually
 nnoremap <F5> :GundoToggle<CR>
 nnoremap <F6> :TagbarToggle<CR>
 nnoremap <F7> :NERDTreeToggle<CR>
 
-map 0 ^
+nnoremap 0 ^
 
 
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <Leader>do :DiffChangesDiffToggle<cr>
 nnoremap <leader>tp  :set invpaste<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
-let g:cuteErrorMarkerBrutalSignRemoval=1
 nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
 
-let MRU_Max_Entries = 400
-map <Leader>f :MRU<CR>
 
-nnoremap dg do
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
 " :execute    'silent !tmux send-keys -t target.2 "dow "\' | redraw! 
 " execute    'silent !tmux send-keys -t target.2 "stopecho '''' > serial.raw dow ./apps/bin/box_img.elf run"' | redraw!
