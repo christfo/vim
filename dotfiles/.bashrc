@@ -58,8 +58,10 @@ _bash_history_sync() {
 shopt -s checkwinsize
 shopt -s extglob
 
-# stop tty from steeling ^W . defined in inputrc the same as alt backspace
+# stop tty from steeling ^W . defined in inputrc the same as alt backspace, but only interactive
+if [ -t 0 ]; then
 stty werase undef #
+fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"

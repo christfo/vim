@@ -19,7 +19,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
-" Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-commentary'

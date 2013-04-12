@@ -13,5 +13,5 @@ let g:EasyGrepJumpToMatch=1
 let g:EasyGrepInvertWholeWord=1
 let g:EasyGrepFileAssociationsInExplorer=1
 let g:EasyGrepExtraWarnings=1
-let g:EasyGrepOptionPrefix='<leader>v'
+" let g:EasyGrepOptionPrefix='<leader>v'
 let g:EasyGrepReplaceAllPerFile=0
