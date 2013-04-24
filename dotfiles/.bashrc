@@ -1,4 +1,7 @@
 # .bashrc
+if [ $(expr index "$-" i) -eq 0 ]; then
+    return
+fi
 
 
 # Source global definitions
