@@ -1,7 +1,7 @@
 let g:EasyGrepMode=2              " Track
 let g:EasyGrepCommand=0
 let g:EasyGrepRecursive=1         " Recurse
-let g:EasyGrepIgnoreCase=1
+let g:EasyGrepIgnoreCase=0
 let g:EasyGrepHidden=0
 let g:EasyGrepSearchCurrentBufferDir=1
 let g:EasyGrepAllOptionsInExplorer=1
