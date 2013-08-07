@@ -38,19 +38,19 @@
 			"colors": {
 				"brightyellow": "darkorange",
 				"brightestred": "darkred",
-				"gray0": "gray0",
-				"gray1": "gray0",
-				"gray2": "gray0",
-				"gray3": "gray1",
-				"gray4": "gray1",
-				"gray5": "gray1",
-				"gray6": "gray1",
-				"gray7": "gray4",
-				"gray8": "gray4",
-				"gray9": "gray4",
-				"gray10": "gray5",
-				"white": "gray6",
-				"green_yellow_red": "gray5"
+				"gray0": "gray1",
+				"gray1": "gray1",
+				"gray2": "gray1",
+				"gray3": "gray2",
+				"gray4": "gray2",
+				"gray5": "gray2",
+				"gray6": "gray2",
+				"gray7": "gray5",
+				"gray8": "gray5",
+				"gray9": "gray5",
+				"gray10": "gray6",
+				"white": "gray7",
+				"green_yellow_red": "gray6"
 			}
 		},
 		"i": {

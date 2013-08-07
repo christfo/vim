@@ -135,6 +135,9 @@ set cino+=g0             " place C++ scope declarations at start of line
 set cino+=t0             " place function return_type decl at start of line
 set cino+=+4             " indent for a continuation line
 set fillchars+=vert:\|
+set backupdir=~/.local/share/vim/backup//
+set directory=~/.local/share/vim/swap//
+set undodir=~/.local/share/vim/undo//
 
 nmap <C-H>  <C-W>h
 nmap <C-J>  <C-W>j
