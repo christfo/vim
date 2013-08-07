@@ -26,10 +26,10 @@ task :dotfiles do
   system("mkdir -p ~/.local/share/vim/swap")
 
   # powerline config
-  system("pip install --user git+git://github.com/Lokaltog/powerline")
+  system("pip install -U --user git+git://github.com/Lokaltog/powerline")
   system("mkdir -p ~/.config/ && cd ~/.config && ln -s #{VIMDIR}/dotfiles/powerline")
   system("mkdir -p ~/bin")
-  system("git submodule update --init binfiles/frinedly-find")
+  system("git submodule update --init binfiles/friendly-find")
 
   # font config
   system("mkdir -p ~/.fonts.conf.d && cp #{VIMDIR}/fonts/10-powerline-symbols.conf  ~/.fonts.conf.d/ ")
@@ -62,6 +62,5 @@ task :sync do
 end
 
 
-# task :default => ['sync']
-desc "=> base"
-task :default => [:base]
+
+task :default => [:dotfiles]

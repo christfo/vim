@@ -2,6 +2,7 @@ filetype plugin off " We switch it back on again later, but off for pathogen to 
 filetype off
 autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
+
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
@@ -43,7 +44,6 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'Valloric/YouCompleteMe.git'
 Bundle 'Twinside/vim-cuteErrorMarker'
 Bundle 'brookhong/cscope.vim'
-Bundle 'erikw/tmux-powerline'
 Bundle 'godlygeek/tabular'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'jpalardy/vim-slime'
@@ -54,7 +54,6 @@ Bundle 'nanliu/vim-puppet'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'nviennot/irb-config'
 Bundle 'phleet/vim-mercenary'
-Bundle 'pydave/powerline-sanity'
 Bundle 'scrooloose/nerdtree'
 Bundle 'sjbach/lusty'
 Bundle 'sjl/gundo.vim'
@@ -103,7 +102,6 @@ endif
 " Setting up Vundle - the vim plugin bundler end
 runtime ftplugin/man.vim
 source $VIMRUNTIME/ftplugin/man.vim
-
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
