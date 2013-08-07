@@ -13,6 +13,7 @@ function! HasPaste()
 endfunction
 
 let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
 set statusline=%f    " Path.
 set statusline+=%m   " Modified flag.
 set statusline+=%r   " Readonly flag.
