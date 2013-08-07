@@ -82,7 +82,7 @@ Bundle 'a.vim'
 Bundle 'foldsearch'
 Bundle 'gregsexton/gitv'
 Bundle 'gregsexton/VimCalc'
-Bundle 'matchit.zip'
+Bundle 'matchit'
 Bundle 'mru.vim'
 Bundle 'tlib'
 Bundle 'vim-git-log'
@@ -219,6 +219,7 @@ nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:Clea
 
 highlight Pmenu       ctermbg=238       gui=bold ctermfg=blue 
 highlight PmenuSel    ctermbg=darkblue  gui=bold ctermfg=blue 
+highlight Matchmaker  ctermbg=238       gui=bold ctermfg=blue 
 
 
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
@@ -226,6 +227,7 @@ highlight PmenuSel    ctermbg=darkblue  gui=bold ctermfg=blue
 " execute    'silent !tmux send-keys -t target.2 "stopecho '''' > serial.raw dow ./apps/bin/box_img.elf run"' | redraw!
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
+
 
 runtime! bundle_config/*.vim
 "inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
