@@ -2,8 +2,6 @@ filetype plugin off " We switch it back on again later, but off for pathogen to 
 filetype off
 autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
 
-python from powerline.bindings.vim import source_plugin; source_plugin()
-
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
@@ -42,7 +40,6 @@ Bundle 'rbgrouleff/bclose.vim'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Raimondi/delimitMate'
-" Bundle 'Shougo/neocomplcache'
 Bundle 'Valloric/YouCompleteMe.git'
 Bundle 'Twinside/vim-cuteErrorMarker'
 Bundle 'brookhong/cscope.vim'
@@ -97,10 +94,6 @@ Bundle 'textobj-comment'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'hwrod/interactive-replace.git'
 Bundle 'zhaocai/linepower.vim'
-"Bundle 'yazug/vim-taglist-plus'
-"Bundle 'vim-scripts/pry.vim'
-"Bundle 'vim-scripts/neosnippet'
-"Bundle 'vim-scripts/QuickFixCurrentNumber'
 
 if iCanHazVundle == 0
   echo "Installing Bundles, please ignore key map error messages"
