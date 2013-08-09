@@ -211,9 +211,9 @@ nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkError
 nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
-highlight Pmenu       ctermbg=238       gui=bold ctermfg=blue 
-highlight PmenuSel    ctermbg=darkblue  gui=bold ctermfg=blue 
-highlight Matchmaker  ctermbg=238       gui=bold ctermfg=blue 
+highlight Pmenu       ctermbg=238        gui=bold ctermfg=blue 
+highlight PmenuSel    ctermbg=darkblue   gui=bold ctermfg=blue 
+highlight Matchmaker  ctermbg=darkyellow gui=bold ctermfg=white 
 
 
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
