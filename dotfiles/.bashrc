@@ -1,4 +1,7 @@
 # .bashrc
+if [ $(expr index "$-" i) -eq 0 ]; then
+    return
+fi
 
 
 # Source global definitions
@@ -58,8 +61,10 @@ _bash_history_sync() {
 shopt -s checkwinsize
 shopt -s extglob
 
-# stop tty from steeling ^W . defined in inputrc the same as alt backspace
+# stop tty from steeling ^W . defined in inputrc the same as alt backspace, but only interactive
+if [ -t 0 ]; then
 stty werase undef #
+fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
@@ -288,7 +293,6 @@ if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator
 # . tmuxinator_completion
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH
 alias android-connect='mtpfs -o allow_other /media/nexus10 ' 
 alias android-disconnect='fusermount -u /media/nexus10'
-
-

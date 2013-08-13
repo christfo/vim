@@ -25,9 +25,9 @@ ignore = version, help, update
 attend = annotate, cat, diff, export, glog, log, qdiff
 
 [merge-tools]
-threesome.executable = vim
-threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
-threesome.premerge = keep
-threesome.priority = 1
+splice.executable = vim
+splice.args = -f $base $local $other $output -c 'SpliceInit'
+splice.premerge = keep
+splice.priority = 1
 
 %include ~/.hgrc.private
