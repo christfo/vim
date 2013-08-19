@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'fileutils'
-require 'facets/string'
+#require 'facets/string'
 #require 'ruby-debug'
 require 'rake'
 require 'find'
@@ -37,20 +37,20 @@ task :dotfiles do
   system("mkdir -p ~/.fonts && cp #{VIMDIR}/fonts/* ~/.fonts")
   system("fc-cache -vf ~/.fonts");
 
-  path = `pwd`.chomp / "dotfiles" / ".*" 
-  ( Dir[path] + [`pwd`.chomp / ".vimrc" ] ).each do |dotfile|
+  path = `pwd`.chomp + "/dotfiles/.*" 
+  ( Dir[path] + [`pwd`.chomp + "/.vimrc" ] ).each do |dotfile|
       next if [".",".."].include? File.basename(dotfile)
       link = File.basename(dotfile)
-      if File.exists?(File.expand_path("~" / link))
+      if File.exists?(File.expand_path("~/" + link))
           link << ".new"
       end 
       system("cd ~ && ln -s #{dotfile} #{link}")
   end
-  path = `pwd`.chomp / "binfiles" / "*" 
+  path = `pwd`.chomp + "/binfiles/*" 
   ( Dir[path] ).each do |binfile|
       next if [".",".."].include? File.basename(binfile)
       link = File.basename(binfile)
-      if File.exists?(File.expand_path("~/bin" / link))
+      if File.exists?(File.expand_path("~/bin/" + link))
           link << ".new"
       end 
       system("cd ~/bin && ln -s #{binfile} #{link}")
