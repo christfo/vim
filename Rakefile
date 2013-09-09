@@ -55,6 +55,7 @@ task :dotfiles do
       end 
       system("cd ~/bin && ln -s #{binfile} #{link}")
   end
+  # ./configure --enable-gnome-check --enable-cscope --with-features=huge --enable-perlinterp --enable-pythoninterp --enable-rubyinterp --enable-multibyte --enable-python3interp --with-compiledby=christ
 end
 
 desc "sync vimfiles in #{}"
