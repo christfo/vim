@@ -9,6 +9,10 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+if [ -f ~/.custom.comp ]; then
+	. ~/.custom.comp
+fi
+
 # export TERM=xterm-256color
 export TERM=screen-256color
 #if [ ! -z "$TERMCAP" ] && [ "$TERM" == "screen" ]; then                         

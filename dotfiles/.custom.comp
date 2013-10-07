@@ -1,0 +1,4 @@
+_hg_cmd_qcat()
+{
+    _hg_ext_mq_patchlist qseries
+}

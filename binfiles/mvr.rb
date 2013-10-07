@@ -24,6 +24,8 @@ def help
     Supported regular expressions are all those supported by Ruby.
     )
 end
+ARGV.select! { |item| md = /-r=(.+)/.match(item) ; md ? ($r = md[1]) && false : true }
+ARGV.select! { |item| md = /-s=(.+)/.match(item) ; md ? ($s = md[1]) && false : true }
 if ((ARGV.empty? || ARGV.nil?) && ($s.nil? || $r.nil?) && $file.nil? && $fastloose.nil?) || !($help.nil?)
     help()
     exit  
