@@ -1,4 +1,7 @@
 .netrwhist
+vim/
+binfiles/friendly-find/
+dotfiles/mercurial-cli-templates
 bundle/*
 .*\.swp
 .*\.un~

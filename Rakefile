@@ -54,6 +54,8 @@ task :dotfiles do
           link << ".new"
       end 
       system("cd ~/bin && ln -s #{binfile} #{link}")
+      system("cd ~/bin && hg clone https://bitbucket.org/edgimar/crecord" )
+      system("cd ~/.vim/dotfiles && hg clone https://bitbucket.org/sjl/mercurial-cli-templates" )
   end
   # ./configure --enable-gnome-check --enable-cscope --with-features=huge --enable-perlinterp --enable-pythoninterp --enable-rubyinterp --enable-multibyte --enable-python3interp --with-compiledby=christ
 end
