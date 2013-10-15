@@ -37,6 +37,8 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-sleuth'
 Bundle 'tpope/vim-dispatch'
+Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'Shougo/unite.vim'
 Bundle 'rbgrouleff/bclose.vim'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -144,10 +146,10 @@ set backupdir=~/.local/share/vim/backup//
 set directory=~/.local/share/vim/swap//
 set undodir=~/.local/share/vim/undo//
 
-nmap <C-H>  <C-W>h
-nmap <C-J>  <C-W>j
-nmap <C-K>  <C-W>k
-nmap <C-L>  <C-W>l
+" nmap <C-H>  <C-W>h
+" nmap <C-J>  <C-W>j
+" nmap <C-K>  <C-W>k
+" nmap <C-L>  <C-W>l
 
 "cmap ack  Ack
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
