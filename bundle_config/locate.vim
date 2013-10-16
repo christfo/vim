@@ -1,3 +1,4 @@
+let g:locate_very_magic=1
 let g:locate_mappings=0
 let g:locate_smartcase=1
 let g:locate_smart_case=1
