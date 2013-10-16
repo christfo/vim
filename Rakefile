@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'fileutils'
-require 'facets/string'
+#require 'facets/string'
 #require 'ruby-debug'
 require 'rake'
 require 'find'
@@ -37,24 +37,27 @@ task :dotfiles do
   system("mkdir -p ~/.fonts && cp #{VIMDIR}/fonts/* ~/.fonts")
   system("fc-cache -vf ~/.fonts");
 
-  path = `pwd`.chomp / "dotfiles" / ".*" 
-  ( Dir[path] + [`pwd`.chomp / ".vimrc" ] ).each do |dotfile|
+  path = `pwd`.chomp + "/dotfiles/.*" 
+  ( Dir[path] + [`pwd`.chomp + "/.vimrc" ] ).each do |dotfile|
       next if [".",".."].include? File.basename(dotfile)
       link = File.basename(dotfile)
-      if File.exists?(File.expand_path("~" / link))
+      if File.exists?(File.expand_path("~/" + link))
           link << ".new"
       end 
       system("cd ~ && ln -s #{dotfile} #{link}")
   end
-  path = `pwd`.chomp / "binfiles" / "*" 
+  path = `pwd`.chomp + "/binfiles/*" 
   ( Dir[path] ).each do |binfile|
       next if [".",".."].include? File.basename(binfile)
       link = File.basename(binfile)
-      if File.exists?(File.expand_path("~/bin" / link))
+      if File.exists?(File.expand_path("~/bin/" + link))
           link << ".new"
       end 
       system("cd ~/bin && ln -s #{binfile} #{link}")
+      system("cd ~/bin && hg clone https://bitbucket.org/edgimar/crecord" )
+      system("cd ~/.vim/dotfiles && hg clone https://bitbucket.org/sjl/mercurial-cli-templates" )
   end
+  # ./configure --enable-gnome-check --enable-cscope --with-features=huge --enable-perlinterp --enable-pythoninterp --enable-rubyinterp --enable-multibyte --enable-python3interp --with-compiledby=christ
 end
 
 desc "sync vimfiles in #{}"

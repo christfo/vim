@@ -1,5 +1,6 @@
 [user]
-  name = christfo
+	name = Chris Ford
+	email = chrisf@primate.com
 [core]
   autocrlf = input
   pager = less -XRMSI
