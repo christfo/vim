@@ -26,6 +26,7 @@ qcat = !cat $($HG root)"/.hg/patches"$(if test "patches" != $($HG qq --active); 
 qlog = log  --stat --rev qtip:qparent 
 qstatus = status --rev qparent 
 qdiff = diff --rev qparent 
+pdiff = diff --rev -2 
 slog=log --style=${HOME}/.vim/dotfiles/mercurial-cli-templates/map-cmdline.slog
 nlog=log --style=${HOME}/.vim/dotfiles/mercurial-cli-templates/map-cmdline.nlog
 glog=glog --style=${HOME}/.vim/dotfiles/mercurial-cli-templates/map-cmdline.sglog
