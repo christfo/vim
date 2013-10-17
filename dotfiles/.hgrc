@@ -37,7 +37,7 @@ intree=True
 [pager]
 pager = LESS='FGRX' less
 ignore = version, help, update
-attend = annotate, cat, diff, export, glog, log, qdiff, qseries, qapplied, slog, nlog, sglog, qglog, qlog
+attend = grep, annotate, cat, diff, export, glog, log, qdiff, qseries, qapplied, slog, nlog, sglog, qglog, qlog
 
 [merge-tools]
 splice.executable = vim
