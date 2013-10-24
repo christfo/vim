@@ -234,6 +234,9 @@ function cgrep () { egrep -RnH --include=*.{h,c,cpp} -e "$1" *; }
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
+# set the highlight search colour
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+
 # SOME OF MY UNUSED ALIAS's
 #######################################################
 
