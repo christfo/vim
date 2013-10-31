@@ -89,7 +89,6 @@ Bundle 'NPM'
 Bundle 'TurboMark'
 Bundle 'tlib'
 Bundle 'vim-git-log'
-Bundle 'vim-cmake-project'
 Bundle 'vim-json-bundle'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'vim-javascript'
@@ -217,10 +216,6 @@ nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
-
-" tp to toggle paste mode on. esc always clears paste mode
-nnoremap <leader>tp :set invpaste<cr>
-autocmd  InsertLeave * :set nopaste  
 
 highlight Pmenu       ctermbg=238        gui=bold ctermfg=blue 
 highlight PmenuSel    ctermbg=darkblue   gui=bold ctermfg=blue 

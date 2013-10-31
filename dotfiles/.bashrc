@@ -163,7 +163,7 @@ fi
 # EXPORTS
 #######################################################
 
-PATH=/opt/local/bin:/usr/local/bin/:$PATH:~/bin/:/usr/pkg/bin:/usr/cross-tools-str9/bin:/usr/cross-tools/bin:/var/lib/gems/1.8/bin/:/var/lib/gems/1.9/bin ; export PATH
+PATH=/opt/local/bin:/usr/local/bin/:~/bin/:~/.local/bin/:$PATH:/usr/pkg/bin:/usr/cross-tools-str9/bin:/usr/cross-tools/bin:/var/lib/gems/1.8/bin/:/var/lib/gems/1.9/bin ; export PATH
 #export PS1="[\[\033[1;34m\w\[\033[0m]$ "
 export EDITOR=`which vim`
 alias hist='history | grep $1' #Requires one input
@@ -223,14 +223,6 @@ function cgrep () { egrep -RnH --include=*.{h,c,cpp} -e "$1" *; }
 
 # Less Colors for Man Pages
 # make less more friendly for non-text input files, see lesspipe(1)
-# [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
-# export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
-# export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
-# export LESS_TERMCAP_me=$'\E[0m'           # end mode
-# export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
-# export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
-# export LESS_TERMCAP_ue=$'\E[0m'           # end underline
-# export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
@@ -291,6 +283,7 @@ mountedinfo ; echo ""
 echo -ne "${LIGHTBLUE}Uptime for this computer is ";uptime | awk /'up/
 {print $3,$4}'
 echo ""; echo ""
+echo -e "${WHITE}" 
 
 export CLICOLOR=exfxcxdxbxegedabagacad
 
