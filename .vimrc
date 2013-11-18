@@ -1,6 +1,13 @@
 filetype plugin off " We switch it back on again later, but off for pathogen to get a lookin
 filetype off
-autocmd ColorScheme * highlight MatchParen cterm=bold ctermbg=none ctermfg=green
+
+autocmd ColorScheme * call ColourOverride()
+function ColourOverride()
+  highlight Pmenu       ctermbg=157        gui=bold ctermfg=blue 
+  highlight PmenuSel    ctermbg=darkblue   gui=bold ctermfg=blue 
+  highlight Matchmaker  ctermbg=darkyellow gui=bold ctermfg=white 
+  highlight MatchParen  cterm=bold         ctermbg=none ctermfg=green
+endfunction
 
 
 " Setting up Vundle - the vim plugin bundler
@@ -77,6 +84,8 @@ Bundle 'QuickBuf'
 Bundle 'SearchCompl.vim'
 Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'TailMinusF'
+Bundle 'headerguard'
+Bundle 'vim-toplevel'
 Bundle 'YankRing.vim'
 Bundle 'a.vim'
 Bundle 'foldsearch'
@@ -217,16 +226,13 @@ nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkError
 nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
-highlight Pmenu       ctermbg=238        gui=bold ctermfg=blue 
-highlight PmenuSel    ctermbg=darkblue   gui=bold ctermfg=blue 
-highlight Matchmaker  ctermbg=darkyellow gui=bold ctermfg=white 
-
 
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
 " :execute    'silent !tmux send-keys -t target.2 "dow "\' | redraw! 
 " execute    'silent !tmux send-keys -t target.2 "stopecho '''' > serial.raw dow ./apps/bin/box_img.elf run"' | redraw!
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
+
 
 
 runtime! bundle_config/*.vim
