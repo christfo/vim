@@ -3,7 +3,7 @@ filetype off
 
 autocmd ColorScheme * call ColourOverride()
 function ColourOverride()
-  highlight Pmenu       ctermbg=157        gui=bold ctermfg=blue 
+  highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
   highlight PmenuSel    ctermbg=darkblue   gui=bold ctermfg=blue 
   highlight Matchmaker  ctermbg=darkyellow gui=bold ctermfg=white 
   highlight MatchParen  cterm=bold         ctermbg=none ctermfg=green
@@ -30,6 +30,7 @@ Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-jdaddy'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-rsi'
@@ -46,17 +47,19 @@ Bundle 'tpope/vim-sleuth'
 Bundle 'tpope/vim-dispatch'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'Shougo/vimproc.vim'
-Bundle 'Shougo/unite.vim'
+" Bundle 'Shougo/unite.vim'
+Bundle 'gcmt/wildfire.vim'
+Bundle 'rking/ag.vim'
 Bundle 'rbgrouleff/bclose.vim'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Raimondi/delimitMate'
-Bundle 'Valloric/YouCompleteMe.git'
 Bundle 'Twinside/vim-cuteErrorMarker'
 Bundle 'brookhong/cscope.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'jpalardy/vim-slime'
+Bundle 'jayflo/vim-skip'
 Bundle 'kana/vim-arpeggio'
 Bundle 'kana/vim-textobj-user'
 Bundle 'majutsushi/tagbar'
@@ -94,6 +97,7 @@ Bundle 'gregsexton/VimCalc'
 Bundle 'matchit.zip'
 Bundle 'mru.vim'
 Bundle 'node'
+Bundle 'noerrmsg.vim'
 Bundle 'NPM'
 Bundle 'TurboMark'
 Bundle 'tlib'
@@ -101,7 +105,6 @@ Bundle 'vim-git-log'
 Bundle 'vim-json-bundle'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'vim-javascript'
-Bundle 'ag.vim'
 Bundle 'ZoomWin'
 Bundle 'PatternsOnText'
 Bundle 'winresizer.vim'
@@ -109,6 +112,9 @@ Bundle 'textobj-comment'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'hwrod/interactive-replace.git'
 Bundle 'zhaocai/linepower.vim'
+if ( empty($SUPRESS_YCM)  )
+  Bundle 'Valloric/YouCompleteMe.git'
+endif
 
 if iCanHazVundle == 0
   echo "Installing Bundles, please ignore key map error messages"
