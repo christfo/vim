@@ -241,6 +241,11 @@ nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:Clea
 
 autocmd BufRead,BufNewFile *.log set syntax=log 
 
+" add autocmd so that the gutter is always displayed to stop the cursor
+" jumping
+autocmd BufEnter * sign define dummy
+autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
+
 
 
 runtime! bundle_config/*.vim
