@@ -59,4 +59,7 @@ nodates=true
 [worker]
 numcpus=4
 
+[web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
+
 %include ~/.hgrc.private
