@@ -52,6 +52,8 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'guns/vim-clojure-highlight'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'tommcdo/vim-exchange'
+Bundle 'tommcdo/vim-lion'
+Bundle 'wellle/targets.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'Shougo/vimproc.vim'
 " Bundle 'Shougo/unite.vim'
@@ -253,6 +255,8 @@ autocmd BufRead,BufNewFile *.log set syntax=log
 autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 
+
+command! -nargs=1 Silent  | execute ':silent !'.<q-args>  | execute ':redraw!'
 
 
 runtime! bundle_config/*.vim
