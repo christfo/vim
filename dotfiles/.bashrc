@@ -297,3 +297,6 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH
 alias android-connect='mtpfs -o allow_other /media/nexus10 ' 
 alias android-disconnect='fusermount -u /media/nexus10'
+
+. /opt/Xilinx/14.4/LabTools/settings32.sh
+
