@@ -1,0 +1,31 @@
+# ~/.tmuxinator/mainline.yml
+# you can make as many tabs as you wish...
+
+project_name: wowlaunch
+project_root: /media/data/edvt_25_10_13/
+# pre: exctags -R
+windows:
+  - wow: 
+      layout: main-horizontal
+      panes:
+        - pic:
+          - cu -l ttyUSB2 -s 115200 
+          - dben on 6
+        - wowlom:
+          - cu -l ttyUSB0 -s 115200
+          - spiatom
+          - exe
+        - pipe:
+          - cd scripts
+          - sudo ./pipe.py /dev/ttyUSB0 3001 &
+          - lua -i lib_edvt.lua 3001
+          - db_serial_read( mkroute("/host/scu") )
+  - scratch: 
+      layout: main-horizontal
+      panes:
+        - host:
+          - ssh chrisf@chrisf-u64-wow.lal.cisco.com
+          - wombat
+        - local:
+# ~/.tmuxinator/wowlaunch.tmux.yml
+
