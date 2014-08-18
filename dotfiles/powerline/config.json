@@ -25,7 +25,11 @@
 		},
 		"shell": {
 			"colorscheme": "default",
-			"theme": "default"
+			"theme": "default",
+			"local_themes": {
+				"continuation": "continuation",
+				"select": "select"
+			}
 		},
 		"tmux": {
 			"colorscheme": "default",
@@ -35,10 +39,16 @@
 			"colorscheme": "contrast",
 			"theme": "contrast",
 			"local_themes": {
-				"help": "help",
+				"__tabline__": "tabline",
+
 				"cmdwin": "cmdwin",
 				"help": "help",
-				"quickfix": "quickfix"
+				"quickfix": "quickfix",
+
+				"powerline.matchers.vim.plugin.nerdtree.nerdtree": "plugin_nerdtree",
+				"powerline.matchers.vim.plugin.ctrlp.ctrlp": "plugin_ctrlp",
+				"powerline.matchers.vim.plugin.gundo.gundo": "plugin_gundo",
+				"powerline.matchers.vim.plugin.gundo.gundo_preview": "plugin_gundo-preview"
 			}
 		},
 		"wm": {
