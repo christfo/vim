@@ -15,6 +15,7 @@ rebase=
 progress=
 parentrevspec=
 pager=
+transplant=
 crecord=~/bin/crecord/crecord/
 
 [alias]

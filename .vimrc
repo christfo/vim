@@ -258,9 +258,41 @@ autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 
 
+" Like windo but restore the current window.
+function! WinDo(command)
+  let currwin=winnr()
+  execute 'windo ' . a:command
+  execute currwin . 'wincmd w'
+endfunction
+com! -nargs=+ -complete=command Windo call WinDo(<q-args>)
+" Like bufdo but restore the current buffer.
+function! BufDo(command)
+  let currBuff=bufnr("%")
+  execute 'bufdo ' . a:command
+  execute 'buffer ' . currBuff
+endfunction
+com! -nargs=+ -complete=command Bufdo call BufDo(<q-args>)
+" Like tabdo but restore the current tab.
+function! TabDo(command)
+  let currTab=tabpagenr()
+  execute 'tabdo ' . a:command
+  execute 'tabn ' . currTab
+endfunction
+com! -nargs=+ -complete=command Tabdo call TabDo(<q-args>)
 command! -nargs=1 Silent  | execute ':silent !'.<q-args>  | execute ':redraw!'
 
+" change paste <motion>
+" Blackhole the motion and replace it with the contents of current refgister
 
+function! ChangePaste(type, ...) 
+  silent exe "normal! `[v`]\"_c".getreg(g:currentRegister) 
+endfunction
+nmap <silent> cp :let g:currentRegister=v:register<cr>:set opfunc=ChangePaste<CR>g@
+"
 runtime! bundle_config/*.vim
 "inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
+
+
+
+
 
