@@ -125,6 +125,7 @@ Bundle 'textobj-comment'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'hwrod/interactive-replace.git'
 Bundle 'zhaocai/linepower.vim'
+Bundle 'haya14busa/incsearch.vim'
 if ( empty($SUPRESS_YCM)  )
   Bundle 'Valloric/YouCompleteMe.git'
 endif
@@ -154,7 +155,7 @@ set hlsearch
 set switchbuf=useopen,usetab
 set cmdheight=2
 let mapleader=","
-set history=55000
+set history=10000
 set wildmode=list:longest
 set scrolloff=3
 set wildignore=*.o,*~,tags
@@ -218,10 +219,22 @@ nnoremap [t :tabp<cr>
 nnoremap ]t :tabn<cr>
 
 " always magic on search
-nnoremap / /\v
-nnoremap ? ?\v
-vnoremap / /\v
-vnoremap ? ?\v
+let g:incsearch#magic = '\v'
+let g:incsearch#emacs_like_keymap = 1
+" augroup incsearch-keymap
+"   autocmd!
+"   autocmd VimEnter call s:incsearch_keymap()
+" augroup END
+" function! s:incsearch_keymap()
+"   IncSearchNoreMap <Right> <Over>(incsearch-next)
+"   IncSearchNoreMap <Left>  <Over>(incsearch-prev)
+"   IncSearchNoreMap <Tab>   <Over>(incsearch-complete)
+"   IncSearchNoreMap <Down>  <Over>(incsearch-scroll-f)
+"   IncSearchNoreMap <Up>    <Over>(incsearch-scroll-b)
+" endfunction
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 cnoremap s/ s/\v
 
 "add :w!! to write as sudo
