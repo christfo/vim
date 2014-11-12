@@ -298,5 +298,26 @@ export PATH
 alias android-connect='mtpfs -o allow_other /media/nexus10 ' 
 alias android-disconnect='fusermount -u /media/nexus10'
 
+
+export SELECTA_IGNORE='(.*node_modules.*)|(.*.git.*)|(.*.hg.*)'
+
+alias tmxs='tmux attach -t `tmux ls | selecta | cut -f1 -d:`'
+alias vims='vim `find . -type f | grep -v "^\./\."  | selecta`'
+alias kills='kill `ps aux | selecta | awk '"'"'{print $2 }'"'"'`'
+
+function ffiles() {
+       find . -name \* -print | selecta
+}
+function greps(){
+       grep -lr $1 ./* | selecta
+}
+
+function history_selecta() {
+    tmpfile=(mktemp /tmp/history_selecta.XXXX)
+    history | selecta > $tmpfile
+    $(cat $tmpfile)
+    rm $tmpfile
+}
+
 . /opt/Xilinx/14.4/LabTools/settings32.sh
 
