@@ -16,7 +16,7 @@ progress=
 parentrevspec=
 pager=
 transplant=
-crecord=~/bin/crecord/crecord/
+crecord=~/.hg/crecord/crecord/
 
 [alias]
 #slog=log --stat
@@ -28,9 +28,9 @@ qlog = log  --stat --rev qtip:qparent
 qstatus = status --rev qparent 
 qdiff = diff --rev qparent 
 pdiff = diff --rev -2 
-slog=log --style=${HOME}/.vim/dotfiles/mercurial-cli-templates/map-cmdline.slog
-nlog=log --style=${HOME}/.vim/dotfiles/mercurial-cli-templates/map-cmdline.nlog
-glog=glog --style=${HOME}/.vim/dotfiles/mercurial-cli-templates/map-cmdline.sglog
+slog=log --style=${HOME}/.hg/mercurial-cli-templates/map-cmdline.slog
+nlog=log --style=${HOME}/.hg/mercurial-cli-templates/map-cmdline.nlog
+glog=glog --style=${HOME}/.hg/mercurial-cli-templates/map-cmdline.sglog
 
 [git]
 intree=True
