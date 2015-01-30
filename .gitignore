@@ -1,6 +1,6 @@
 .netrwhist
 */.hg/*
-home/.local/share/vim/*
+home/.local/share/*
 home/.vim/bundle/*
 .*\.swp
 .*\.un~
