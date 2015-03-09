@@ -53,6 +53,7 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'guns/vim-clojure-highlight'
 Bundle 'guns/vim-sexp'
 Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'chrisbra/vim-diff-enhanced'
 Bundle 'tommcdo/vim-exchange'
 Bundle 'tommcdo/vim-lion'
 Bundle 'wellle/targets.vim'
@@ -218,6 +219,8 @@ cnoremap <C-P>  <Up>
 
 nnoremap [t :tabp<cr>
 nnoremap ]t :tabn<cr>
+
+
 
 " always magic on search
 let g:incsearch#magic = '\v'
