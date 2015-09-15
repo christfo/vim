@@ -328,3 +328,6 @@ function history_selecta() {
 
 . /opt/Xilinx/14.4/LabTools/settings32.sh
 
+
+export NVM_DIR="/home/chrisf/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

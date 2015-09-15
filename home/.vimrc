@@ -62,6 +62,7 @@ Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/unite.vim'
 Bundle 'gcmt/wildfire.vim'
 Bundle 'rking/ag.vim'
+Bundle 'gabesoft/vim-ags'
 Bundle 'rbgrouleff/bclose.vim'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -78,7 +79,6 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'majutsushi/tagbar'
 Bundle 'mtth/locate.vim'
 Bundle 'nanliu/vim-puppet'
-Bundle 'bbchung/clighter'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'nviennot/irb-config'
 Bundle 'christfo/vim-mercenary'
@@ -124,6 +124,7 @@ Bundle 'vim-javascript'
 Bundle 'ZoomWin'
 Bundle 'PatternsOnText'
 Bundle 'winresizer.vim'
+Bundle 'zah/nim.vim'
 Bundle 'textobj-comment'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'hwrod/interactive-replace.git'
@@ -259,7 +260,7 @@ nnoremap <F7> :NERDTreeToggle<CR>
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <Leader>do :DiffChangesDiffToggle<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
-nnoremap <leader>co :copen 35 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
+nnoremap <leader>co :copen 15 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
 
@@ -310,7 +311,14 @@ nmap <silent> cp :let g:currentRegister=v:register<cr>:set opfunc=ChangePaste<CR
 runtime! bundle_config/*.vim
 "inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
 
+fun! JumpToDef()
+  if exists("*GotoDefinition_" . &filetype)
+    call GotoDefinition_{&filetype}()
+  else
+    exe "norm! \<C-]>"
+  endif
+endfun
 
-
-
+nn <M-g> :call JumpToDef()<cr>
+ino <M-g> <esc>:call JumpToDef()<cr>i
 
