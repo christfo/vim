@@ -18,6 +18,7 @@ parentrevspec=
 pager=
 transplant=
 crecord=~/.hg/crecord/crecord/
+evolve=~/.hg/mutable-history/hgext/
 
 [alias]
 #slog=log --stat
