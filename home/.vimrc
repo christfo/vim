@@ -9,7 +9,6 @@ function ColourOverride()
   highlight MatchParen  cterm=bold         ctermbg=none ctermfg=green
 endfunction
 
-
 " Setting up Vundle - the vim plugin bundler
 let iCanHazVundle=1
 let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
@@ -61,13 +60,15 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/unite.vim'
 Bundle 'gcmt/wildfire.vim'
-Bundle 'rking/ag.vim'
+Bundle 'albfan/ag.vim'
 Bundle 'gabesoft/vim-ags'
 Bundle 'rbgrouleff/bclose.vim'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
+" Bundle 'jiangmiao/auto-pairs'
+" Bundle 'gorkunov/smartpairs.vim'
 " Bundle 'Raimondi/delimitMate'
-Bundle 'cohama/lexima.vim'
+" Bundle 'cohama/lexima.vim'
 Bundle 'Twinside/vim-cuteErrorMarker'
 Bundle 'brookhong/cscope.vim'
 Bundle 'godlygeek/tabular'
@@ -82,8 +83,8 @@ Bundle 'mtth/locate.vim'
 Bundle 'nanliu/vim-puppet'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'nviennot/irb-config'
-Bundle 'christfo/vim-mercenary'
-Bundle 'scrooloose/nerdtree'
+" Bundle 'christfo/vim-mercenary'
+" Bundle 'scrooloose/nerdtree'
 Bundle 'sjbach/lusty'
 Bundle 'sjl/gundo.vim'
 Bundle 'disassembler/splice.vim'
@@ -92,7 +93,6 @@ Bundle 'timcharper/textile.vim'
 Bundle 'tomasr/molokai'
 Bundle 'qstrahl/vim-matchmaker'
 Bundle 'tomtom/quickfixsigns_vim'
-Bundle 'gorkunov/smartpairs.vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'diffchanges.vim'
 Bundle 'Colortest'
@@ -151,6 +151,10 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
+let g:ag_apply_mappings=0
+let g:ag_apply_lmappings=0
+let g:ag_apply_qmappings=0
+
 colorscheme molokai
 set nocompatible
 set t_Co=256
@@ -188,6 +192,7 @@ set undodir=~/.local/share/vim/undo//
 "cmap ack  Ack
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
+cnoreabbrev <expr> ags ((getcmdtype() is# ':' && getcmdline() is# 'ags')?('Ags'):('ags'))
 if executable('ack')
   set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
   set grepformat=%f:%l:%c:%m

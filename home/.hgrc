@@ -1,4 +1,5 @@
 [extensions]
+evolve=~/.hg/mutable-history/hgext/evolve.py
 hgext.convert=
 hgext.color=
 hgext.extdiff=
@@ -32,6 +33,7 @@ pdiff = diff --rev -2
 slog=log --style=${HOME}/.hg/mercurial-cli-templates/map-cmdline.slog
 nlog=log --style=${HOME}/.hg/mercurial-cli-templates/map-cmdline.nlog
 glog=glog --style=${HOME}/.hg/mercurial-cli-templates/map-cmdline.sglog
+bid=id -bint
 
 [git]
 intree=True
