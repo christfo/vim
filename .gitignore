@@ -1,5 +1,7 @@
 .netrwhist
 */.hg/*
+home/.config/*
+home/.local/*
 home/.local/share/*
 home/.vim/bundle/*
 .*\.swp

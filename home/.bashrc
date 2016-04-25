@@ -173,7 +173,7 @@ fi
 PATH=/opt/local/bin:/usr/local/bin/:~/bin/:~/.local/bin/:$PATH:/usr/pkg/bin:/usr/cross-tools-str9/bin:/usr/cross-tools/bin:/var/lib/gems/1.8/bin/:/var/lib/gems/1.9/bin ; export PATH
 #export PS1="[\[\033[1;34m\w\[\033[0m]$ "
 export EDITOR=`which vim`
-alias hist='history | grep $1' #Requires one input
+function  hgrep() { history | grep -P -- "$*"; } #Requires one input
 alias tree='tree -C'
 alias pstree='pstree -g3'
 

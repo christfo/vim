@@ -63,7 +63,9 @@ Bundle 'gcmt/wildfire.vim'
 Bundle 'albfan/ag.vim'
 Bundle 'gabesoft/vim-ags'
 Bundle 'rbgrouleff/bclose.vim'
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'vim-airline/vim-airline'
+" Bundle 'itchyny/lightline.vim'
+" Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
 " Bundle 'jiangmiao/auto-pairs'
 " Bundle 'gorkunov/smartpairs.vim'
@@ -83,7 +85,7 @@ Bundle 'mtth/locate.vim'
 Bundle 'nanliu/vim-puppet'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'nviennot/irb-config'
-" Bundle 'christfo/vim-mercenary'
+Bundle 'christfo/vim-mercenary'
 " Bundle 'scrooloose/nerdtree'
 Bundle 'sjbach/lusty'
 Bundle 'sjl/gundo.vim'
@@ -154,6 +156,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 let g:ag_apply_mappings=0
 let g:ag_apply_lmappings=0
 let g:ag_apply_qmappings=0
+let g:airline_powerline_fonts=1
 
 colorscheme molokai
 set nocompatible
