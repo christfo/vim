@@ -74,7 +74,7 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'Twinside/vim-cuteErrorMarker'
 Bundle 'brookhong/cscope.vim'
 Bundle 'godlygeek/tabular'
-Bundle 'jnwhiteh/vim-golang'
+Bundle 'fatih/vim-go'
 Bundle 'jpalardy/vim-slime'
 Bundle 'jayflo/vim-skip'
 Bundle 'Keithbsmiley/investigate.vim'
@@ -157,6 +157,15 @@ let g:ag_apply_mappings=0
 let g:ag_apply_lmappings=0
 let g:ag_apply_qmappings=0
 let g:airline_powerline_fonts=1
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+let g:go_fmt_command = "goimports"
 
 colorscheme molokai
 set nocompatible
