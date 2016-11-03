@@ -1,0 +1,1 @@
+../bundle/vim-latex-live-preview/plugin/latexlivepreview.vim

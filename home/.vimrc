@@ -67,6 +67,7 @@ Bundle 'vim-airline/vim-airline'
 " Bundle 'itchyny/lightline.vim'
 " Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'beloglazov/vim-online-thesaurus'
 " Bundle 'jiangmiao/auto-pairs'
 " Bundle 'gorkunov/smartpairs.vim'
 " Bundle 'Raimondi/delimitMate'
@@ -132,6 +133,7 @@ Bundle 'textobj-comment'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'hwrod/interactive-replace.git'
 Bundle 'zhaocai/linepower.vim'
+Bundle 'xuhdev/vim-latex-live-preview'
 Bundle 'haya14busa/incsearch.vim'
 if ( empty($SUPRESS_YCM)  )
   Bundle 'Valloric/YouCompleteMe.git'
@@ -152,6 +154,19 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'go' : ['.'],
+  \   'objc' : ['->', '.'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,d,vim,ruby,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
 
 let g:ag_apply_mappings=0
 let g:ag_apply_lmappings=0

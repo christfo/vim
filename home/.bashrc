@@ -300,11 +300,11 @@ if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator
 
 # . tmuxinator_completion
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export GOPATH=$HOME/work
+PATH=/usr/local/go/bin:$HOME/.rvm/bin:$PATH:$GOPATH/bin # Add RVM to PATH for scripting
 export PATH
 alias android-connect='mtpfs -o allow_other /media/nexus10 ' 
 alias android-disconnect='fusermount -u /media/nexus10'
-
 
 export SELECTA_IGNORE='(.*node_modules.*)|(.*.git.*)|(.*.hg.*)'
 
