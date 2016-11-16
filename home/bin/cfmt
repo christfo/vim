@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+function cfmt {
+  if [[ $# -ne 1 ]]; then
+    echo "Usage: cfmt <file>"
+  else
+    astyle \
+      --style=1tbs \
+      --lineend=linux \
+      --convert-tabs \
+      --preserve-date \
+      --pad-header \
+      --indent-switches \
+      --align-pointer=name \
+      --align-reference=name \
+      --pad-oper \
+      --suffix=none \
+      $1
+  fi
+}
+
+

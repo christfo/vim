@@ -166,6 +166,10 @@ if [ -f  ~/.hg/bash_completion ]; then
     source ~/.hg/bash_completion
 fi
 
+if [ -f  ~/.pip/bash_completion ]; then
+    source ~/.pip/bash_completion
+fi
+
 
 # EXPORTS
 #######################################################
@@ -299,6 +303,9 @@ if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
 if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator/scripts/tmuxinator ; fi
 
 # . tmuxinator_completion
+
+export WORKON_HOME=$HOME/Envs
+source /usr/local/bin/virtualenvwrapper.sh
 
 export GOPATH=$HOME/work
 PATH=/usr/local/go/bin:$HOME/.rvm/bin:$PATH:$GOPATH/bin # Add RVM to PATH for scripting

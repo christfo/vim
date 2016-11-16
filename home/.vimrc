@@ -51,6 +51,13 @@ Bundle 'rhysd/clever-f.vim'
 Bundle 'guns/vim-clojure-static'
 Bundle 'guns/vim-clojure-highlight'
 Bundle 'guns/vim-sexp'
+Bundle 'pangloss/vim-javascript'
+Bundle 'moll/vim-node'
+Bundle 'othree/html5-syntax.vim'
+Bundle 'othree/html5.vim'
+Bundle 'othree/javascript-libraries-syntax.vim'
+Bundle 'burnettk/vim-angular'
+Bundle 'klen/python-mode'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'chrisbra/vim-diff-enhanced'
 Bundle 'tommcdo/vim-exchange'
@@ -67,7 +74,6 @@ Bundle 'vim-airline/vim-airline'
 " Bundle 'itchyny/lightline.vim'
 " Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'beloglazov/vim-online-thesaurus'
 " Bundle 'jiangmiao/auto-pairs'
 " Bundle 'gorkunov/smartpairs.vim'
 " Bundle 'Raimondi/delimitMate'
@@ -124,7 +130,6 @@ Bundle 'tlib'
 Bundle 'vim-git-log'
 Bundle 'vim-json-bundle'
 Bundle 'jelera/vim-javascript-syntax'
-Bundle 'vim-javascript'
 Bundle 'ZoomWin'
 Bundle 'PatternsOnText'
 Bundle 'winresizer.vim'
@@ -155,7 +160,6 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],
   \   'go' : ['.'],
@@ -167,20 +171,6 @@ let g:ycm_semantic_triggers =  {
   \   'lua' : ['.', ':'],
   \   'erlang' : [':'],
   \ }
-
-let g:ag_apply_mappings=0
-let g:ag_apply_lmappings=0
-let g:ag_apply_qmappings=0
-let g:airline_powerline_fonts=1
-
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-
-let g:go_fmt_command = "goimports"
 
 colorscheme molokai
 set nocompatible
@@ -210,6 +200,12 @@ set fillchars+=vert:\|
 set backupdir=~/.local/share/vim/backup//
 set directory=~/.local/share/vim/swap//
 set undodir=~/.local/share/vim/undo//
+
+set ts=4
+set autoindent
+set expandtab
+set shiftwidth=4
+
 
 " nmap <C-H>  <C-W>h
 " nmap <C-J>  <C-W>j
