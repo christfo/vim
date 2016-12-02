@@ -41,36 +41,6 @@ NC='\e[0m'              # No Color
 
 # If not running interactively, don't do anything
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... and ignore same sucessive entries.
-export HISTCONTROL=ignoreboth:ignoredups:erasedups:ignorespace
-export HISTFILESIZE=100000 # the bash history should save 3000 commands
-export HISTSIZE=100000 # the bash history should save 3000 commands
-shopt -s histappend
-
-history() {
-    _bash_history_sync
-    builtin history "$0"
-}
-
-_bash_history_sync() {
-    builtin history -a
-    HISTFILESIZE=$HISTFILESIZE
-    builtin history -c
-    builtin history -r
-}
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-shopt -s extglob
-
-# stop tty from steeling ^W . defined in inputrc the same as alt backspace, but only interactive
-if [ -t 0 ]; then
-stty werase undef #
-fi
-
-
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -130,31 +100,22 @@ xterm*|rxvt*|screen*)
 esac
 export PROMPT_COMMAND="_bash_history_sync;${PROMPT_COMMAND}"
 
+if [ -f $HOME/.bashrc.local ]; then
+    . $HOME/.bashrc.local 
+fi
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-# enable color support of ls and also add handy aliases
-if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
-    eval "`dircolors -b`"
-    #alias ls='ls --color=auto'
-    alias dir='ls --color=auto --format=vertical'
-    alias vdir='ls --color=auto --format=long'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
-alias ll='ls -lah'
-alias la='ls -A'
-alias l='ls -CF'
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
+if [ -f /usr/local/bin/aws_completer ]; then
+    . /usr/local/bin/aws_completer
+fi
+
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
@@ -171,6 +132,14 @@ if [ -f  ~/.pip/bash_completion ]; then
 fi
 
 
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
+
+if [ -f $(brew --prefix)/etc/bash_completion.d/vagrant ]; then
+. $(brew --prefix)/etc/bash_completion.d/vagrant
+fi
+
 # EXPORTS
 #######################################################
 
@@ -183,62 +152,6 @@ alias pstree='pstree -g3'
 
 
 
-
-# ALIAS'S OF ALL TYPES SHAPES AND FORMS ;)
-#######################################################
-
-# Alias's to local workstations
-
-# Alias's to modified commands
-alias ps='ps auxf'
-alias home='cd ~'
-alias pg='ps aux | grep'  #requires an argument
-alias un='tar -zxvf'
-alias mountedinfo='df -hT'
-alias ping='ping -c 10'
-alias openports='netstat -nape --inet'
-alias ns='netstat -alnp --protocol=inet | grep -v CLOSE_WAIT | cut -c-6,21-94 | tail +2'
-alias du1='du -h --max-depth=1'
-alias da='date "+%Y-%m-%d %A    %T %Z"'
-alias ebrc='pico ~/.bashrc'
-
-# Alias to multiple ls commands
-alias la='ls -Al'               # show hidden files
-alias ls='ls -aF' # add colors and file type extensions
-alias lx='ls -lXB'              # sort by extension
-alias lk='ls -lSr'              # sort by size
-alias lc='ls -lcr'      # sort by change time
-alias lu='ls -lur'      # sort by access time
-alias lr='ls -lR'               # recursive ls
-alias lt='ls -ltr'              # sort by date
-alias lm='ls -al |more'         # pipe through 'more'
-
-# Alias chmod commands
-alias mx='chmod a+x'
-alias 000='chmod 000'
-alias 644='chmod 644'
-alias 755='chmod 755'
-
-# Alias Shortcuts to graphical programs.
-
-# Alias xterm and aterm
-alias term='xterm -bg AntiqueWhite -fg Black &'
-alias termb='xterm -bg AntiqueWhite -fg NavyBlue &'
-alias termg='xterm -bg AntiqueWhite -fg OliveDrab &'
-alias termr='xterm -bg AntiqueWhite -fg DarkRed &'
-alias aterm='aterm -ls -fg gray -bg black'
-alias xtop='xterm -fn 6x13 -bg LightSlateGray -fg black -e top &'
-alias xsu='xterm -fn 7x14 -bg DarkOrange4 -fg white -e su &'
-
-function cgrep () { egrep -RnH --include=*.{h,c,cpp} -e "$1" *; }
-
-# Less Colors for Man Pages
-# make less more friendly for non-text input files, see lesspipe(1)
-export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-export LESS=' -R '
-
-# set the highlight search colour
-export LESS_TERMCAP_so=$'\E[01;44;33m'
 
 # SOME OF MY UNUSED ALIAS's
 #######################################################
@@ -332,8 +245,6 @@ function history_selecta() {
     $(cat $tmpfile)
     rm $tmpfile
 }
-
-. /opt/Xilinx/14.4/LabTools/settings32.sh
 
 
 export NVM_DIR="/home/chrisf/.nvm"

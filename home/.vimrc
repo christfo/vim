@@ -47,6 +47,7 @@ Bundle 'tpope/vim-projectionist'
 Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-leiningen'
 Bundle 'tpope/vim-sexp-mappings-for-regular-people'
+Bundle 'ternjs/tern_for_vim'
 Bundle 'rhysd/clever-f.vim'
 Bundle 'guns/vim-clojure-static'
 Bundle 'guns/vim-clojure-highlight'
@@ -201,10 +202,10 @@ set backupdir=~/.local/share/vim/backup//
 set directory=~/.local/share/vim/swap//
 set undodir=~/.local/share/vim/undo//
 
-set ts=4
+set ts=3
 set autoindent
 set expandtab
-set shiftwidth=4
+set shiftwidth=3
 
 
 " nmap <C-H>  <C-W>h

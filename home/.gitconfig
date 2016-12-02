@@ -1,7 +1,26 @@
+[branch]
+  autosetuprebase = always
 [user]
-	name = Chris Ford
-	email = chrisf@primate.com
+       # UNCOMMENT and SET YOUR menlosecurity.com E-MAIL AND FULL NAME
+       # SO THAT THEY APPEAR CORRECTLY ON COMMITS:
+  email = chris.ford@menlosecurity.com
+  name = Chris Ford
+[commit]
+       # UNCOMMENT and SET THIS BASED ON WHAT YOU ARE DEVELOPING:
+  template = ~/menlo/safeview/service/misc/commit_template.txt
+[merge]
+  ff = only
+  summary = true
+[push]
+  default = simple
+[rebase]
+  stat = true
+[clean]
+  requireForce = true
 [core]
+    # CHOOSE YOUR FAVORITE EDITOR: vim, vi, emacs, nano
+  editor = vim
+  excludesfile = ~/.gitignore
   autocrlf = input
   pager = less -XRMSI
   eol = native
@@ -13,12 +32,12 @@
   ui = auto
 [gc]
   auto = 1
-[merge]
-  summary = true
 [alias]
   # The basics.
+  st = status
   ci = commit
   co = checkout
+  br = branch
 
   d = diff                                # show changes in the working directory (not including index)
   ds = diff --staged                      # show changes in the index only (not working directory)
@@ -58,31 +77,31 @@
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   filelog = log -u  # show changes to a file
   changelog = log --pretty=format:\" * %s\"
-  
+
   # Show status and diff of dirty submodules
   subdiff = !"git submodule foreach --recursive --quiet '[ \"$(git status -s)\" ] && echo \"--- $name ---\" && git status -s && git diff --unified=1 || :'"
-  
+
   # Pull all submodules
   subpull = !"git-subpull-async"
-  
+
   # Update all submodules
   subupdate = !"git submodule sync && git submodule update --init --recursive"
-  
+
   # Checkout master branch of all submodules
   subcheckout = !"git submodule foreach git checkout master"
-  
+
   # Reset all submodules
   subreset = !"git submodule foreach --recursive git checkout -- . && git submodule foreach --recursive git clean -f"
-  
+
   # Show current branch of each submodule
   subbranch = !"git submodule foreach --recursive 'git rev-parse --abbrev-ref HEAD'"
-  
+
   # show list of contributors in descending order by number of commits
   rank = shortlog -sn --no-merges
-  
+
   # given any git object, try to show it briefly
   whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
-  
+
   # Search for a given string in all patches and print commit messages
   # example: search for any commit that adds or removes string "foobar"
   #     git searchcommits foobar
@@ -91,11 +110,16 @@
   # example: search commits for "foobar", print full diff of commit with 1 line context
   #     git searchcommits foobar --pickaxe-all -U1 src/lib
   searchcommits = "!f() { query=\"$1\"; shift; git log -S\"$query\" \"$@\"; }; f \"$@\""
-  
+
   # Add modified files to previous commit
   oups = "!git add -A -v && git commit --amend -C HEAD"
-  
+
   # very compact log
   lol = log --graph --decorate --pretty=format:'%h %an: %s' --abbrev-commit
 
   map = log --graph --full-history --all --color --decorate
+  lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+  lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+  lg = !"git lg1"
+[init]
+	templatedir = ~/.git_template
