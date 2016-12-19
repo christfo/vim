@@ -1,5 +1,6 @@
 .netrwhist
 */.hg/*
+.DS_Store
 home/.config/*
 home/.local/*
 home/.local/share/*

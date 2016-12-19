@@ -16,6 +16,7 @@ _bash_history_sync() {
     builtin history -c
     builtin history -r
 }
+export PROMPT_COMMAND="_bash_history_sync;${PROMPT_COMMAND}"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.

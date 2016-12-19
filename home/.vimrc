@@ -24,6 +24,9 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
+Bundle 'fmoralesc/molokayo'
+Bundle 'morhetz/gruvbox'
+Bundle 'jacoborus/tender.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-sensible'
 Bundle 'tpope/vim-abolish'
@@ -154,6 +157,11 @@ endif
 runtime ftplugin/man.vim
 source $VIMRUNTIME/ftplugin/man.vim
 
+if (has('nvim') && has("termguicolors"))
+   set termguicolors
+endif
+
+
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -173,7 +181,7 @@ let g:ycm_semantic_triggers =  {
   \   'erlang' : [':'],
   \ }
 
-colorscheme molokai
+colorscheme molokayo
 set nocompatible
 set t_Co=256
 set ignorecase

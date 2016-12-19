@@ -98,7 +98,6 @@ xterm*|rxvt*|screen*)
 *)
     ;;
 esac
-export PROMPT_COMMAND="_bash_history_sync;${PROMPT_COMMAND}"
 
 if [ -f $HOME/.bashrc.local ]; then
     . $HOME/.bashrc.local 
