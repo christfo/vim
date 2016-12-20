@@ -28,6 +28,9 @@ if [ -t 0 ]; then
 stty werase undef #
 fi
 
+# disable xon/xoff so that ^s can be used for reverse reverse-history-search
+stty -ixon
+
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then

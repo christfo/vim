@@ -1,161 +1,158 @@
-filetype plugin off " We switch it back on again later, but off for pathogen to get a lookin
-filetype off
 
-autocmd ColorScheme * call ColourOverride()
-function ColourOverride()
-  highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
-  highlight PmenuSel    ctermbg=darkblue   gui=bold ctermfg=blue 
-  highlight Matchmaker  ctermbg=darkyellow gui=bold ctermfg=white 
-  highlight MatchParen  cterm=bold         ctermbg=none ctermfg=green
+" autocmd ColorScheme * call ColourOverride()
+" function ColourOverride()
+"   highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
+"   highlight PmenuSel    ctermbg=darkblue   gui=bold ctermfg=blue 
+"   highlight Matchmaker  ctermbg=darkyellow gui=bold ctermfg=white 
+"   highlight MatchParen  cterm=bold         ctermbg=none ctermfg=green
+" endfunction
+
+" Setting up Vundle - the vim plugin Plugr
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
 
-" Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
+call plug#begin('~/.vim/bundle')
 
-  echo "Installing Vundle.."
-  echo ""
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-  let iCanHazVundle=0
-endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-
-Bundle 'fmoralesc/molokayo'
-Bundle 'morhetz/gruvbox'
-Bundle 'jacoborus/tender.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-sensible'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-jdaddy'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rsi'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-tbone'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-obsession'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-sleuth'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-projectionist'
-Bundle 'tpope/vim-fireplace'
-Bundle 'tpope/vim-leiningen'
-Bundle 'tpope/vim-sexp-mappings-for-regular-people'
-Bundle 'ternjs/tern_for_vim'
-Bundle 'rhysd/clever-f.vim'
-Bundle 'guns/vim-clojure-static'
-Bundle 'guns/vim-clojure-highlight'
-Bundle 'guns/vim-sexp'
-Bundle 'pangloss/vim-javascript'
-Bundle 'moll/vim-node'
-Bundle 'othree/html5-syntax.vim'
-Bundle 'othree/html5.vim'
-Bundle 'othree/javascript-libraries-syntax.vim'
-Bundle 'burnettk/vim-angular'
-Bundle 'klen/python-mode'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'chrisbra/vim-diff-enhanced'
-Bundle 'tommcdo/vim-exchange'
-Bundle 'tommcdo/vim-lion'
-Bundle 'wellle/targets.vim'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'Shougo/unite.vim'
-Bundle 'gcmt/wildfire.vim'
-Bundle 'albfan/ag.vim'
-Bundle 'gabesoft/vim-ags'
-Bundle 'rbgrouleff/bclose.vim'
-Bundle 'vim-airline/vim-airline'
-" Bundle 'itchyny/lightline.vim'
-" Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Bundle 'MarcWeber/vim-addon-mw-utils'
-" Bundle 'jiangmiao/auto-pairs'
-" Bundle 'gorkunov/smartpairs.vim'
-" Bundle 'Raimondi/delimitMate'
-" Bundle 'cohama/lexima.vim'
-Bundle 'Twinside/vim-cuteErrorMarker'
-Bundle 'brookhong/cscope.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'fatih/vim-go'
-Bundle 'jpalardy/vim-slime'
-Bundle 'jayflo/vim-skip'
-Bundle 'Keithbsmiley/investigate.vim'
-Bundle 'kana/vim-arpeggio'
-Bundle 'kana/vim-textobj-user'
-Bundle 'majutsushi/tagbar'
-Bundle 'mtth/locate.vim'
-Bundle 'nanliu/vim-puppet'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'nviennot/irb-config'
-Bundle 'christfo/vim-mercenary'
-" Bundle 'scrooloose/nerdtree'
-Bundle 'sjbach/lusty'
-Bundle 'sjl/gundo.vim'
-Bundle 'disassembler/splice.vim'
-Bundle 'sunaku/QFixToggle'
-Bundle 'timcharper/textile.vim'
-Bundle 'tomasr/molokai'
-Bundle 'qstrahl/vim-matchmaker'
-Bundle 'tomtom/quickfixsigns_vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'diffchanges.vim'
-Bundle 'Colortest'
-Bundle 'EasyGrep'
-Bundle 'justDo'
-Bundle 'Mark--Karkat'
-Bundle 'QuickBuf'
-Bundle 'Vim-Swoop'
-Bundle 'SearchCompl.vim'
-Bundle 'Source-Explorer-srcexpl.vim'
-Bundle 'TailMinusF'
-Bundle 'headerguard'
-Bundle 'vim-toplevel'
-Bundle 'YankRing.vim'
-Bundle 'a.vim'
-Bundle 'foldsearch'
-Bundle 'gregsexton/gitv'
-Bundle 'gregsexton/VimCalc'
-Bundle 'matchit.zip'
-Bundle 'mru.vim'
-Bundle 'node'
-Bundle 'noerrmsg.vim'
-Bundle 'NPM'
-Bundle 'TurboMark'
-Bundle 'tlib'
-Bundle 'vim-git-log'
-Bundle 'vim-json-bundle'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'ZoomWin'
-Bundle 'PatternsOnText'
-Bundle 'winresizer.vim'
-Bundle 'zah/nim.vim'
-Bundle 'textobj-comment'
-Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'hwrod/interactive-replace.git'
-Bundle 'zhaocai/linepower.vim'
-Bundle 'xuhdev/vim-latex-live-preview'
-Bundle 'haya14busa/incsearch.vim'
-if ( empty($SUPRESS_YCM)  )
-  Bundle 'Valloric/YouCompleteMe.git'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
+Plug 'fmoralesc/molokayo'
+Plug 'morhetz/gruvbox'
+Plug 'jacoborus/tender.vim'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-jdaddy'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-ragtag'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'tpope/vim-leiningen'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'ternjs/tern_for_vim'
+Plug 'rhysd/clever-f.vim'
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
+Plug 'guns/vim-sexp'
+Plug 'pangloss/vim-javascript'
+Plug 'moll/vim-node'
+Plug 'othree/html5-syntax.vim'
+Plug 'othree/html5.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'burnettk/vim-angular'
+Plug 'klen/python-mode'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'tommcdo/vim-exchange'
+Plug 'tommcdo/vim-lion'
+Plug 'wellle/targets.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Shougo/unite.vim'
+Plug 'gcmt/wildfire.vim'
+Plug 'albfan/ag.vim'
+Plug 'gabesoft/vim-ags'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'MarcWeber/vim-addon-mw-utils'
+" Plug 'jiangmiao/auto-pairs'
+" Plug 'gorkunov/smartpairs.vim'
+" Plug 'Raimondi/delimitMate'
+" Plug 'cohama/lexima.vim'
+Plug 'Twinside/vim-cuteErrorMarker'
+Plug 'brookhong/cscope.vim'
+Plug 'godlygeek/tabular'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'jpalardy/vim-slime'
+Plug 'jayflo/vim-skip'
+Plug 'Keithbsmiley/investigate.vim'
+Plug 'kana/vim-arpeggio'
+Plug 'kana/vim-textobj-user'
+Plug 'majutsushi/tagbar'
+Plug 'mtth/locate.vim'
+Plug 'nanliu/vim-puppet'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'nviennot/irb-config'
+Plug 'christfo/vim-mercenary'
+Plug 'sjbach/lusty', { 'commit': 'f787a35' }
+Plug 'sjl/gundo.vim'
+Plug 'disassembler/splice.vim'
+Plug 'sunaku/QFixToggle'
+Plug 'timcharper/textile.vim'
+Plug 'tomasr/molokai'
+Plug 'qstrahl/vim-matchmaker'
+Plug 'tomtom/quickfixsigns_vim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'diffchanges.vim'
+Plug 'Colortest'
+Plug 'EasyGrep'
+Plug 'justDo'
+Plug 'Mark--Karkat'
+Plug 'QuickBuf'
+Plug 'Vim-Swoop'
+Plug 'SearchCompl.vim'
+Plug 'Source-Explorer-srcexpl.vim'
+Plug 'TailMinusF'
+Plug 'headerguard'
+Plug 'vim-toplevel'
+Plug 'YankRing.vim'
+Plug 'a.vim'
+Plug 'foldsearch'
+Plug 'gregsexton/gitv'
+Plug 'gregsexton/VimCalc'
+Plug 'matchit.zip'
+Plug 'mru.vim'
+Plug 'node'
+Plug 'noerrmsg.vim'
+Plug 'NPM'
+Plug 'TurboMark'
+Plug 'tlib'
+Plug 'vim-git-log'
+Plug 'vim-json-bundle'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'ZoomWin'
+Plug 'PatternsOnText'
+Plug 'winresizer.vim'
+Plug 'zah/nim.vim'
+Plug 'textobj-comment'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'hwrod/interactive-replace'
+Plug 'zhaocai/linepower.vim'
+Plug 'xuhdev/vim-latex-live-preview'
+Plug 'haya14busa/incsearch.vim'
+Plug 'benekastah/neomake', Cond(has('nvim'))
+Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
+Plug 'junegunn/fzf.vim', Cond(has('nvim'))
+Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
+if ( ! has('nvim')  )
+  Plug 'tpope/vim-sensible'
 endif
 
-if iCanHazVundle == 0
-  echo "Installing Bundles, please ignore key map error messages"
-  echo ""
-  :BundleInstall
-endif
-" Setting up Vundle - the vim plugin bundler end
+call plug#end()
+
+" Setting up Vundle - the vim plugin Plugr end
 runtime ftplugin/man.vim
 source $VIMRUNTIME/ftplugin/man.vim
+runtime! bundle_config/*.vim
 
 if (has('nvim') && has("termguicolors"))
    set termguicolors
@@ -260,8 +257,6 @@ cnoremap <C-P>  <Up>
 nnoremap [t :tabp<cr>
 nnoremap ]t :tabn<cr>
 
-
-
 " always magic on search
 let g:incsearch#magic = '\v'
 let g:incsearch#emacs_like_keymap = 1
@@ -293,7 +288,6 @@ endfunction
 " Open and close srcExplr, taglist and NERD_tree individually
 nnoremap <F5> :GundoToggle<CR>
 nnoremap <F6> :TagbarToggle<CR>
-nnoremap <F7> :NERDTreeToggle<CR>
 
 nnoremap <leader><Leader>  :noh<cr>
 nnoremap <Leader>do :DiffChangesDiffToggle<cr>
@@ -346,8 +340,6 @@ function! ChangePaste(type, ...)
 endfunction
 nmap <silent> cp :let g:currentRegister=v:register<cr>:set opfunc=ChangePaste<CR>g@
 "
-runtime! bundle_config/*.vim
-"inoremap   <silent><CR>  <c-r>=neocomplcache#smart_close_popup()<cr><cr>
 
 fun! JumpToDef()
   if exists("*GotoDefinition_" . &filetype)
