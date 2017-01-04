@@ -257,6 +257,10 @@ cnoremap <C-P>  <Up>
 nnoremap [t :tabp<cr>
 nnoremap ]t :tabn<cr>
 
+nnoremap [w <plug>unimpairedLPrevious
+nnoremap ]w <plug>unimpairedLNext
+
+
 " always magic on search
 let g:incsearch#magic = '\v'
 let g:incsearch#emacs_like_keymap = 1
