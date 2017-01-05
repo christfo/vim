@@ -79,6 +79,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 " Plug 'Raimondi/delimitMate'
 " Plug 'cohama/lexima.vim'
 Plug 'Twinside/vim-cuteErrorMarker'
+Plug 'brooth/far.vim'
 Plug 'brookhong/cscope.vim'
 Plug 'godlygeek/tabular'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -143,20 +144,24 @@ Plug 'benekastah/neomake', Cond(has('nvim'))
 Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
 Plug 'junegunn/fzf.vim', Cond(has('nvim'))
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
-if ( ! has('nvim')  )
-  Plug 'tpope/vim-sensible'
-endif
+Plug 'tpope/vim-sensible', Cond(! has('nvim'))
 
 call plug#end()
+
+if ( has('nvim')  )
+    if (has("termguicolors"))
+        set termguicolors
+    endif
+    let g:far#source='agnvim'
+else
+    let g:far#source='ag'
+endif
 
 " Setting up Vundle - the vim plugin Plugr end
 runtime ftplugin/man.vim
 source $VIMRUNTIME/ftplugin/man.vim
 runtime! bundle_config/*.vim
 
-if (has('nvim') && has("termguicolors"))
-   set termguicolors
-endif
 
 
 " Enable omni completion.
