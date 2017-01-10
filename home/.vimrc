@@ -115,7 +115,6 @@ Plug 'Source-Explorer-srcexpl.vim'
 Plug 'TailMinusF'
 Plug 'headerguard'
 Plug 'vim-toplevel'
-Plug 'YankRing.vim'
 Plug 'a.vim'
 Plug 'foldsearch'
 Plug 'gregsexton/gitv'
@@ -145,6 +144,8 @@ Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all
 Plug 'junegunn/fzf.vim', Cond(has('nvim'))
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
 Plug 'tpope/vim-sensible', Cond(! has('nvim'))
+Plug 'tpope/vim-sensible', Cond(! has('nvim'))
+Plug 'YankRing.vim' 
 
 call plug#end()
 
@@ -153,13 +154,11 @@ if ( has('nvim')  )
         set termguicolors
     endif
     let g:far#source='agnvim'
+    let g:yankring_clipboard_monitor=0
 else
     let g:far#source='ag'
 endif
 
-" Setting up Vundle - the vim plugin Plugr end
-runtime ftplugin/man.vim
-source $VIMRUNTIME/ftplugin/man.vim
 runtime! bundle_config/*.vim
 
 
@@ -217,13 +216,6 @@ set autoindent
 set expandtab
 set shiftwidth=3
 
-
-" nmap <C-H>  <C-W>h
-" nmap <C-J>  <C-W>j
-" nmap <C-K>  <C-W>k
-" nmap <C-L>  <C-W>l
-
-"cmap ack  Ack
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
 cnoreabbrev <expr> ags ((getcmdtype() is# ':' && getcmdline() is# 'ags')?('Ags'):('ags'))
