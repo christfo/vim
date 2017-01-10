@@ -1,4 +1,5 @@
 
+  highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
 " autocmd ColorScheme * call ColourOverride()
 " function ColourOverride()
 "   highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
@@ -146,8 +147,14 @@ Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
 Plug 'tpope/vim-sensible', Cond(! has('nvim'))
 Plug 'tpope/vim-sensible', Cond(! has('nvim'))
 Plug 'YankRing.vim' 
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plug 'google/vim-glaive', {'do': 'call glaive#Install()'}
 
 call plug#end()
+
 
 if ( has('nvim')  )
     if (has("termguicolors"))
@@ -167,7 +174,7 @@ runtime! bundle_config/*.vim
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete | setlocal formatprg=yapf
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 let g:ycm_semantic_triggers =  {
