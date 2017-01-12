@@ -1,0 +1,1 @@
+bin/gdb-dashboard/.gdbinit

@@ -1,4 +1,5 @@
 
+  highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
 " autocmd ColorScheme * call ColourOverride()
 " function ColourOverride()
 "   highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
@@ -78,6 +79,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 " Plug 'Raimondi/delimitMate'
 " Plug 'cohama/lexima.vim'
 Plug 'Twinside/vim-cuteErrorMarker'
+Plug 'brooth/far.vim'
 Plug 'brookhong/cscope.vim'
 Plug 'godlygeek/tabular'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -113,7 +115,6 @@ Plug 'Source-Explorer-srcexpl.vim'
 Plug 'TailMinusF'
 Plug 'headerguard'
 Plug 'vim-toplevel'
-Plug 'YankRing.vim'
 Plug 'a.vim'
 Plug 'foldsearch'
 Plug 'gregsexton/gitv'
@@ -143,9 +144,16 @@ Plug 'neomake/neomake', Cond( has('nvim'))
 Plug 'benekastah/neomake', Cond(has('nvim'))
 Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
 Plug 'junegunn/fzf.vim', Cond(has('nvim'))
+Plug 'tpope/vim-sensible', Cond(! has('nvim'))
+Plug 'YankRing.vim' 
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plug 'google/vim-glaive', {'do': 'call glaive#Install()'}
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
+
 if ( ! has('nvim')  )
-  Plug 'tpope/vim-sensible'
   " always magic on search
   let g:incsearch#magic = '\v'
   let g:incsearch#emacs_like_keymap = 1
@@ -165,24 +173,28 @@ if ( ! has('nvim')  )
   map g/ <Plug>(incsearch-stay)
   cnoremap s/ s/\v
 endif
-
 call plug#end()
 
-" Setting up Vundle - the vim plugin Plugr end
-runtime ftplugin/man.vim
-source $VIMRUNTIME/ftplugin/man.vim
+
+if ( has('nvim')  )
+    if (has("termguicolors"))
+        set termguicolors
+    endif
+    let g:far#source='agnvim'
+    let g:yankring_clipboard_monitor=0
+else
+    let g:far#source='ag'
+endif
+
 runtime! bundle_config/*.vim
 
-if (has('nvim') && has("termguicolors"))
-   set termguicolors
-endif
 
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete | setlocal formatprg=yapf
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 let g:ycm_semantic_triggers =  {
@@ -231,13 +243,6 @@ set autoindent
 set expandtab
 set shiftwidth=3
 
-
-" nmap <C-H>  <C-W>h
-" nmap <C-J>  <C-W>j
-" nmap <C-K>  <C-W>k
-" nmap <C-L>  <C-W>l
-
-"cmap ack  Ack
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
 cnoreabbrev <expr> ags ((getcmdtype() is# ':' && getcmdline() is# 'ags')?('Ags'):('ags'))
@@ -276,6 +281,8 @@ cnoremap <C-P>  <Up>
 nnoremap [t :tabp<cr>
 nnoremap ]t :tabn<cr>
 
+nnoremap [w <plug>unimpairedLPrevious
+nnoremap ]w <plug>unimpairedLNext
 
 "add :w!! to write as sudo
 cmap w!! w !sudo tee % > /dev/null 
