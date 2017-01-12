@@ -139,8 +139,8 @@ Plug 'hwrod/interactive-replace'
 Plug 'zhaocai/linepower.vim'
 Plug 'xuhdev/vim-latex-live-preview'
 Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
-Plug 'scrooloose/syntastic', Cond(! has('nvim'))
-Plug 'neomake/neomake', Cond( has('nvim'))
+" Plug 'scrooloose/syntastic', Cond(! has('nvim'))
+Plug 'neomake/neomake' "| Plug 'dojoteef/neomake-autolint'
 Plug 'benekastah/neomake', Cond(has('nvim'))
 Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
 Plug 'junegunn/fzf.vim', Cond(has('nvim'))
@@ -150,7 +150,7 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
-Plug 'google/vim-glaive', {'do': 'call glaive#Install()'}
+" Plug 'google/vim-glaive', {'do': 'call glaive#Install()'}
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
 
 if ( ! has('nvim')  )
