@@ -26,7 +26,6 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-
 Plug 'fmoralesc/molokayo'
 Plug 'morhetz/gruvbox'
 Plug 'jacoborus/tender.vim'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -138,13 +137,33 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'hwrod/interactive-replace'
 Plug 'zhaocai/linepower.vim'
 Plug 'xuhdev/vim-latex-live-preview'
-Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
+Plug 'scrooloose/syntastic', Cond(! has('nvim'))
+Plug 'neomake/neomake', Cond( has('nvim'))
 Plug 'benekastah/neomake', Cond(has('nvim'))
 Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
 Plug 'junegunn/fzf.vim', Cond(has('nvim'))
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
 if ( ! has('nvim')  )
   Plug 'tpope/vim-sensible'
+  " always magic on search
+  let g:incsearch#magic = '\v'
+  let g:incsearch#emacs_like_keymap = 1
+  " augroup incsearch-keymap
+  "   autocmd!
+  "   autocmd VimEnter call s:incsearch_keymap()
+  " augroup END
+  " function! s:incsearch_keymap()
+  "   IncSearchNoreMap <Right> <Over>(incsearch-next)
+  "   IncSearchNoreMap <Left>  <Over>(incsearch-prev)
+  "   IncSearchNoreMap <Tab>   <Over>(incsearch-complete)
+  "   IncSearchNoreMap <Down>  <Over>(incsearch-scroll-f)
+  "   IncSearchNoreMap <Up>    <Over>(incsearch-scroll-b)
+  " endfunction
+  map / <Plug>(incsearch-forward)
+  map ? <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+  cnoremap s/ s/\v
 endif
 
 call plug#end()
@@ -257,24 +276,6 @@ cnoremap <C-P>  <Up>
 nnoremap [t :tabp<cr>
 nnoremap ]t :tabn<cr>
 
-" always magic on search
-let g:incsearch#magic = '\v'
-let g:incsearch#emacs_like_keymap = 1
-" augroup incsearch-keymap
-"   autocmd!
-"   autocmd VimEnter call s:incsearch_keymap()
-" augroup END
-" function! s:incsearch_keymap()
-"   IncSearchNoreMap <Right> <Over>(incsearch-next)
-"   IncSearchNoreMap <Left>  <Over>(incsearch-prev)
-"   IncSearchNoreMap <Tab>   <Over>(incsearch-complete)
-"   IncSearchNoreMap <Down>  <Over>(incsearch-scroll-f)
-"   IncSearchNoreMap <Up>    <Over>(incsearch-scroll-b)
-" endfunction
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-cnoremap s/ s/\v
 
 "add :w!! to write as sudo
 cmap w!! w !sudo tee % > /dev/null 

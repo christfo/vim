@@ -146,6 +146,7 @@ PATH=/opt/local/bin:/usr/local/bin/:~/bin/:~/.local/bin/:$PATH:/usr/pkg/bin:/usr
 #export PS1="[\[\033[1;34m\w\[\033[0m]$ "
 export EDITOR=`which vim`
 function  hgrep() { history | grep -P -- "$*"; } #Requires one input
+bind 'C-r:reverse-search-history'
 alias tree='tree -C'
 alias pstree='pstree -g3'
 
