@@ -140,7 +140,7 @@ Plug 'zhaocai/linepower.vim'
 Plug 'xuhdev/vim-latex-live-preview'
 Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
 " Plug 'scrooloose/syntastic', Cond(! has('nvim'))
-Plug 'neomake/neomake' "| Plug 'dojoteef/neomake-autolint'
+Plug 'neomake/neomake', Cond(has('nvim')) 
 Plug 'benekastah/neomake', Cond(has('nvim'))
 Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
 Plug 'junegunn/fzf.vim', Cond(has('nvim'))

@@ -1,3 +1,4 @@
+if (  has('nvim')  )
 let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
 let g:neomake_warning_sign = {
       \   'text': '⚠',
@@ -13,4 +14,4 @@ augroup neomake_lints
 autocmd! BufWritePost,BufEnter * Neomake
 augroup END
 
-
+endif

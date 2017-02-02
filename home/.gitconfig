@@ -22,7 +22,8 @@
   editor = vim
   excludesfile = ~/.gitignore
   autocrlf = input
-  pager = less -XRMSI
+  ; pager = less -XRMSI
+  pager = tig
   eol = native
 [color]
   diff = auto
