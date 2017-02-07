@@ -10,8 +10,9 @@ let g:neomake_message_sign = {
       \ }
 let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 
-augroup neomake_lints
-autocmd! BufWritePost,BufEnter * Neomake
-augroup END
-
+if (has('nvim'))
+  augroup neomake_lints
+    autocmd! BufWritePost,BufEnter * Neomake
+  augroup END
 endif
+

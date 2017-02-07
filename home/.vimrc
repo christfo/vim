@@ -1,5 +1,3 @@
-
-  highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
 " autocmd ColorScheme * call ColourOverride()
 " function ColourOverride()
 "   highlight Pmenu       ctermbg=159        gui=bold ctermfg=darkblue 
@@ -24,6 +22,7 @@ endfunction
 call plug#begin('~/.vim/bundle')
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
+Plug 'mhinz/vim-grepper'
 Plug 'fmoralesc/molokayo'
 Plug 'morhetz/gruvbox'
 Plug 'jacoborus/tender.vim'
@@ -50,6 +49,7 @@ Plug 'tpope/vim-leiningen'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'ternjs/tern_for_vim'
 Plug 'rhysd/clever-f.vim'
+Plug 'rhysd/vim-clang-format'
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 Plug 'guns/vim-sexp'
@@ -67,7 +67,7 @@ Plug 'tommcdo/vim-lion'
 Plug 'wellle/targets.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'Shougo/unite.vim'
+" Plug 'Shougo/unite.vim'
 Plug 'gcmt/wildfire.vim'
 Plug 'albfan/ag.vim'
 Plug 'gabesoft/vim-ags'
@@ -78,22 +78,23 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 " Plug 'gorkunov/smartpairs.vim'
 " Plug 'Raimondi/delimitMate'
 " Plug 'cohama/lexima.vim'
-Plug 'Twinside/vim-cuteErrorMarker'
+" Plug 'Twinside/vim-cuteErrorMarker'
 Plug 'brooth/far.vim'
 Plug 'brookhong/cscope.vim'
 Plug 'godlygeek/tabular'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'jpalardy/vim-slime'
-Plug 'jayflo/vim-skip'
+" Plug 'jayflo/vim-skip'
 Plug 'Keithbsmiley/investigate.vim'
 Plug 'kana/vim-arpeggio'
 Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-operator-user'
 Plug 'majutsushi/tagbar'
 Plug 'mtth/locate.vim'
 Plug 'nanliu/vim-puppet'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'nviennot/irb-config'
-Plug 'christfo/vim-mercenary'
+" Plug 'christfo/vim-mercenary'
 Plug 'sjbach/lusty', { 'commit': 'f787a35' }
 Plug 'sjl/gundo.vim'
 Plug 'disassembler/splice.vim'
@@ -126,7 +127,6 @@ Plug 'noerrmsg.vim'
 Plug 'NPM'
 Plug 'TurboMark'
 Plug 'tlib'
-Plug 'vim-git-log'
 Plug 'vim-json-bundle'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'ZoomWin'
@@ -134,7 +134,6 @@ Plug 'PatternsOnText'
 Plug 'winresizer.vim'
 Plug 'zah/nim.vim'
 Plug 'textobj-comment'
-Plug 'nelstrom/vim-visual-star-search'
 Plug 'hwrod/interactive-replace'
 Plug 'zhaocai/linepower.vim'
 Plug 'xuhdev/vim-latex-live-preview'
@@ -142,12 +141,13 @@ Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
 " Plug 'scrooloose/syntastic', Cond(! has('nvim'))
 Plug 'neomake/neomake', Cond(has('nvim')) 
 Plug 'benekastah/neomake', Cond(has('nvim'))
-Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
-Plug 'junegunn/fzf.vim', Cond(has('nvim'))
+" Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
+" Plug 'junegunn/fzf.vim', Cond(has('nvim'))
 Plug 'tpope/vim-sensible', Cond(! has('nvim'))
 Plug 'YankRing.vim' 
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
+Plug 'AndrewRadev/linediff.vim'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
 " Plug 'google/vim-glaive', {'do': 'call glaive#Install()'}
@@ -188,7 +188,14 @@ endif
 
 runtime! bundle_config/*.vim
 
+let g:clang_format#detect_style_file=1
+autocmd BufWritePre  *.{cpp,h,c,cc,hpp}  call StripTrailingWhite()
 
+function! StripTrailingWhite()
+  let l:winview = winsaveview()
+  silent! %s/\s\+$//
+  call winrestview(l:winview)
+endfunction
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -244,7 +251,7 @@ set expandtab
 set shiftwidth=3
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
-cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
+" cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
 cnoreabbrev <expr> ags ((getcmdtype() is# ':' && getcmdline() is# 'ags')?('Ags'):('ags'))
 if executable('ack')
   set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
@@ -256,7 +263,7 @@ if executable('ag')
 endif
 
 " swap tag following shortcuts to show list by default
-set tags=tags
+set tags=tags;
 nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
@@ -287,23 +294,14 @@ nnoremap ]w <plug>unimpairedLNext
 "add :w!! to write as sudo
 cmap w!! w !sudo tee % > /dev/null 
 
-let g:slime_target="tmux"
-function! To_Tmux()
-  let b:text = input("tmux:", "", "custom,")
-  call <SID>SlimeSend(b:text . "\\r")
-endfunction
-
 " Open and close srcExplr, taglist and NERD_tree individually
 nnoremap <F5> :GundoToggle<CR>
 nnoremap <F6> :TagbarToggle<CR>
 
-nnoremap <leader><Leader>  :noh<cr>
 nnoremap <Leader>do :DiffChangesDiffToggle<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>co :copen 15 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
-nnoremap <leader>bo :copen 35 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
-nnoremap <leader>fd :compiler rspec<cr>:cfile ./autotest.spec<cr>:copen<cr>:CleanupMarkErrors<cr>:MarkErrors<CR>
-
+nnoremap <leader>bo :copen 25 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
 
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
 " :execute    'silent !tmux send-keys -t target.2 "dow "\' | redraw! 

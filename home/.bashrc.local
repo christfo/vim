@@ -66,6 +66,7 @@ alias ns='netstat -alnp --protocol=inet | grep -v CLOSE_WAIT | cut -c-6,21-94 | 
 alias du1='du -h --max-depth=1'
 alias da='date "+%Y-%m-%d %A    %T %Z"'
 alias ebrc='pico ~/.bashrc'
+alias vss='pushd ~/menlo/safeview/ && vagrant ssh'
 
 # Alias to multiple ls commands
 alias la='ls -Al'               # show hidden files
@@ -94,6 +95,8 @@ alias termr='xterm -bg AntiqueWhite -fg DarkRed &'
 alias aterm='aterm -ls -fg gray -bg black'
 alias xtop='xterm -fn 6x13 -bg LightSlateGray -fg black -e top &'
 alias xsu='xterm -fn 7x14 -bg DarkOrange4 -fg white -e su &'
+
+alias tiga='tig --all'
 
 function cgrep () { egrep -RnH --include=*.{h,c,cpp} -e "$1" *; }
 

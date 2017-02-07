@@ -20,7 +20,7 @@
 [core]
     # CHOOSE YOUR FAVORITE EDITOR: vim, vi, emacs, nano
   editor = vim
-  excludesfile = ~/.gitignore
+	excludesfile = /Users/chrisf/.gitignore_global
   autocrlf = input
   ; pager = less -XRMSI
   pager = tig
@@ -54,7 +54,8 @@
   # 'git addall' now handles all changes
   addall = !sh -c 'git add . && git add -u'
 
-  outgoing = log -u origin/master..master # outgoing changes (in local, but not origin)
+  outgoing = log -u origin/dev..dev # outgoing changes (in local, but not origin)
+  out = log -u origin/dev..dev # outgoing changes (in local, but not origin)
 
   b = branch -v                   # show commit messages on branch list
   t = tag -l                      # show commit messages on tag list
@@ -78,6 +79,12 @@
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   filelog = log -u  # show changes to a file
   changelog = log --pretty=format:\" * %s\"
+
+  # next, prev
+  # id = !"git --no-pager log -1 HEAD^"
+  id = !"git --no-pager log -1 HEAD^ --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+  prev = checkout HEAD^
+  next = "!sh -c 'git log --reverse --pretty=%H dev | awk \"/$(git rev-parse HEAD)/{getline;print}\" | xargs git checkout'"
 
   # Show status and diff of dirty submodules
   subdiff = !"git submodule foreach --recursive --quiet '[ \"$(git status -s)\" ] && echo \"--- $name ---\" && git status -s && git diff --unified=1 || :'"
@@ -118,9 +125,16 @@
   # very compact log
   lol = log --graph --decorate --pretty=format:'%h %an: %s' --abbrev-commit
 
+  cmap = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
   map = log --graph --full-history --all --color --decorate
   lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
   lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
   lg = !"git lg1"
 [init]
 	templatedir = ~/.git_template
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
