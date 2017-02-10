@@ -150,7 +150,7 @@ Plug 'google/vim-codefmt'
 Plug 'AndrewRadev/linediff.vim'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
-" Plug 'google/vim-glaive', {'do': 'call glaive#Install()'}
+Plug 'google/vim-glaive'  ", {'do': 'call glaive#Install()'}
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
 
 if ( ! has('nvim')  )
@@ -174,7 +174,8 @@ if ( ! has('nvim')  )
   cnoremap s/ s/\v
 endif
 call plug#end()
-
+call glaive#install()
+Glaive codefmt plugin[mappings]
 
 if ( has('nvim')  )
     if (has("termguicolors"))
@@ -188,8 +189,18 @@ endif
 
 runtime! bundle_config/*.vim
 
+function s:AddCodefmtEqualMapping() abort
+  " Replace all the various ={motion} keys to codefmt
+  nnoremap <buffer> = :set opfunc=codefmt#FormatMap<CR>g@
+  nnoremap <buffer> == :FormatLines<CR>
+  vnoremap <buffer> = :FormatLines<CR>
+endfunction
+augroup codefmt_equal
+  autocmd FileType h,cc,c,cpp,proto call s:AddCodefmtEqualMapping()
+augroup END
+
 let g:clang_format#detect_style_file=1
-autocmd BufWritePre  *.{cpp,h,c,cc,hpp}  call StripTrailingWhite()
+autocmd BufWritePre  *.{cpp,h,c,cc,hpp,js,py}  call StripTrailingWhite()
 
 function! StripTrailingWhite()
   let l:winview = winsaveview()
@@ -261,6 +272,7 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
   set grepformat=%f:%l:%c:%m
 endif
+nnoremap <leader>* :Grepper -tool rg -cword -noprompt -noswitch<cr>
 
 " swap tag following shortcuts to show list by default
 set tags=tags;
