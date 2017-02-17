@@ -26,7 +26,8 @@
   pager = tig
   eol = native
 [color]
-  diff = auto
+  ; diff = auto
+  pager = no
   status = auto
   branch = auto
   interactive = auto

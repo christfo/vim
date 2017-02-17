@@ -84,6 +84,7 @@ Plug 'brookhong/cscope.vim'
 Plug 'godlygeek/tabular'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'jpalardy/vim-slime'
+Plug 'dzeban/vim-log-syntax'
 " Plug 'jayflo/vim-skip'
 Plug 'Keithbsmiley/investigate.vim'
 Plug 'kana/vim-arpeggio'
