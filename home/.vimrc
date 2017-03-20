@@ -59,7 +59,7 @@ Plug 'othree/html5-syntax.vim'
 Plug 'othree/html5.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'burnettk/vim-angular'
-Plug 'klen/python-mode'
+Plug 'wilywampa/python-mode'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'tommcdo/vim-exchange'
@@ -190,14 +190,18 @@ endif
 
 runtime! bundle_config/*.vim
 
-function s:AddCodefmtEqualMapping() abort
+function s:AddCodefmtEqualMapping(...) abort
   " Replace all the various ={motion} keys to codefmt
   nnoremap <buffer> = :set opfunc=codefmt#FormatMap<CR>g@
-  nnoremap <buffer> == :FormatLines<CR>
-  vnoremap <buffer> = :FormatLines<CR>
+  nnoremap <buffer> == :FormatLines <CR>
+  vnoremap <buffer> = :FormatLines <CR>
 endfunction
 augroup codefmt_equal
   autocmd FileType h,cc,c,cpp,proto call s:AddCodefmtEqualMapping()
+augroup END
+
+augroup codefmt_equal
+  autocmd FileType py call s:AddCodefmtEqualMapping("yapf")
 augroup END
 
 let g:clang_format#detect_style_file=1
