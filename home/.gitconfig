@@ -36,7 +36,7 @@
   auto = 1
 [alias]
   # The basics.
-  st = status
+  st = status -uno
   ci = commit
   co = checkout
   br = branch

@@ -175,7 +175,7 @@ if ( ! has('nvim')  )
   cnoremap s/ s/\v
 endif
 call plug#end()
-call glaive#install()
+call glaive#Install()
 Glaive codefmt plugin[mappings]
 
 if ( has('nvim')  )
