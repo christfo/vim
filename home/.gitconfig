@@ -15,6 +15,7 @@
   default = simple
 [rebase]
   stat = true
+  autostash = true
 [clean]
   requireForce = true
 [core]
