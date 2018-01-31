@@ -47,6 +47,7 @@
 
   unstage = reset HEAD                    # un-add files from index (tracking)
   uncommit = reset --soft HEAD^           # go back one commit, put changes into your working dir and index
+  recommit = commit --amend --reuse-message=HEAD  # reapply commit after previous uncommit
   chunkyadd = add --patch                 # stage commits chunk by chunk
   amend = commit --amend                  # fix last commit
   ammend = commit --amend                 # for those who can't spell :-)

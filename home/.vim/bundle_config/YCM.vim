@@ -29,6 +29,7 @@ let g:ycm_filetype_whitelist = { '*': 1 }
 let g:ycm_key_invoke_completion = '<C-Space>'
 
 let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_key_detailed_diagnostics = '<F11>'
 
-nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+" nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 

@@ -19,6 +19,7 @@ function! Cond(cond, ...)
   return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfunction
 
+let mapleader=","
 let g:neomake_cpp_enable_markers=['clang']
 let g:neomake_cpp_clang_args = ["-std=c++11 -Iinclude"]
 call plug#begin('~/.vim/bundle')
@@ -100,7 +101,7 @@ Plug 'lucapette/vim-textobj-underscore'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'jceb/vim-textobj-uri'
 Plug 'libclang-vim/vim-textobj-clang'
-Plug 'rhysd/libclang-vim'
+Plug 'rhysd/libclang-vim', { 'do': 'make' }
 Plug 'chun-yang/vim-textobj-chunk'
 Plug 'vimtaku/vim-textobj-keyvalue'
 Plug 'nelstrom/vim-textobj-rubyblock'
@@ -131,7 +132,7 @@ Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
 " Plug 'vim-syntastic/syntastic' ", Cond(! has('nvim'))
 Plug 'neomake/neomake' ", Cond(has('nvim')) 
 " Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
-" Plug 'junegunn/fzf.vim', Cond(has('nvim'))
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-sensible', Cond(! has('nvim'))
 Plug 'vim-scripts/YankRing.vim' 
 Plug 'google/vim-maktaba'
@@ -200,11 +201,12 @@ endif
 
 runtime! bundle_config/*.vim
 
+set rtp+=/usr/local/opt/fzf
 function s:AddCodefmtEqualMapping(...) abort
   " Replace all the various ={motion} keys to codefmt
   nnoremap <buffer> = :set opfunc=codefmt#FormatMap<CR>g@
-  nnoremap <buffer> == :FormatLines <CR>
-  vnoremap <buffer> = :FormatLines <CR>
+  nnoremap <buffer> == :FormatLines a:000 <CR>
+  vnoremap <buffer> = :FormatLines a:000 <CR>
 endfunction
 augroup codefmt_equal
   autocmd FileType h,cc,c,cpp,proto call s:AddCodefmtEqualMapping()
@@ -250,7 +252,6 @@ set virtualedit=onemore
 set hlsearch
 set switchbuf=useopen,usetab
 set cmdheight=2
-let mapleader=","
 set history=10000
 set wildmode=list:longest
 set scrolloff=3
@@ -296,6 +297,9 @@ vnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
+set mouse=a
+set ttymouse=sgr
+hi  Visual term=reverse ctermbg=244 guibg=#403D3D
 " paste most recent. using 0 allows you to replace previous when using cw cmap <c-r><c-r>  <c-r>"
 imap <c-r><c-r>  <c-r>0
 cmap <c-r><c-r>  <c-r>"
@@ -327,8 +331,8 @@ nnoremap <F6> :TagbarToggle<CR>
 
 nnoremap <Leader>do :DiffChangesDiffToggle<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
-nnoremap <leader>co :copen 15 <cr>:cfile<up><cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
-nnoremap <leader>bo :copen 25 <cr>:cfile build.out <cr>:CleanupMarkErrors<cr>:MarkErrors<CR> 
+nnoremap <leader>co :copen 15 <cr>:cfile<up><cr>
+nnoremap <leader>bo :copen 25 <cr>:cfile build.out <cr>
 
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
 " :execute    'silent !tmux send-keys -t target.2 "dow "\' | redraw! 
