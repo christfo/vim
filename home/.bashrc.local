@@ -7,7 +7,7 @@ shopt -s histappend
 
 history() {
     _bash_history_sync
-    builtin history "$0"
+    builtin history "$@"
 }
 
 _bash_history_sync() {

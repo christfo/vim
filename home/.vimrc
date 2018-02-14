@@ -63,6 +63,7 @@ Plug 'othree/html5.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'elzr/vim-json'
 Plug 'burnettk/vim-angular'
+Plug 'vim-scripts/Python-mode-klen'
 " Plug 'wilywampa/python-mode'
 " Plug 'kien/rainbow_parentheses.vim'
 Plug 'chrisbra/vim-diff-enhanced'
@@ -111,7 +112,7 @@ Plug 'mtth/locate.vim'
 Plug 'nanliu/vim-puppet'
 Plug 'nviennot/irb-config'
 " Plug 'christfo/vim-mercenary'
-Plug 'sjbach/lusty', { 'commit': 'f787a35' }
+Plug 'sjbach/lusty'
 Plug 'sjl/gundo.vim'
 Plug 'disassembler/splice.vim'
 Plug 'sunaku/QFixToggle'
@@ -202,18 +203,24 @@ endif
 runtime! bundle_config/*.vim
 
 set rtp+=/usr/local/opt/fzf
-function s:AddCodefmtEqualMapping(...) abort
+function s:AddCodefmtEqualMapping() abort
   " Replace all the various ={motion} keys to codefmt
   nnoremap <buffer> = :set opfunc=codefmt#FormatMap<CR>g@
-  nnoremap <buffer> == :FormatLines a:000 <CR>
-  vnoremap <buffer> = :FormatLines a:000 <CR>
+  nnoremap <buffer> == :FormatLines <CR>
+  vnoremap <buffer> = :FormatLines  <CR>
 endfunction
 augroup codefmt_equal
   autocmd FileType h,cc,c,cpp,proto call s:AddCodefmtEqualMapping()
 augroup END
 
+function s:AddCodefmtEqualMappingYapf() abort
+  " Replace all the various ={motion} keys to codefmt
+  nnoremap <buffer> = :set opfunc=codefmt#FormatMap<CR>g@
+  nnoremap <buffer> == :FormatLines yapf<CR>
+  vnoremap <buffer> = :FormatLines  yapf<CR>
+endfunction
 augroup codefmt_equal
-  autocmd FileType py call s:AddCodefmtEqualMapping("yapf")
+  autocmd FileType python call s:AddCodefmtEqualMappingYapf()
 augroup END
 
 let g:clang_format#detect_style_file=1
@@ -229,7 +236,7 @@ endfunction
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete | setlocal formatprg=yapf
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete | setlocal formatprg=yapf | set efm=\%A\ \ File\ \"%f\"\\,\ line\ %l\\,\ %m,%C\ %m,%Z 
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 let g:ycm_semantic_triggers =  {
