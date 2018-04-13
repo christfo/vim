@@ -63,7 +63,8 @@ Plug 'othree/html5.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'elzr/vim-json'
 Plug 'burnettk/vim-angular'
-Plug 'vim-scripts/Python-mode-klen'
+Plug 'python-mode/python-mode' 
+Plug 'davidhalter/jedi-vim'
 " Plug 'wilywampa/python-mode'
 " Plug 'kien/rainbow_parentheses.vim'
 Plug 'chrisbra/vim-diff-enhanced'
@@ -236,7 +237,8 @@ endfunction
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete | setlocal formatprg=yapf | set efm=\%A\ \ File\ \"%f\"\\,\ line\ %l\\,\ %m,%C\ %m,%Z 
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete|setlocal tabstop=3 softtabstop=0 expandtab shiftwidth=3 smarttab|setlocal makeprg=~/bin/pre_commit.py\ %|setlocal formatprg=yapf|setlocal efm=\%A\ \ File\ \"%f\"\\,\ line\ %l\\,\ %m,%C\ %m,%Z
+
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 let g:ycm_semantic_triggers =  {

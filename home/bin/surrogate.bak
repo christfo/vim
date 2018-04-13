@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# set -x
+trap "exit" INT TERM ERR
+trap "kill 0" EXIT
+
+
+killtree() {
+    local parent=$1 child
+    for child in $(ps -o ppid= -o pid= | awk "\$1==$parent {print \$2}"); do
+        killtree $child
+    done
+    kill $parent
+}
+
+LOG=${1:-~/delme/surrogate.log} 
+cd ~/git/safeview ;
+vagrant ssh -c  "tail -f  /var/log/safeview/safeview-surrogate.log"  > "$LOG" &
+sesh=$!
+echo "tailing on $sesh"
+while true; do
+read -r -sn1 char
+if [ "$char" = "r" ]; then
+  echo "killing $sesh"
+  killtree $sesh
+  echo "restarting surrogate manager"
+  vagrant ssh -c  "sudo restart safeview-surrogate-manager ; tail -f  /var/log/safeview/safeview-surrogate.log"  > "$LOG" &
+  sesh=$!
+  echo "tailing on $sesh"
+elif [ "$char" = "q" ]; then
+  echo "killing $sesh"
+  killtree $sesh
+  echo "quitting"
+  exit
+elif [ "$char" = "c" ]; then
+  echo "" > "$LOG"
+else
+  echo $char >> "$LOG"
+fi
+done
+
+dd

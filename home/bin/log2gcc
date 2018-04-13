@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+ARGF.each_line do |line| 
+    visit = /.+file=\.\.\/\.\.\/(.+) line=(\d+) (.+)/
+    begin 
+        $stdout.puts line.gsub(visit, './\1:\2: error: \3')
+    rescue
+        exit(74)
+    end
+end
+
