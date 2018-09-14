@@ -142,7 +142,7 @@ fi
 # EXPORTS
 #######################################################
 
-PATH=/opt/local/bin:/usr/local/bin/:~/bin/:~/.local/bin/:/usr/local/sbin:$PATH:/usr/pkg/bin:/usr/cross-tools-str9/bin:/usr/cross-tools/bin:/var/lib/gems/1.8/bin/:/var/lib/gems/1.9/bin ; export PATH
+PATH=/opt/local/bin:/usr/local/bin/usr/local/share/python@2:~/Library/Python/2.7/bin:~/bin/:~/.local/bin/:/usr/local/sbin:$PATH export PATH
 #export PS1="[\[\033[1;34m\w\[\033[0m]$ "
 export EDITOR=`which vim`
 function  hgrep() { history | grep -P -- "$*"; } #Requires one input
@@ -216,9 +216,17 @@ if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
 if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator/scripts/tmuxinator ; fi
 
 # . tmuxinator_completion
-
 export WORKON_HOME=$HOME/Envs
-source /usr/local/bin/virtualenvwrapper.sh
+#export WORKON_HOME=/tmp/foo/.virtualenvs
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
+if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
+   source /usr/local/bin/virtualenvwrapper.sh
+else
+   echo "WARNING: Can't find virtualenvwrapper.sh"
+fi
+
 
 export GOPATH=$HOME/work
 PATH=/usr/local/go/bin:$HOME/.rvm/bin:$PATH:$GOPATH/bin # Add RVM to PATH for scripting

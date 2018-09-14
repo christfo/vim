@@ -97,6 +97,10 @@ alias xtop='xterm -fn 6x13 -bg LightSlateGray -fg black -e top &'
 alias xsu='xterm -fn 7x14 -bg DarkOrange4 -fg white -e su &'
 
 alias tiga='tig --all'
+alias cat='bat'
+alias ping='prettyping'
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias pv="fzf --preview 'bat --color \"always\" {}'"
 
 function cgrep () { egrep -RnH --include=*.{h,c,cpp} -e "$1" *; }
 

@@ -21,7 +21,8 @@ let g:pymode_doc_bind='K'
 " lints
 " let g:pymode_lint=0
 " let g:pymode_lint_checkers=['mccabe','pyflakes','pep8','pylint']
-let g:pymode_lint_checkers=['mccabe','pyflakes','pep8','pylint']
+" let g:pymode_lint_checkers=['mccabe','pyflakes','pep8','pylint']
+let g:pymode_lint_checkers=['pep8','pylint']
 let g:pymode_lint_ignore="E114,E121,E111,E501"
 let g:pymode_lint_on_write=0
 
@@ -44,14 +45,14 @@ let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
 let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
 let g:pymode_syntax_highlight_self=g:pymode_syntax_all
 let g:pymode_syntax_indent_errors=g:pymode_syntax_all
-let g:pymode_syntax_string_formatting=g:pymode_syntax_all
+let g:pymode_syntax_string_formatting=1 "g:pymode_syntax_all
 let g:pymode_syntax_space_errors=g:pymode_syntax_all
-let g:pymode_syntax_string_format=g:pymode_syntax_all
-let g:pymode_syntax_string_templates=g:pymode_syntax_all
+let g:pymode_syntax_string_format=1 "g:pymode_syntax_all
+let g:pymode_syntax_string_templates=1 "g:pymode_syntax_all
 let g:pymode_syntax_doctests=g:pymode_syntax_all
-let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
-let g:pymode_syntax_builtin_types=g:pymode_syntax_all
-let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
+let g:pymode_syntax_builtin_objs=1 "g:pymode_syntax_all
+let g:pymode_syntax_builtin_types=1 "g:pymode_syntax_all
+let g:pymode_syntax_highlight_exceptions=1 "g:pymode_syntax_all
 let g:pymode_syntax_docstrings=g:pymode_syntax_all
 
 " highlight 'long' lines (>= 80 symbols) in python files

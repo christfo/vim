@@ -37,10 +37,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-ragtag'
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -135,6 +135,8 @@ Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
 Plug 'neomake/neomake' ", Cond(has('nvim')) 
 " Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
 Plug 'junegunn/fzf.vim'
+" Plug 'pbogut/fzf-mru.vim'
+Plug 'tweekmonster/fzf-filemru'
 Plug 'tpope/vim-sensible', Cond(! has('nvim'))
 Plug 'vim-scripts/YankRing.vim' 
 Plug 'google/vim-maktaba'
@@ -166,6 +168,11 @@ Plug 'drmikehenry/vim-headerguard'
 Plug 'hura/vim-toplevel'
 Plug 'fjolnir/a.vim'
 Plug 'embear/vim-foldsearch'
+Plug 'whiteinge/diffconflicts'
+Plug 'tpope/vim-repeat'
+Plug 'mattboehm/vim-unstack'
+Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 if ( ! has('nvim')  )
   " always magic on search
@@ -191,6 +198,7 @@ call plug#end()
 call glaive#Install()
 Glaive codefmt plugin[mappings]
 
+let g:yankring_map_dot = 0
 if ( has('nvim')  )
     if (has("termguicolors"))
         set termguicolors
@@ -225,7 +233,7 @@ augroup codefmt_equal
 augroup END
 
 let g:clang_format#detect_style_file=1
-autocmd BufWritePre  *.{cpp,h,c,cc,hpp,js,py}  call StripTrailingWhite()
+autocmd BufWritePre  *.{cpp,h,c,cc,hpp,js,py,sql,go}  call StripTrailingWhite()
 
 function! StripTrailingWhite()
   let l:winview = winsaveview()
@@ -285,6 +293,8 @@ set ts=3
 set autoindent
 set expandtab
 set shiftwidth=3
+set clipboard=unnamed
+set synmaxcol=0
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 " cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
