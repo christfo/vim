@@ -17,6 +17,12 @@
      \ 'args': ['-checks=*' ],
      \}
 
+  let g:neomake_javascript_enabled_makers = ['jshint', 'jslint']
+  let g:neomake_javascript_jslint_maker = {
+     \ 'exe': 'jslint',
+     \ 'args': [ '--terse' ],
+     \}
+
   augroup neomake_lints
     autocmd! BufWritePost,BufEnter * Neomake
   augroup END

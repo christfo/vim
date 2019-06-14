@@ -1,12 +1,15 @@
 if exists("current_compiler")
   finish
-  endif
-  let current_compiler = "pychris"
+endif
+let current_compiler = "pychris"
 
-  let s:cpo_save = &cpo
-  set cpo&vim
+let s:cpo_save = &cpo
+set cpo&vim
 
-  CompilerSet errorformat=\ \ \ \ %f\ line\ %l\ in\ %m%r
-  CompilerSet makeprg=python2\ %
+CompilerSet errorformat=
+      \%*\\sFile\ \"%f\"\\,\ line\ %l\\,\ %m,
+      \%*\\sFile\ \"%f\"\\,\ line\ %l,
+CompilerSet makeprg=python\ %
+
 let &cpo = s:cpo_save
-  unlet s:cpo_save
+unlet s:cpo_save

@@ -1,7 +1,8 @@
 #!/bin/bash
 GIT_ROOT=`git rev-parse --show-toplevel`
 LOGFILE=${GIT_ROOT}/build.out
-echo "logging to $LOGFILE"
+FILTER=${FILTER:-cat}
+echo "logging to $LOGFILE through $FILTER"
 whitespace="[[:space:]]"
 NEWOPT=()
 for i in "$@"; do
@@ -15,5 +16,6 @@ echo "${NEWOPT[@]}"
 rm "${LOGFILE}"
 unbuffer "${NEWOPT[@]}" 2>&1 | tee /dev/tty \
   | stdbuf -i0 -o0 -e0 strip-ansi \
+  | ${FILTER} \
   | sed -u  's%../../%%g; s%/host/menlo%~/git%g; s%/home/vagrant%~%g' \
   >> "${LOGFILE}" 

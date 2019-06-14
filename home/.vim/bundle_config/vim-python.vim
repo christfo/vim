@@ -22,7 +22,9 @@ let g:pymode_doc_bind='K'
 " let g:pymode_lint=0
 " let g:pymode_lint_checkers=['mccabe','pyflakes','pep8','pylint']
 " let g:pymode_lint_checkers=['mccabe','pyflakes','pep8','pylint']
-let g:pymode_lint_checkers=['pep8','pylint']
+" let g:pymode_lint_checkers=['pep8','pylint']
+let g:pymode_lint=0
+let g:pymode_lint_checkers=[]
 let g:pymode_lint_ignore="E114,E121,E111,E501"
 let g:pymode_lint_on_write=0
 

@@ -149,6 +149,7 @@ function  hgrep() { history | grep -P -- "$*"; } #Requires one input
 bind 'C-r:reverse-search-history'
 alias tree='tree -C'
 alias pstree='pstree -g3'
+alias vim='nvim'
 
 
 
@@ -240,22 +241,205 @@ alias tmxs='tmux attach -t `tmux ls | selecta | cut -f1 -d:`'
 alias vims='vim `find . -type f | grep -v "^\./\."  | selecta`'
 alias kills='kill `ps aux | selecta | awk '"'"'{print $2 }'"'"'`'
 
-function ffiles() {
-       find . -name \* -print | selecta
-}
-function greps(){
-       grep -lr $1 ./* | selecta
+# Will return non-zero status if the current directory is not managed by git
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
 }
 
-function history_selecta() {
-    tmpfile=(mktemp /tmp/history_selecta.XXXX)
-    history | selecta > $tmpfile
-    $(cat $tmpfile)
-    rm $tmpfile
+fzf-down() {
+  fzf --height 50% "$@" --border
 }
 
+gf() {
+  is_in_git_repo || return
+  git -c color.status=always status --short |
+  fzf-down -m --ansi --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+  cut -c4- | sed 's/.* -> //'
+}
+
+gb() {
+  is_in_git_repo || return
+  # git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  git for-each-ref --sort=committerdate refs/heads/ | 
+  fzf-down --ansi --multi --tac --preview-window right:70% \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+  grep -o "[a-f0-9]\{7,\}"
+}
+
+gt() {
+  is_in_git_repo || return
+  git tag --sort -version:refname |
+  fzf-down --multi --preview-window right:70% \
+    --preview 'git show --color=always {} | head -'$LINES
+}
+
+gh() {
+  is_in_git_repo || return
+  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+    --header 'Press CTRL-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+  grep -o "[a-f0-9]\{7,\}"
+}
+
+
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fe() {
+  local file
+  file=$(fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && ${EDITOR:-vim} "$file"
+}
+
+# frm - remove selected file
+frm() {
+  local file
+  file=$(fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && rm "$file"
+}
+
+# fea - search hidden files and open matching in vim
+fea() {
+  local file
+  file=$(ag -l --hidden -g "" | fzf --query="$1" --select-1 --exit-0)
+  [ -n "$file" ] && ${EDITOR:-vim} "$file"
+}
+
+# fd - cd to selected directory
+cdd() {
+  local dir
+  dir=$(find ${1:-*} -path '*/\.*' -prune \
+        -o -type d -print 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+# fda - including hidden directories
+fda() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+# cdf - cd into the directory of the selected file
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}
+
+# fkill - kill process
+fkill() {
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    kill -${1:-9} $pid
+  fi
+}
+
+# fbs - get branch/tag name
+fbs() {
+  local tags branches target
+  tags=$(
+    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  branches=$(
+    git branch --all | grep -v HEAD             |
+    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$tags"; echo "$branches") |
+    fzf --ansi +m -d "\t" -n 2) || return
+  echo "$target" | awk '{print $2}'
+}
+
+# fco - checkout git branch/tag
+fco() {
+  git checkout $(fbs)
+}
+
+# gbs - open selected branch in tig
+gbs() {
+  tig $(fbs)
+}
+
+# fcs - get git commit sha
+# example usage: git rebase -i `fcs`
+fcs() {
+  local commits commit
+  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s -m --ansi --reverse) &&
+  echo -n $(echo "$commit" | sed "s/ .*//")
+}
+
+# fcoc - checkout git commit
+fcoc() {
+  git checkout $(fcs)
+}
+
+# gcs - open selected commit in tig
+gcs() {
+  tig show $(fcs)
+}
+
+# fstash - easier way to deal with stashes
+# type fstash to get a list of your stashes
+# enter shows you the contents of the stash
+# ctrl-d shows a diff of the stash against your current HEAD
+# ctrl-b checks the stash out as a branch, for easier merging
+fstash() {
+  local out q k sha
+    while out=$(
+      git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+      fzf --ansi --no-sort --query="$q" --print-query \
+          --expect=ctrl-d,ctrl-b);
+    do
+      q=$(head -1 <<< "$out")
+      k=$(head -2 <<< "$out" | tail -1)
+      sha=$(tail -1 <<< "$out" | cut -d' ' -f1)
+      [ -z "$sha" ] && continue
+      if [ "$k" = 'ctrl-d' ]; then
+        git diff $sha
+      elif [ "$k" = 'ctrl-b' ]; then
+        git stash branch "stash-$sha" $sha
+        break;
+      else
+        git stash show -p $sha
+      fi
+    done
+}
+
+# Run single test from rails application
+ftest() {
+  local file
+  file=$(
+    git ls-files test/ |
+    grep -v '\(factories\|fixtures\|test_helper\|gitkeep\)' |
+    fzf --query="$1" --select-1 --exit-0
+  )
+  [ -n "$file" ] && echo "ruby -I test $file" | writecmd -run
+}
+
+# fh - repeat history
+fh() {
+  eval $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+# fhe - repeat history with edit
+fhe() {
+  print -z $(([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+bind '"\er": redraw-current-line'
+bind '"\C-g\C-f": "$(gf)\e\C-e\er"'
+bind '"\C-g\C-b": "$(gb)\e\C-e\er"'
+bind '"\C-g\C-t": "$(gt)\e\C-e\er"'
+bind '"\C-g\C-h": "$(gh)\e\C-e\er"'
+bind '"\C-g\C-r": "$(gr)\e\C-e\er"'
 
 export NVM_DIR="/home/chrisf/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
+export PATH="/Users/chrisf/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

@@ -25,7 +25,7 @@ let g:neomake_cpp_clang_args = ["-std=c++11 -Iinclude"]
 call plug#begin('~/.vim/bundle')
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
-Plug 'mhinz/vim-grepper'
+" Plug 'mhinz/vim-grepper'
 Plug 'fmoralesc/molokayo'
 Plug 'morhetz/gruvbox'
 Plug 'jacoborus/tender.vim'
@@ -58,16 +58,14 @@ Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 Plug 'guns/vim-sexp'
 Plug 'pangloss/vim-javascript'
 Plug 'moll/vim-node'
-Plug 'othree/html5-syntax.vim'
-Plug 'othree/html5.vim'
-Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'elzr/vim-json'
 Plug 'burnettk/vim-angular'
-Plug 'python-mode/python-mode' 
-Plug 'davidhalter/jedi-vim'
+" Plug 'python-mode/python-mode' 
+" Plug 'davidhalter/jedi-vim'
+Plug 'jeetsukumaran/vim-pythonsense'
+Plug 'mgedmin/pythonhelper.vim'
 " Plug 'wilywampa/python-mode'
 " Plug 'kien/rainbow_parentheses.vim'
-Plug 'chrisbra/vim-diff-enhanced'
 Plug 'tommcdo/vim-exchange'
 Plug 'tommcdo/vim-lion'
 Plug 'wellle/targets.vim'
@@ -79,18 +77,19 @@ Plug 'albfan/ag.vim'
 Plug 'gabesoft/vim-ags'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'MarcWeber/vim-addon-mw-utils'
 " Plug 'jiangmiao/auto-pairs'
 " Plug 'gorkunov/smartpairs.vim'
 " Plug 'Raimondi/delimitMate'
 " Plug 'cohama/lexima.vim'
+Plug 'ericcurtin/CurtineIncSw.vim'
 " Plug 'Twinside/vim-cuteErrorMarker'
 Plug 'brooth/far.vim'
 Plug 'brookhong/cscope.vim'
 Plug 'godlygeek/tabular'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'jpalardy/vim-slime'
-Plug 'dzeban/vim-log-syntax'
+" Plug 'jpalardy/vim-slime'
 " Plug 'jayflo/vim-skip'
 Plug 'Keithbsmiley/investigate.vim'
 Plug 'kana/vim-arpeggio'
@@ -125,12 +124,11 @@ Plug 'qstrahl/vim-matchmaker'
 Plug 'vim-ruby/vim-ruby'
 Plug 'gregsexton/gitv'
 Plug 'gregsexton/VimCalc'
-Plug 'jelera/vim-javascript-syntax'
 Plug 'zah/nim.vim'
 " Plug 'hwrod/interactive-replace'
-Plug 'zhaocai/linepower.vim'
+" Plug 'zhaocai/linepower.vim'
 Plug 'xuhdev/vim-latex-live-preview'
-Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
+" Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
 " Plug 'vim-syntastic/syntastic' ", Cond(! has('nvim'))
 Plug 'neomake/neomake' ", Cond(has('nvim')) 
 " Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
@@ -141,17 +139,19 @@ Plug 'tpope/vim-sensible', Cond(! has('nvim'))
 Plug 'vim-scripts/YankRing.vim' 
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
+Plug 'google/vim-coverage'
 Plug 'AndrewRadev/linediff.vim'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
-Plug 'google/vim-glaive'  ", {'do': 'call glaive#Install()'}
-Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
+Plug 'google/vim-glaive', {'do': ':call glaive#Install()'}
 Plug 'tmhedberg/matchit'
 Plug 'yegappan/mru'
+Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/node'
 Plug 'ShawnHuang/vim-noerrmsg'
 Plug 'vim-scripts/NPM'
-Plug 'kbairak/TurboMark'
+" Plug 'MattesGroeger/vim-bookmarks'
+Plug 'mg979/vim-bookmarks'
 Plug 'tomtom/tlib_vim'
 Plug 'vim-scripts/ZoomWin'
 Plug 'simeji/winresizer'
@@ -171,13 +171,12 @@ Plug 'embear/vim-foldsearch'
 Plug 'whiteinge/diffconflicts'
 Plug 'tpope/vim-repeat'
 Plug 'mattboehm/vim-unstack'
-Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
+Plug 'lambdalisue/nose.vim'
+" Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-if ( ! has('nvim')  )
+" if ( ! has('nvim')  )
   " always magic on search
-  let g:incsearch#magic = '\v'
-  let g:incsearch#emacs_like_keymap = 1
   " augroup incsearch-keymap
   "   autocmd!
   "   autocmd VimEnter call s:incsearch_keymap()
@@ -189,11 +188,14 @@ if ( ! has('nvim')  )
   "   IncSearchNoreMap <Down>  <Over>(incsearch-scroll-f)
   "   IncSearchNoreMap <Up>    <Over>(incsearch-scroll-b)
   " endfunction
-  map / <Plug>(incsearch-forward)
-  map ? <Plug>(incsearch-backward)
-  map g/ <Plug>(incsearch-stay)
-  cnoremap s/ s/\v
-endif
+  " set hlsearch
+  " let g:incsearch#magic = '\v'
+  " let g:incsearch#emacs_like_keymap = 1
+  " map / <Plug>(incsearch-forward)
+  " map ? <Plug>(incsearch-backward)
+  " map g/ <Plug>(incsearch-stay)
+  " cnoremap s/ s/\v
+" endif
 call plug#end()
 call glaive#Install()
 Glaive codefmt plugin[mappings]
@@ -212,28 +214,39 @@ endif
 runtime! bundle_config/*.vim
 
 set rtp+=/usr/local/opt/fzf
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/Users/chrisf/Library/Python/2.7/bin/pyls'],
+    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    \ }
+
+autocmd BufWritePre  *.{cpp,h,c,cc,hpp,js,py,sql,go,md,html,sh,template,yaml,json}  call StripTrailingWhite()
+
 function s:AddCodefmtEqualMapping() abort
   " Replace all the various ={motion} keys to codefmt
   nnoremap <buffer> = :set opfunc=codefmt#FormatMap<CR>g@
   nnoremap <buffer> == :FormatLines <CR>
   vnoremap <buffer> = :FormatLines  <CR>
 endfunction
-augroup codefmt_equal
-  autocmd FileType h,cc,c,cpp,proto call s:AddCodefmtEqualMapping()
-augroup END
 
-function s:AddCodefmtEqualMappingYapf() abort
-  " Replace all the various ={motion} keys to codefmt
-  nnoremap <buffer> = :set opfunc=codefmt#FormatMap<CR>g@
-  nnoremap <buffer> == :FormatLines yapf<CR>
-  vnoremap <buffer> = :FormatLines  yapf<CR>
-endfunction
-augroup codefmt_equal
-  autocmd FileType python call s:AddCodefmtEqualMappingYapf()
-augroup END
 
 let g:clang_format#detect_style_file=1
-autocmd BufWritePre  *.{cpp,h,c,cc,hpp,js,py,sql,go}  call StripTrailingWhite()
+augroup codefmt_equal
+  autocmd FileType python,javascript,go,javascript,html,css,h,cc,c,cpp,proto call s:AddCodefmtEqualMapping()
+augroup END
+
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType python let b:code_formatter = 'yapf'
+  autocmd FileType javascript let b:code_formatter = 'prettier'
+  autocmd FileType java AutoFormatBuffer google-java-format
+augroup END
 
 function! StripTrailingWhite()
   let l:winview = winsaveview()
@@ -267,6 +280,8 @@ set t_Co=256
 set ignorecase
 set virtualedit=onemore
 set hlsearch
+set incsearch
+set inccommand=nosplit
 set switchbuf=useopen,usetab
 set cmdheight=2
 set history=10000
@@ -295,6 +310,8 @@ set expandtab
 set shiftwidth=3
 set clipboard=unnamed
 set synmaxcol=0
+set diffopt+=internal,algorithm:patience
+set redrawtime=5000
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 " cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
@@ -307,7 +324,8 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow
   set grepformat=%f:%l:%c:%m
 endif
-nnoremap <leader>* :Grepper -tool rg -cword -noprompt -noswitch<cr>
+" nnoremap <leader>* :Grepper -tool rg -cword -noprompt -noswitch<cr>
+nnoremap <leader>* :Find <cr>
 
 " swap tag following shortcuts to show list by default
 set tags=tags;
@@ -317,7 +335,7 @@ nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
 
 set mouse=a
-set ttymouse=sgr
+" set ttymouse=sgr
 hi  Visual term=reverse ctermbg=244 guibg=#403D3D
 " paste most recent. using 0 allows you to replace previous when using cw cmap <c-r><c-r>  <c-r>"
 imap <c-r><c-r>  <c-r>0
@@ -352,7 +370,6 @@ nnoremap <Leader>do :DiffChangesDiffToggle<cr>
 nnoremap <leader>cd :cd %:p:h<cr>
 nnoremap <leader>co :copen 15 <cr>:cfile<up><cr>
 nnoremap <leader>bo :copen 25 <cr>:cfile build.out <cr>
-
 " run the following to dow tmux repeat command, then 'ru' chord to repeat that
 " :execute    'silent !tmux send-keys -t target.2 "dow "\' | redraw! 
 " execute    'silent !tmux send-keys -t target.2 "stopecho '''' > serial.raw dow ./apps/bin/box_img.elf run"' | redraw!
@@ -407,4 +424,23 @@ endfun
 
 nn <M-g> :call JumpToDef()<cr>
 ino <M-g> <esc>:call JumpToDef()<cr>i
+
+let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT'
+fun! Setbreakpoint(lnum) "{{{
+    let line = getline(a:lnum)
+    if strridx(line, g:pymode_breakpoint_cmd) != -1
+        normal dd
+    else
+        let plnum = prevnonblank(a:lnum)
+        if &expandtab
+            let indents = repeat(' ', indent(plnum))
+        else
+            let indents = repeat("\t", plnum / &shiftwidth)
+        endif
+
+        call append(line('.')-1, indents.g:pymode_breakpoint_cmd)
+        normal k
+    endif
+endfunction "}}}
+nnoremap <silent> <leader>b :call Setbreakpoint(line('.'))<CR>
 
