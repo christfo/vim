@@ -28,22 +28,22 @@ nnoremap <c-8> :call fzf#vim#grep('rg --column --line-number --no-heading --colo
 command! -bang -nargs=* Find
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always \\b'.shellescape(expand('<cword>')).'\\b', 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}, 'right:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}, 'right:50%', '?'),
   \   <bang>0)
 
 command! -bang -nargs=* FindWord
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}, 'right:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}, 'right:50%', '?'),
   \   <bang>0)
 
-command! -bang -nargs=* -complete=dir FindWordNew
+command! -bang -nargs=+ -complete=dir FindWordNew
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%', '?'),
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}, 'right:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}, 'right:50%', '?'),
   \   <bang>0)
 
 command! -bang -nargs=? -complete=dir Files
@@ -52,7 +52,7 @@ command! -bang -nargs=? -complete=dir Files
 " nnoremap <c-8> :call fzf#vim#grep('rg --column --line-number --no-heading --color=always '.shellescape(expand('<cword>')), 1, <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
 " command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(expand('<cword>')), 1, <bang>0).'| tr -d "\017"', 1, <bang>0)
-
+let g:fzf_layout = { 'up': '~50%' }
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
@@ -65,7 +65,7 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all,ctrl-f:page-down,ctrl-b:page-up'
 
 let g:fzf_filemru_colors = {}
 
