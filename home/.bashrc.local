@@ -79,6 +79,9 @@ alias lr='ls -lR'               # recursive ls
 alias lt='ls -ltr'              # sort by date
 alias lm='ls -al |more'         # pipe through 'more'
 
+alias vim='nvim'
+alias clang-format='clang-format-3.9'
+
 # Alias chmod commands
 alias mx='chmod a+x'
 alias 000='chmod 000'
@@ -112,4 +115,4 @@ export LESS=' -R '
 # set the highlight search colour
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 
-
+export SAFELY_HOME=$HOME/git/safeview sudo python dev_setup.py --bind-iface eth0 PostBoot

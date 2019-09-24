@@ -174,6 +174,7 @@ Plug 'mattboehm/vim-unstack'
 Plug 'lambdalisue/nose.vim'
 " Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 " if ( ! has('nvim')  )
   " always magic on search
@@ -199,11 +200,12 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 call glaive#Install()
 Glaive codefmt plugin[mappings]
+Glaive codefmt clang_format_executable='clang-format-3.9'
 
 let g:yankring_map_dot = 0
 if ( has('nvim')  )
     if (has("termguicolors"))
-        set termguicolors
+        " set termguicolors
     endif
     let g:far#source='agnvim'
     let g:yankring_clipboard_monitor=0
@@ -213,8 +215,9 @@ endif
 
 runtime! bundle_config/*.vim
 
-set rtp+=/usr/local/opt/fzf
-
+set rtp+=~/.fzf
+set guicursor=i:ver25-iCursor
+set guicursor=n:ver25-iCursor
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
@@ -311,7 +314,9 @@ set shiftwidth=3
 set clipboard=unnamed
 set synmaxcol=0
 set diffopt+=internal,algorithm:patience
+set diffopt+=hiddenoff
 set redrawtime=5000
+set shell=/bin/sh
 
 cnoreabbrev <expr> ack ((getcmdtype() is# ':' && getcmdline() is# 'ack')?('Ack'):('ack'))
 " cnoreabbrev <expr> ag ((getcmdtype() is# ':' && getcmdline() is# 'ag')?('Ag'):('ag'))
@@ -443,4 +448,9 @@ fun! Setbreakpoint(lnum) "{{{
     endif
 endfunction "}}}
 nnoremap <silent> <leader>b :call Setbreakpoint(line('.'))<CR>
+
+highlight DiffAdd    cterm=BOLD ctermfg=NONE ctermbg=22
+highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
+highlight DiffChange cterm=BOLD ctermfg=NONE ctermbg=23
+highlight DiffText   cterm=BOLD ctermfg=NONE ctermbg=23
 
