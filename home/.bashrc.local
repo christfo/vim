@@ -115,4 +115,4 @@ export LESS=' -R '
 # set the highlight search colour
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 
-export SAFELY_HOME=$HOME/git/safeview sudo python dev_setup.py --bind-iface eth0 PostBoot
+export SAFELY_HOME=$HOME/git/safeview

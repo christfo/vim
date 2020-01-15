@@ -12,8 +12,9 @@
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-nnoremap <leader>t :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
+" nnoremap <leader>t :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
 nnoremap <c-8> :call fzf#vim#grep('rg --column --line-number --no-heading --color=always '.shellescape(expand('<cword>')), 1, <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+nnoremap <leader>t :call fzf#vim#tags(expand('<cword>'), {'options': '--preview ''' . cf_pr . ''''})<cr>
 
 
 " command! -bang -nargs=* FindEmpty call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" ', 1, <bang>0).'| tr -d "\017"', 1, <bang>0)
@@ -90,5 +91,17 @@ cnoreabbrev <expr> rg ((getcmdtype() is# ':' && getcmdline() is# 'rg')?('FindWor
 "   \        "v:val !~ 'fugitive\\|NERD_tree\\|^/tmp/\\|.git/'"),
 "   \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
 " endfunction
+
+" Add your path here.
+let plugins_dir='~/.vim/bundle/' 
+
+" Send file address and line number to fzf.vim's preview script
+let preview_file = plugins_dir . "/fzf.vim/bin/preview.sh"
+let show_preview = 'FILE=;LINE=;F={};for word in $F;do if [ -n "$word" ] & [ "$word" -eq "$word" ] 2>/dev/null;then LINE=$word;break;fi;FILE=$word;done;echo $FILE:$LINE | xargs -I {} ' . preview_file . '  {}'
+let cf_pr = 'FILE={2};LINE={};LINE=${LINE//	/ };LN1=${LINE#*line:};LN=${LN1%% *}; ~/.vim/bundle/fzf.vim/bin/preview.sh  $FILE:$LN'
+let cf_pr2 = 'FILE={2};LINE={3};LINE=${LINE//	/ };LN1=${LINE#*line:};LN=${LN1%% *}; ~/.vim/bundle/fzf.vim/bin/preview.sh  $FILE:$LN'
+
+command! -bang -nargs=? Tags call fzf#vim#tags(<q-args>, {'options': '--preview ''' . cf_pr . ''''}, <bang>0)
+command! -bang -nargs=? Lines call fzf#vim#lines(<q-args>, {'options': '--nth 1.. --layout=reverse --preview ''' . cf_pr2 . ''''}, <bang>0)
 
 

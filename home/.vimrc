@@ -49,9 +49,9 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-leiningen'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'ternjs/tern_for_vim'
-Plug 'rhysd/clever-f.vim'
+" Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/vim-clang-format'
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
@@ -72,7 +72,7 @@ Plug 'wellle/targets.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 " Plug 'Shougo/unite.vim'
-Plug 'gcmt/wildfire.vim'
+" Plug 'gcmt/wildfire.vim'
 Plug 'albfan/ag.vim'
 Plug 'gabesoft/vim-ags'
 Plug 'rbgrouleff/bclose.vim'
@@ -87,11 +87,11 @@ Plug 'ericcurtin/CurtineIncSw.vim'
 " Plug 'Twinside/vim-cuteErrorMarker'
 Plug 'brooth/far.vim'
 Plug 'brookhong/cscope.vim'
-Plug 'godlygeek/tabular'
+" Plug 'godlygeek/tabular'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " Plug 'jpalardy/vim-slime'
 " Plug 'jayflo/vim-skip'
-Plug 'Keithbsmiley/investigate.vim'
+" Plug 'Keithbsmiley/investigate.vim'
 Plug 'kana/vim-arpeggio'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-function'
@@ -108,22 +108,22 @@ Plug 'vimtaku/vim-textobj-keyvalue'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'kana/vim-operator-user'
 Plug 'majutsushi/tagbar'
-Plug 'mtth/locate.vim'
-Plug 'nanliu/vim-puppet'
-Plug 'nviennot/irb-config'
+" Plug 'mtth/locate.vim'
+" Plug 'nanliu/vim-puppet'
+" Plug 'nviennot/irb-config'
 " Plug 'christfo/vim-mercenary'
 Plug 'sjbach/lusty'
 Plug 'sjl/gundo.vim'
-Plug 'disassembler/splice.vim'
+" Plug 'disassembler/splice.vim'
 Plug 'sunaku/QFixToggle'
 Plug 'timcharper/textile.vim'
 Plug 'tomasr/molokai'
 " Plug 'wookiehangover/jshint.vim'
-Plug 'qstrahl/vim-matchmaker'
+" Plug 'qstrahl/vim-matchmaker'
 " Plug 'tomtom/quickfixsigns_vim'
 Plug 'vim-ruby/vim-ruby'
-Plug 'gregsexton/gitv'
-Plug 'gregsexton/VimCalc'
+" Plug 'gregsexton/gitv'
+" Plug 'gregsexton/VimCalc'
 Plug 'zah/nim.vim'
 " Plug 'hwrod/interactive-replace'
 " Plug 'zhaocai/linepower.vim'
@@ -158,7 +158,7 @@ Plug 'simeji/winresizer'
 Plug 'glts/vim-textobj-comment'
 Plug 'jmcantrell/vim-diffchanges'
 Plug 'vim-scripts/Colortest'
-Plug 'dkprice/vim-easygrep'
+" Plug 'dkprice/vim-easygrep'
 Plug 'noscript/justDo.vim'
 Plug 'thetomcraig/Mark--Karkat'
 Plug 'vim-scripts/QuickBuf'
@@ -167,15 +167,24 @@ Plug 'vim-scripts/SearchCompl.vim'
 Plug 'drmikehenry/vim-headerguard'
 Plug 'hura/vim-toplevel'
 Plug 'fjolnir/a.vim'
-Plug 'embear/vim-foldsearch'
+" Plug 'embear/vim-foldsearch'
 Plug 'whiteinge/diffconflicts'
 Plug 'tpope/vim-repeat'
 Plug 'mattboehm/vim-unstack'
 Plug 'lambdalisue/nose.vim'
+Plug 'yko/mojo.vim'
+Plug 'jacoborus/tender.vim'
+Plug 'haishanh/night-owl.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'srcery-colors/srcery-vim'
+Plug 'joshdick/onedark.vim'
 " Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-
+" The do hook is highly recommended.
+" It will try to build all the optional dependency if cargo exists on your system.
+Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
+Plug 'liuchengxu/vista.vim'
 " if ( ! has('nvim')  )
   " always magic on search
   " augroup incsearch-keymap
@@ -213,6 +222,7 @@ else
     let g:far#source='ag'
 endif
 
+set rtp+=~/.vim/
 runtime! bundle_config/*.vim
 
 set rtp+=~/.fzf
@@ -342,6 +352,8 @@ vnoremap g<c-]> <c-]>
 set mouse=a
 " set ttymouse=sgr
 hi  Visual term=reverse ctermbg=244 guibg=#403D3D
+hi  MatchParen cterm=NONE,bold gui=NONE,bold ctermbg=15 guibg=#fdf6e3 ctermfg=12 guifg=#839496
+
 " paste most recent. using 0 allows you to replace previous when using cw cmap <c-r><c-r>  <c-r>"
 imap <c-r><c-r>  <c-r>0
 cmap <c-r><c-r>  <c-r>"

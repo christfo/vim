@@ -3,3 +3,5 @@ if [ -f ~/.bashrc ]; then
 fi
 export PATH="/usr/local/opt/qt/bin:$PATH"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"
