@@ -30,6 +30,8 @@ let g:ycm_key_invoke_completion = '<C-Space>'
 
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_key_detailed_diagnostics = '<F11>'
+
+let g:ycm_auto_trigger = 0
 set completeopt-=preview
 " nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 

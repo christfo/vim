@@ -1,0 +1,13 @@
+couldn't execute "./safeview/build/build_sv_cr.py": no such file or directory
+    while executing
+"spawn -noecho ./safeview/build/build_sv_cr.py --skip-depot-tools --skip-build-deps --skip-safeview-deps --skip-gclient --build-type=release safeview s..."
+    ("eval" body line 1)
+    invoked from within
+"eval [list spawn -noecho] $argv"
+    invoked from within
+"if {[string compare [lindex $argv 0] "-p"] == 0} {
+    # pipeline
+    set stty_init "-echo"
+    eval [list spawn -noecho] [lrange $argv 1 end]
+    clo..."
+    (file "/usr/bin/unbuffer" line 13)

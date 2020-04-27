@@ -24,7 +24,7 @@ let g:neomake_cpp_enable_markers=['clang']
 let g:neomake_cpp_clang_args = ["-std=c++11 -Iinclude"]
 call plug#begin('~/.vim/bundle')
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --gocode-completer --tern-completer' }
 " Plug 'mhinz/vim-grepper'
 Plug 'fmoralesc/molokayo'
 Plug 'morhetz/gruvbox'
@@ -185,6 +185,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " It will try to build all the optional dependency if cargo exists on your system.
 Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
 Plug 'liuchengxu/vista.vim'
+Plug 'joelstrouts/swatch.vim'
+Plug 'fcpg/vim-osc52'
 " if ( ! has('nvim')  )
   " always magic on search
   " augroup incsearch-keymap
@@ -442,10 +444,15 @@ endfun
 nn <M-g> :call JumpToDef()<cr>
 ino <M-g> <esc>:call JumpToDef()<cr>i
 
-let g:pymode_breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT'
+augroup break_settings
+  autocmd FileType python let b:breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT'
+  autocmd FileType javascript let b:breakpoint_cmd = 'break; // XXX BREAKPOINT'
+  autocmd FileType cpp let b:breakpoint_cmd = 'VLOG(1) << __func__ << " chrisf - ";'
+augroup END
+
 fun! Setbreakpoint(lnum) "{{{
     let line = getline(a:lnum)
-    if strridx(line, g:pymode_breakpoint_cmd) != -1
+    if strridx(line, b:breakpoint_cmd) != -1
         normal dd
     else
         let plnum = prevnonblank(a:lnum)
@@ -455,7 +462,7 @@ fun! Setbreakpoint(lnum) "{{{
             let indents = repeat("\t", plnum / &shiftwidth)
         endif
 
-        call append(line('.')-1, indents.g:pymode_breakpoint_cmd)
+        call append(line('.')-1, indents.b:breakpoint_cmd)
         normal k
     endif
 endfunction "}}}

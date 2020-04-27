@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 LOCALPORT=7778
+SURRHOST=$(1:-chrisf-poc)
 
 function mapbackend {
   IP=$1
@@ -7,16 +8,15 @@ function mapbackend {
   LOCALPORT=$3
   SAFE_RID=$4
   echo "mapping surrogate ${IP}:${PORT} to localhost:${LOCALPORT} of safe rid == ${SAFE_RID}   "
-  vagrant ssh -- -L ${PORT}:${IP}:${LOCALPORT} -N &
-  echo 
+  ssh $SURRHOST -- -L ${PORT}:${IP}:${LOCALPORT} -N &
+  echo
 }
 
 
-
-pushd ~/git/safeview 
+pushd ~/git/safeview
 echo "start devtools backends"
-SURROGATES=$( vagrant ssh -c '
-RENDER=$(ps aux | grep -Po "[r]ender.+" | sed -rn "s/^.+safe-rid=([^ ]+).*$/\1/p" | sort | uniq | awk -vORS="|" "{print $1}" | sed "s/|$//g")
+SURROGATES=$( ssh $SURRHOST -c '
+RENDER=$(ps aux | grep -Po "type=zygote.+" | sed -rn "s/^.+safe-rid=([^ ]+).*$/\1/p" | sort | uniq | awk -vORS="|" "{print $1}" | sed "s/|$//g")
 ps aux | grep -Po "[m]onitor.+" | sed -rn "s/^.+server-address=([^ ]+).+safe-rid=($RENDER).+debugging-port=([0-9]+).*$/\1 \2 \3/p"
 ')
 
@@ -34,7 +34,7 @@ done <<< "$SURROGATES"
 echo "--------------"
 
 read -p "Choose a surrogate to continue... " -n1 -s selection
-echo 
+echo
 fi
 
 NUM=1

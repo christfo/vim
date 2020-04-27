@@ -17,5 +17,5 @@ rm "${LOGFILE}"
 unbuffer "${NEWOPT[@]}" 2>&1 | tee /dev/tty \
   | stdbuf -i0 -o0 -e0 strip-ansi \
   | ${FILTER} \
-  | sed -u  's%../../%%g; s%/host/menlo%~/git%g; s%/home/vagrant%~%g' \
+  | sed -u  's%../../%%g; s%\(time"\?[=: ]\+"[^"]*\):\([^"]*\):%\1-\2-%g;' \
   | c++filt >> "${LOGFILE}" 

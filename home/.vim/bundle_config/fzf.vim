@@ -66,12 +66,26 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all,ctrl-f:page-down,ctrl-b:page-up'
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all,ctrl-d:page-down,ctrl-u:page-up'
 
 let g:fzf_filemru_colors = {}
 
 nnoremap <leader>* :Find<cr>
 cnoreabbrev <expr> rg ((getcmdtype() is# ':' && getcmdline() is# 'rg')?('FindWord '):('rg'))
+
+function! s:edit_at(line)
+  let l:file = substitute(a:line, '^\([^:]*\):.*', '\1', "")
+  let l:num = substitute(a:line, '[^:]*:\([^:]*\):.*', '\1', "")
+  execute "edit +".l:num." ".fnameescape(l:file)
+endfunction
+command! -bang -nargs=? -complete=dir Errors
+      \ call fzf#run(fzf#vim#with_preview(fzf#wrap({
+           \'source': 'sed -e "s/^.*file=\(.\+\) line=\([^ ]\+\) /\1:\2:Message - /; s/^logging.js:.*full_session_id=[^ ]* *\([^ ]*\) .*\/\([^:]*\):\([^:]*\):/safeview\/monitor\/\2:\3:\1/" build.out', 
+           \'options': '--reverse --no-sort',
+           \'sink': function('s:edit_at')})))
+nnoremap <leader>vo  :Errors<cr>
+
+           "\'source': "sed -e 's/^.*file=\\(.\\+\\) line=\\([^ ]\\+\\) /\\1:\\2:Message - /' build.out", 
 
 " command! FZFMru call fzf#run({
 " \  'source':  v:oldfiles,
@@ -104,4 +118,5 @@ let cf_pr2 = 'FILE={2};LINE={3};LINE=${LINE//	/ };LN1=${LINE#*line:};LN=${LN1%% 
 command! -bang -nargs=? Tags call fzf#vim#tags(<q-args>, {'options': '--preview ''' . cf_pr . ''''}, <bang>0)
 command! -bang -nargs=? Lines call fzf#vim#lines(<q-args>, {'options': '--nth 1.. --layout=reverse --preview ''' . cf_pr2 . ''''}, <bang>0)
 
+call arpeggio#map('n', 's', 0, 'kt', ":call fzf#vim#tags(expand('<cword>'), {'options': '--preview ''' . cf_pr . ''''})<cr> ")
 
