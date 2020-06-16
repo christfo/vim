@@ -353,8 +353,12 @@ vnoremap g<c-]> <c-]>
 
 set mouse=a
 " set ttymouse=sgr
-hi  Visual term=reverse ctermbg=244 guibg=#403D3D
-hi  MatchParen cterm=NONE,bold gui=NONE,bold ctermbg=15 guibg=#fdf6e3 ctermfg=12 guifg=#839496
+" hi  MatchParen cterm=NONE,bold gui=NONE,bold ctermbg=15 guibg=#fdf6e3 ctermfg=12 guifg=#839496
+autocmd ColorScheme * call ColourOverride()
+function ColourOverride()
+  hi MatchParen cterm=bold ctermfg=lightred ctermbg=black gui=bold guifg=#000000 guibg=FD971F
+  hi  Visual term=reverse ctermbg=244 guibg=#403D3D
+endfunction
 
 " paste most recent. using 0 allows you to replace previous when using cw cmap <c-r><c-r>  <c-r>"
 imap <c-r><c-r>  <c-r>0
@@ -446,7 +450,7 @@ ino <M-g> <esc>:call JumpToDef()<cr>i
 
 augroup break_settings
   autocmd FileType python let b:breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT'
-  autocmd FileType javascript let b:breakpoint_cmd = 'break; // XXX BREAKPOINT'
+  autocmd FileType javascript let b:breakpoint_cmd = 'debugger; // XXX BREAKPOINT'
   autocmd FileType cpp let b:breakpoint_cmd = 'VLOG(1) << __func__ << " chrisf - ";'
 augroup END
 

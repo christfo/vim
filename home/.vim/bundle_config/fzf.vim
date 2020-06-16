@@ -118,5 +118,6 @@ let cf_pr2 = 'FILE={2};LINE={3};LINE=${LINE//	/ };LN1=${LINE#*line:};LN=${LN1%% 
 command! -bang -nargs=? Tags call fzf#vim#tags(<q-args>, {'options': '--preview ''' . cf_pr . ''''}, <bang>0)
 command! -bang -nargs=? Lines call fzf#vim#lines(<q-args>, {'options': '--nth 1.. --layout=reverse --preview ''' . cf_pr2 . ''''}, <bang>0)
 
+
 call arpeggio#map('n', 's', 0, 'kt', ":call fzf#vim#tags(expand('<cword>'), {'options': '--preview ''' . cf_pr . ''''})<cr> ")
 

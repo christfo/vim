@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 LOCALPORT=7778
-SURRHOST=$(1:-chrisf-poc)
+SURRHOST=$(1:-chrisf-dev)
 
 function mapbackend {
   IP=$1
