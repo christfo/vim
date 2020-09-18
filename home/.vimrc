@@ -133,6 +133,8 @@ Plug 'xuhdev/vim-latex-live-preview'
 Plug 'neomake/neomake' ", Cond(has('nvim')) 
 " Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'zackhsi/fzf-tags'
 " Plug 'pbogut/fzf-mru.vim'
 Plug 'tweekmonster/fzf-filemru'
 Plug 'tpope/vim-sensible', Cond(! has('nvim'))
@@ -452,11 +454,12 @@ augroup break_settings
   autocmd FileType python let b:breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT'
   autocmd FileType javascript let b:breakpoint_cmd = 'debugger; // XXX BREAKPOINT'
   autocmd FileType cpp let b:breakpoint_cmd = 'VLOG(1) << __func__ << " chrisf - ";'
+  autocmd FileType cpp let b:backtrace_cmd = '#include "base/debug/stack_trace.h"base::debug::StackTrace st; VLOG(1) << __func__ << " chrisf - " << st.ToString();'
 augroup END
 
-fun! Setbreakpoint(lnum) "{{{
+fun! Setbreakpoint(lnum, breakpoint_cmd) "{{{
     let line = getline(a:lnum)
-    if strridx(line, b:breakpoint_cmd) != -1
+    if strridx(line, a:breakpoint_cmd) != -1
         normal dd
     else
         let plnum = prevnonblank(a:lnum)
@@ -466,11 +469,12 @@ fun! Setbreakpoint(lnum) "{{{
             let indents = repeat("\t", plnum / &shiftwidth)
         endif
 
-        call append(line('.')-1, indents.b:breakpoint_cmd)
+        call append(line('.')-1, indents.a:breakpoint_cmd)
         normal k
     endif
 endfunction "}}}
-nnoremap <silent> <leader>b :call Setbreakpoint(line('.'))<CR>
+nnoremap <silent> <leader>b :call Setbreakpoint(line('.'), b:breakpoint_cmd)<CR>
+nnoremap <silent> <leader>B :call Setbreakpoint(line('.'), b:backtrace_cmd)<CR>
 
 highlight DiffAdd    cterm=BOLD ctermfg=NONE ctermbg=22
 highlight DiffDelete cterm=BOLD ctermfg=NONE ctermbg=52
