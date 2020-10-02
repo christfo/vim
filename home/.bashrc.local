@@ -5,6 +5,11 @@ export HISTFILESIZE=100000 # the bash history should save 3000 commands
 export HISTSIZE=100000 # the bash history should save 3000 commands
 shopt -s histappend
 
+export CCACHE_PREFIX=
+export CCACHE_LOGFILE="$HOME/.ccache/log.txt"
+# export CCACHE_BASEDIR="$HOME/.ccache"
+export CCACHE_DIR="$HOME/.ccache"
+export CCACHE_SLOPPINESS=inclue_file_mtime
 history() {
     _bash_history_sync
     builtin history "$@"
@@ -57,6 +62,7 @@ alias l='ls -CF'
 # Alias's to modified commands
 alias ps='ps auxf'
 alias home='cd ~'
+alias cd='cd -P'
 alias pg='ps aux | grep'  #requires an argument
 alias un='tar -zxvf'
 alias mountedinfo='df -hT'

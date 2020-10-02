@@ -27,6 +27,8 @@
   ; pager = less -XRMSI
   pager = tig
   eol = native
+	commitGraph = true
+	writeCommitGraph = true
 [color]
   ; diff = auto
   pager = no
@@ -36,6 +38,7 @@
   ui = auto
 [gc]
   auto = 1
+	writeCommitGraph = true
 [alias]
   # The basics.
   st = status -uno
