@@ -1,8 +1,8 @@
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... and ignore same sucessive entries.
 export HISTCONTROL=ignoreboth:ignoredups:erasedups:ignorespace
-export HISTFILESIZE=100000 # the bash history should save 3000 commands
-export HISTSIZE=100000 # the bash history should save 3000 commands
+export HISTFILESIZE=-1 # the bash history should save 3000 commands
+export HISTSIZE=-1 # the bash history should save 3000 commands
 shopt -s histappend
 
 export CCACHE_PREFIX=

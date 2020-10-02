@@ -229,7 +229,8 @@ else
    echo "WARNING: Can't find virtualenvwrapper.sh"
 fi
 
-
+export HISTSIZE=-1 
+export HISTFILESIZE=-1
 export GOPATH=$HOME/work
 PATH=/usr/local/go/bin:$HOME/.rvm/bin:$PATH:$GOPATH/bin # Add RVM to PATH for scripting
 export PATH
@@ -444,3 +445,22 @@ eval "$(pyenv virtualenv-init -)"
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+cr_diff() {
+    local current_branch=""
+    local prev_branch=""
+    if [ $# -eq 1 ]; then
+        current_branch=$(git symbolic-ref --short HEAD)
+        prev_branch=$1
+    else
+        current_branch=$1
+        prev_branch=$2
+    fi
+    git log --pretty=format:%s -n100 "$current_branch" > "$current_branch.log"
+    git log --pretty=format:%s -n100 "origin/$prev_branch" > "$prev_branch.log"
+    diff -y "$current_branch.log" "$prev_branch.log"
+    rm "$current_branch.log" "$prev_branch.log"
+    echo "\n"
+}
+export -f cr_diff
+
