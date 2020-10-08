@@ -348,10 +348,11 @@ nnoremap <leader>* :Find <cr>
 
 " swap tag following shortcuts to show list by default
 set tags=tags;
-nnoremap <c-]> g<c-]>
-vnoremap <c-]> g<c-]>
-nnoremap g<c-]> <c-]>
-vnoremap g<c-]> <c-]>
+" nnoremap <c-]> g<c-]>
+" vnoremap <c-]> g<c-]>
+" nnoremap g<c-]> <c-]>
+" vnoremap g<c-]> <c-]>
+" nmap <C-]> <Plug>(fzf_tags)
 
 set mouse=a
 " set ttymouse=sgr

@@ -10,7 +10,7 @@ nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>    "   'd'   called: find
 if filereadable("cscope.out")
   cs add cscope.out
 endif
-set cscopetag
+" set cscopetag
 set cscopeverbose
 set csto=0
 
