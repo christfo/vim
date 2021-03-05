@@ -142,7 +142,7 @@ fi
 # EXPORTS
 #######################################################
 
-PATH="$PATH:${HOME}/git/next_chromium/depot_tools"
+PATH="$PATH:${HOME}/git/chromium/depot_tools"
 PATH=/opt/local/bin:/usr/local/bin/usr/local/share/python@2:~/Library/Python/2.7/bin:~/bin/:~/.local/bin/:/usr/local/sbin:$PATH export PATH
 #export PS1="[\[\033[1;34m\w\[\033[0m]$ "
 export EDITOR=`which vim`

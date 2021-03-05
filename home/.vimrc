@@ -29,6 +29,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'fmoralesc/molokayo'
 Plug 'morhetz/gruvbox'
 Plug 'jacoborus/tender.vim'
+Plug 'ojroques/vim-oscyank'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -131,8 +132,7 @@ Plug 'xuhdev/vim-latex-live-preview'
 " Plug 'haya14busa/incsearch.vim', Cond(! has('nvim'))
 " Plug 'vim-syntastic/syntastic' ", Cond(! has('nvim'))
 Plug 'neomake/neomake' ", Cond(has('nvim')) 
-" Plug 'junegunn/fzf', Cond(has('nvim'), { 'dir': '~/.fzf', 'do': './install --all' })
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'zackhsi/fzf-tags'
 " Plug 'pbogut/fzf-mru.vim'
@@ -189,6 +189,8 @@ Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
 Plug 'liuchengxu/vista.vim'
 Plug 'joelstrouts/swatch.vim'
 Plug 'fcpg/vim-osc52'
+Plug 'tmatilai/vim-monit'
+Plug 'john-nanney/pushd.vim'
 " if ( ! has('nvim')  )
   " always magic on search
   " augroup incsearch-keymap
@@ -454,7 +456,8 @@ ino <M-g> <esc>:call JumpToDef()<cr>i
 augroup break_settings
   autocmd FileType python let b:breakpoint_cmd = 'import ipdb; ipdb.set_trace()  # XXX BREAKPOINT'
   autocmd FileType javascript let b:breakpoint_cmd = 'debugger; // XXX BREAKPOINT'
-  autocmd FileType cpp let b:breakpoint_cmd = 'VLOG(1) << __func__ << " chrisf - ";'
+  autocmd FileType cpp let b:breakpoint_cmd = 'VLOG(1) << __PRETTY_FUNCTION__ << " chrisf - ";'
+  " autocmd FileType cpp let b:breakpoint_cmd = 'TRACE_EVENT0("safeview", __PRETTY_FUNCTION__);'
   autocmd FileType cpp let b:backtrace_cmd = '#include "base/debug/stack_trace.h"base::debug::StackTrace st; VLOG(1) << __func__ << " chrisf - " << st.ToString();'
 augroup END
 

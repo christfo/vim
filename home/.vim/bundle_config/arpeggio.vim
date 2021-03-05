@@ -11,6 +11,6 @@ call arpeggio#map('n', 's', 0, 'kb', ':Buffers<CR>')
 call arpeggio#map('n', 's', 0, 'kf', ':Files<CR>')
 call arpeggio#map('n', 's', 0, 'kd', ":exe 'BLines '.expand('<cword>')<CR>")
 call arpeggio#map('n', 's', 0, 'ke', ':FindWord<CR>')
-call arpeggio#map('n',  's', 0, 'dc', ':DiffChangesDiffToggle<CR>')
-call arpeggio#map('n',  's', 0, 'du', ':diffupdate<CR>')
+call arpeggio#map('n', 's', 0, 'dc', ':DiffChangesDiffToggle<CR>')
+call arpeggio#map('n', 's', 0, 'du', ':diffupdate<CR>')
 
