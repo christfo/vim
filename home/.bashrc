@@ -464,3 +464,4 @@ cr_diff() {
 }
 export -f cr_diff
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -23,6 +23,9 @@ _bash_history_sync() {
 }
 export PROMPT_COMMAND="_bash_history_sync;${PROMPT_COMMAND}"
 
+# chrisf   pts/0        2021-05-28 13:14 (10.51.8.11)
+get_ip () { who | grep -m1 "chrisf   pts" | head -n2 | sed -e"s/.\+(10\./10./" | cut -d':' -f1 | cut -d')' -f1 ; }
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -38,6 +41,7 @@ stty -ixon
 
 
 # enable color support of ls and also add handy aliases
+alias ls='lsd'               # show hidden files
 if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
     #alias ls='ls --color=auto'
@@ -76,7 +80,7 @@ alias vss='pushd ~/menlo/safeview/ && vagrant ssh'
 
 # Alias to multiple ls commands
 alias la='ls -Al'               # show hidden files
-alias ls='ls -aF' # add colors and file type extensions
+# alias ls='ls -aF' # add colors and file type extensions
 alias lx='ls -lXB'              # sort by extension
 alias lk='ls -lSr'              # sort by size
 alias lc='ls -lcr'      # sort by change time

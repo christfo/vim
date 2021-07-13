@@ -7,13 +7,13 @@
   name = Chris Ford
 [commit]
        # UNCOMMENT and SET THIS BASED ON WHAT YOU ARE DEVELOPING:
-  template = ~/git/safeview/service/misc/commit_template.txt
+	template = /home/chrisf/git/safeview/service/misc/commit_template.txt
 [merge]
   ff = only
   summary = true
 	tool = diffconflicts
 [push]
-  default = simple
+	default = simple
 [rebase]
   stat = true
   autostash = true
@@ -25,10 +25,26 @@
 	excludesfile = /Users/chrisf/.gitignore_global
   autocrlf = input
   ; pager = less -XRMSI
-  pager = tig
+  ; pager = tig
   eol = native
 	commitGraph = true
 	writeCommitGraph = true
+[pager]
+   diff = delta
+   log = delta 
+   reflog =delta
+   show = delta
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    features = side-by-side line-numbers decorations
+    whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
 [color]
   ; diff = auto
   pager = no

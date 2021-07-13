@@ -183,6 +183,7 @@ Plug 'joshdick/onedark.vim'
 " Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh' }
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'wsdjeg/vim-fetch'
 " The do hook is highly recommended.
 " It will try to build all the optional dependency if cargo exists on your system.
 Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
@@ -191,6 +192,7 @@ Plug 'joelstrouts/swatch.vim'
 Plug 'fcpg/vim-osc52'
 Plug 'tmatilai/vim-monit'
 Plug 'john-nanney/pushd.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 " if ( ! has('nvim')  )
   " always magic on search
